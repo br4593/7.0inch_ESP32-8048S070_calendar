@@ -1,0 +1,70 @@
+[
+  {
+    "theme_id": 0,
+    "theme": "Modern Quiet",
+    "state": "Calendar starting",
+    "header_rgb": [
+      16,
+      40,
+      49
+    ],
+    "most_frequent_non_background_ink_rgb": [
+      82,
+      109,
+      115
+    ],
+    "ink_pixel_count": 166,
+    "contrast_from_rendered_rgb565": 2.769
+  },
+  {
+    "theme_id": 1,
+    "theme": "Swiss Grid",
+    "state": "Calendar starting",
+    "header_rgb": [
+      16,
+      16,
+      16
+    ],
+    "most_frequent_non_background_ink_rgb": [
+      90,
+      93,
+      90
+    ],
+    "ink_pixel_count": 166,
+    "contrast_from_rendered_rgb565": 2.853
+  },
+  {
+    "theme_id": 2,
+    "theme": "Bauhaus Primary",
+    "state": "Calendar starting",
+    "header_rgb": [
+      16,
+      20,
+      16
+    ],
+    "most_frequent_non_background_ink_rgb": [
+      99,
+      93,
+      82
+    ],
+    "ink_pixel_count": 166,
+    "contrast_from_rendered_rgb565": 2.849
+  },
+  {
+    "theme_id": 3,
+    "theme": "Nordic Quiet",
+    "state": "Calendar starting",
+    "header_rgb": [
+      33,
+      48,
+      41
+    ],
+    "most_frequent_non_background_ink_rgb": [
+      90,
+      109,
+      99
+    ],
+    "ink_pixel_count": 166,
+    "contrast_from_rendered_rgb565": 2.502
+  }
+]

@@ -1,0 +1,98 @@
+Start testing: Sep 28 17:56 IDT
+----------------------------------------------------------
+1/6 Testing: calendar_core_tests
+1/6 Test: calendar_core_tests
+Command: "/tmp/esp32-alignment-fixes-host/calendar_core_tests"
+Directory: /tmp/esp32-alignment-fixes-host
+"calendar_core_tests" start time: Sep 28 17:56 IDT
+Output:
+----------------------------------------------------------
+calendar core tests passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"calendar_core_tests" end time: Sep 28 17:56 IDT
+"calendar_core_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/6 Testing: ical_feed_tests
+2/6 Test: ical_feed_tests
+Command: "/tmp/esp32-alignment-fixes-host/ical_feed_tests"
+Directory: /tmp/esp32-alignment-fixes-host
+"ical_feed_tests" start time: Sep 28 17:56 IDT
+Output:
+----------------------------------------------------------
+iCalendar feed tests passed
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"ical_feed_tests" end time: Sep 28 17:56 IDT
+"ical_feed_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/6 Testing: weather_tests
+3/6 Test: weather_tests
+Command: "/tmp/esp32-alignment-fixes-host/weather_tests"
+Directory: /tmp/esp32-alignment-fixes-host
+"weather_tests" start time: Sep 28 17:56 IDT
+Output:
+----------------------------------------------------------
+weather tests passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"weather_tests" end time: Sep 28 17:56 IDT
+"weather_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/6 Testing: ota_health_window_tests
+4/6 Test: ota_health_window_tests
+Command: "/tmp/esp32-alignment-fixes-host/ota_health_window_tests"
+Directory: /tmp/esp32-alignment-fixes-host
+"ota_health_window_tests" start time: Sep 28 17:56 IDT
+Output:
+----------------------------------------------------------
+OTA health-window checks passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ota_health_window_tests" end time: Sep 28 17:56 IDT
+"ota_health_window_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/6 Testing: theme_palette_tests
+5/6 Test: theme_palette_tests
+Command: "/tmp/esp32-alignment-fixes-host/theme_palette_tests"
+Directory: /tmp/esp32-alignment-fixes-host
+"theme_palette_tests" start time: Sep 28 17:56 IDT
+Output:
+----------------------------------------------------------
+theme palette tests passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"theme_palette_tests" end time: Sep 28 17:56 IDT
+"theme_palette_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/6 Testing: ui_status_tests
+6/6 Test: ui_status_tests
+Command: "/tmp/esp32-alignment-fixes-host/ui_status_tests"
+Directory: /tmp/esp32-alignment-fixes-host
+"ui_status_tests" start time: Sep 28 17:56 IDT
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ui_status_tests" end time: Sep 28 17:56 IDT
+"ui_status_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Sep 28 17:56 IDT

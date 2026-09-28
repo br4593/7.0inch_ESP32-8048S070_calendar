@@ -1,0 +1,162 @@
+{
+  "firmware": "0.6.32-balanced-ui",
+  "resolution": [
+    800,
+    480
+  ],
+  "lvgl": "9.2.2",
+  "format": "RGB565",
+  "static_widgets": 261,
+  "host_suites_passed": 6,
+  "theme_mode_runs_passed": 16,
+  "software_only": true,
+  "network_clock_preferences_board": "desktop fixtures",
+  "navigation_cycles_per_run": 80,
+  "memory_scope": "desktop LVGL pools; not target heap or PSRAM",
+  "runs": [
+    {
+      "theme_id": 0,
+      "mode": "dark",
+      "objects": 312,
+      "pool_bytes": 298848,
+      "used_bytes": 184760,
+      "peak_used_bytes": 188672,
+      "failures": 0
+    },
+    {
+      "theme_id": 0,
+      "mode": "light",
+      "objects": 312,
+      "pool_bytes": 298880,
+      "used_bytes": 184696,
+      "peak_used_bytes": 188520,
+      "failures": 0
+    },
+    {
+      "theme_id": 1,
+      "mode": "dark",
+      "objects": 312,
+      "pool_bytes": 298984,
+      "used_bytes": 185056,
+      "peak_used_bytes": 188704,
+      "failures": 0
+    },
+    {
+      "theme_id": 1,
+      "mode": "light",
+      "objects": 312,
+      "pool_bytes": 299024,
+      "used_bytes": 185016,
+      "peak_used_bytes": 188672,
+      "failures": 0
+    },
+    {
+      "theme_id": 2,
+      "mode": "dark",
+      "objects": 312,
+      "pool_bytes": 298984,
+      "used_bytes": 185056,
+      "peak_used_bytes": 188704,
+      "failures": 0
+    },
+    {
+      "theme_id": 2,
+      "mode": "light",
+      "objects": 312,
+      "pool_bytes": 298992,
+      "used_bytes": 185040,
+      "peak_used_bytes": 188672,
+      "failures": 0
+    },
+    {
+      "theme_id": 3,
+      "mode": "dark",
+      "objects": 312,
+      "pool_bytes": 298984,
+      "used_bytes": 185056,
+      "peak_used_bytes": 188704,
+      "failures": 0
+    },
+    {
+      "theme_id": 3,
+      "mode": "light",
+      "objects": 312,
+      "pool_bytes": 299032,
+      "used_bytes": 185016,
+      "peak_used_bytes": 188680,
+      "failures": 0
+    },
+    {
+      "theme_id": 4,
+      "mode": "dark",
+      "objects": 312,
+      "pool_bytes": 298984,
+      "used_bytes": 185056,
+      "peak_used_bytes": 188704,
+      "failures": 0
+    },
+    {
+      "theme_id": 4,
+      "mode": "light",
+      "objects": 312,
+      "pool_bytes": 299016,
+      "used_bytes": 185016,
+      "peak_used_bytes": 188664,
+      "failures": 0
+    },
+    {
+      "theme_id": 5,
+      "mode": "dark",
+      "objects": 312,
+      "pool_bytes": 298984,
+      "used_bytes": 185056,
+      "peak_used_bytes": 188704,
+      "failures": 0
+    },
+    {
+      "theme_id": 5,
+      "mode": "light",
+      "objects": 312,
+      "pool_bytes": 299016,
+      "used_bytes": 185016,
+      "peak_used_bytes": 188664,
+      "failures": 0
+    },
+    {
+      "theme_id": 6,
+      "mode": "dark",
+      "objects": 312,
+      "pool_bytes": 298984,
+      "used_bytes": 185056,
+      "peak_used_bytes": 188704,
+      "failures": 0
+    },
+    {
+      "theme_id": 6,
+      "mode": "light",
+      "objects": 312,
+      "pool_bytes": 299016,
+      "used_bytes": 185016,
+      "peak_used_bytes": 188664,
+      "failures": 0
+    },
+    {
+      "theme_id": 7,
+      "mode": "dark",
+      "objects": 312,
+      "pool_bytes": 298984,
+      "used_bytes": 185056,
+      "peak_used_bytes": 188704,
+      "failures": 0
+    },
+    {
+      "theme_id": 7,
+      "mode": "light",
+      "objects": 312,
+      "pool_bytes": 299016,
+      "used_bytes": 185016,
+      "peak_used_bytes": 188664,
+      "failures": 0
+    }
+  ]
+}

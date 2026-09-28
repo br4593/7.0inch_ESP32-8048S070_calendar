@@ -1,0 +1,17 @@
+theme=0 mode=light fixture=mixed exit=0 LVGL 9.2.2 QA rendered; failures=0
+theme=0 mode=dark fixture=mixed exit=0 LVGL 9.2.2 QA rendered; failures=0
+theme=1 mode=light fixture=mixed exit=0 LVGL 9.2.2 QA rendered; failures=0
+theme=1 mode=dark fixture=mixed exit=0 LVGL 9.2.2 QA rendered; failures=0
+theme=2 mode=light fixture=mixed exit=0 LVGL 9.2.2 QA rendered; failures=0
+theme=2 mode=dark fixture=mixed exit=0 LVGL 9.2.2 QA rendered; failures=0
+theme=3 mode=light fixture=mixed exit=0 LVGL 9.2.2 QA rendered; failures=0
+theme=3 mode=dark fixture=mixed exit=0 LVGL 9.2.2 QA rendered; failures=0
+theme=4 mode=light fixture=mixed exit=0 LVGL 9.2.2 QA rendered; failures=0
+theme=4 mode=dark fixture=mixed exit=0 LVGL 9.2.2 QA rendered; failures=0
+theme=5 mode=light fixture=mixed exit=0 LVGL 9.2.2 QA rendered; failures=0
+theme=5 mode=dark fixture=mixed exit=0 LVGL 9.2.2 QA rendered; failures=0
+theme=6 mode=light fixture=mixed exit=0 LVGL 9.2.2 QA rendered; failures=0
+theme=6 mode=dark fixture=mixed exit=0 LVGL 9.2.2 QA rendered; failures=0
+theme=7 mode=light fixture=mixed exit=0 LVGL 9.2.2 QA rendered; failures=0
+theme=7 mode=dark fixture=imperial exit=0 LVGL 9.2.2 QA rendered; failures=0
+runs=16 failures=0

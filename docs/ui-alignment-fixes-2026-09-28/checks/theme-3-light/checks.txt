@@ -1,0 +1,310 @@
+PASS lazy Wi-Fi form is visible
+PASS Wi-Fi form has SSID/password fields: 2
+PASS Wi-Fi scan picker is reachable with fixture: 1
+PASS Wi-Fi form has one keyboard: 1
+PASS Wi-Fi feedback geometry: 20,200 760x24
+PASS Wi-Fi action row geometry: 650,232 130x44
+PASS Wi-Fi keyboard preserves action gap and four 44 px rows: keyboard=12,284 776x188 gap=8 effective-row=44
+PASS lazy Weather form is visible
+PASS Weather form has three text fields: 3
+PASS Weather form has one Units dropdown: 1
+PASS Weather fields retain four persistent captions
+PASS Weather Units options are concise: Metric
+Imperial
+PASS Weather Units text and arrow fit: Metric=75/138 Imperial=91/138 
+PASS Weather Cancel geometry: 674,124 106x44
+PASS Weather Save geometry: 650,178 130x44
+PASS Weather feedback geometry: 20,180 610x32
+PASS Weather keyboard clears Save row: keyboard=12,236 776x236 gap=14
+PASS Firmware valid primary action disabled: enabled=1 expected=Enable update
+PASS Firmware primary action paint disabled: #286b57 on #286b57 = 1.00:1
+PASS Firmware valid primary action armed: enabled=1 expected=Cancel
+PASS Firmware primary action paint armed: #286b57 on #286b57 = 1.00:1
+PASS Firmware valid primary action ready: enabled=1 expected=Reboot
+PASS Firmware primary action paint ready: #286b57 on #286b57 = 1.00:1
+PASS pressed main Wi-Fi child 0 [Wi-Fi connected]: #102018 on #deebe7 = 13.80:1
+PASS pressed main Wi-Fi child 1 []: #102018 on #deebe7 = 13.80:1
+PASS pressed main Wi-Fi has label child
+PASS pressed main Settings child 0 [Settings]: #102018 on #deebe7 = 13.80:1
+PASS pressed main Settings has label child
+PASS pressed main Today nav child 0 [Today]: #102018 on #deebe7 = 13.80:1
+PASS pressed main Today nav has label child
+PASS pressed main Calendar nav child 0 [Calendar]: #102018 on #deebe7 = 13.80:1
+PASS pressed main Calendar nav has label child
+PASS pressed main Forecast nav child 0 [Forecast]: #102018 on #deebe7 = 13.80:1
+PASS pressed main Forecast nav has label child
+PASS pressed main event row child 0 [All day]: #5a6d63 on #deebe7 = 4.51:1
+PASS pressed main event row child 1 [Family]: #5a6d63 on #deebe7 = 4.51:1
+PASS pressed main event row child 2 [יום הולדת / Birthday]: #102018 on #deebe7 = 13.80:1
+PASS pressed main event row has label child
+PASS pressed main weather card child 0 [Forecast >]: #39514a on #deebe7 = 7.00:1
+PASS pressed main weather card child 1 [Updated 09:30]: #5a6d63 on #deebe7 = 4.51:1
+PASS pressed main weather card child 2 [11.9 km/h]: #39514a on #deebe7 = 7.00:1
+PASS pressed main weather card child 3 [Wind]: #39514a on #deebe7 = 7.00:1
+PASS pressed main weather card child 4 [100%]: #39514a on #deebe7 = 7.00:1
+PASS pressed main weather card child 5 [Humidity]: #39514a on #deebe7 = 7.00:1
+PASS pressed main weather card child 6 [27.0 C]: #39514a on #deebe7 = 7.00:1
+PASS pressed main weather card child 7 [Feels like]: #39514a on #deebe7 = 7.00:1
+PASS pressed main weather card child 8 [מעונן חלקית]: #39514a on #deebe7 = 7.00:1
+PASS pressed main weather card child 9 [26.0 C]: #102018 on #deebe7 = 13.80:1
+PASS pressed main weather card child 10 [ירושלים / Jerusalem]: #102018 on #deebe7 = 13.80:1
+PASS pressed main weather card has label child
+PASS pressed week Wi-Fi child 0 [Wi-Fi connected]: #102018 on #deebe7 = 13.80:1
+PASS pressed week Wi-Fi child 1 []: #102018 on #deebe7 = 13.80:1
+PASS pressed week Wi-Fi has label child
+PASS pressed week Settings child 0 [Settings]: #102018 on #deebe7 = 13.80:1
+PASS pressed week Settings has label child
+PASS pressed week Previous child 0 [Prev]: #102018 on #deebe7 = 13.80:1
+PASS pressed week Previous has label child
+PASS pressed week Next child 0 [Next]: #102018 on #deebe7 = 13.80:1
+PASS pressed week Next has label child
+PASS pressed week Today child 0 [Today]: #102018 on #deebe7 = 13.80:1
+PASS pressed week Today has label child
+PASS pressed week mode child 0 [Week]: #102018 on #deebe7 = 13.80:1
+PASS pressed week mode has label child
+PASS pressed month mode child 0 [Month]: #102018 on #deebe7 = 13.80:1
+PASS pressed month mode has label child
+PASS pressed week Today nav child 0 [Today]: #102018 on #deebe7 = 13.80:1
+PASS pressed week Today nav has label child
+PASS pressed week Calendar nav child 0 [Calendar]: #102018 on #deebe7 = 13.80:1
+PASS pressed week Calendar nav has label child
+PASS pressed week Forecast nav child 0 [Forecast]: #102018 on #deebe7 = 13.80:1
+PASS pressed week Forecast nav has label child
+PASS pressed week event row child 0 [All day]: #5a6d63 on #deebe7 = 4.51:1
+PASS pressed week event row child 1 [Family]: #5a6d63 on #deebe7 = 4.51:1
+PASS pressed week event row child 2 [יום הולדת / Birthday]: #102018 on #deebe7 = 13.80:1
+PASS pressed week event row has label child
+PASS pressed month Wi-Fi child 0 [Wi-Fi connected]: #102018 on #deebe7 = 13.80:1
+PASS pressed month Wi-Fi child 1 []: #102018 on #deebe7 = 13.80:1
+PASS pressed month Wi-Fi has label child
+PASS pressed month Settings child 0 [Settings]: #102018 on #deebe7 = 13.80:1
+PASS pressed month Settings has label child
+PASS pressed forecast Back child 0 [Settings]: #102018 on #deebe7 = 13.80:1
+PASS pressed forecast Back has label child
+PASS pressed forecast Refresh child 0 [Refresh]: #102018 on #deebe7 = 13.80:1
+PASS pressed forecast Refresh has label child
+PASS pressed forecast location child 0 [Set location]: #102018 on #deebe7 = 13.80:1
+PASS pressed forecast location has label child
+PASS pressed forecast Wi-Fi child 0 [Wi-Fi connected]: #102018 on #deebe7 = 13.80:1
+PASS pressed forecast Wi-Fi child 1 []: #102018 on #deebe7 = 13.80:1
+PASS pressed forecast Wi-Fi has label child
+PASS pressed forecast Today nav child 0 [Today]: #102018 on #deebe7 = 13.80:1
+PASS pressed forecast Today nav has label child
+PASS pressed forecast Calendar nav child 0 [Calendar]: #102018 on #deebe7 = 13.80:1
+PASS pressed forecast Calendar nav has label child
+PASS pressed forecast Forecast nav child 0 [Forecast]: #102018 on #deebe7 = 13.80:1
+PASS pressed forecast Forecast nav has label child
+PASS pressed settings Back child 0 [<  Back]: #102018 on #deebe7 = 13.80:1
+PASS pressed settings Back has label child
+PASS pressed settings Wi-Fi child 0 [Enter Wi-Fi]: #102018 on #deebe7 = 13.80:1
+PASS pressed settings Wi-Fi has label child
+PASS pressed settings setup child 0 [Phone setup]: #102018 on #deebe7 = 13.80:1
+PASS pressed settings setup has label child
+PASS pressed settings sync child 0 [Sync calendar]: #ffffff on #184d42 = 9.64:1
+PASS pressed settings sync has label child
+PASS pressed settings appearance child 0 [Display & theme]: #102018 on #deebe7 = 13.80:1
+PASS pressed settings appearance has label child
+PASS pressed settings weather child 0 [Weather setup]: #102018 on #deebe7 = 13.80:1
+PASS pressed settings weather has label child
+PASS pressed settings firmware child 0 [Firmware update]: #102018 on #deebe7 = 13.80:1
+PASS pressed settings firmware has label child
+PASS pressed appearance Back child 0 [<  Back]: #102018 on #deebe7 = 13.80:1
+PASS pressed appearance Back has label child
+PASS main card top alignment
+PASS main card bottom alignment
+PASS Work source identity visible
+PASS Family source identity visible
+PASS main feels value fit: text 51x24 in 104x24
+PASS main humidity value fit: text 45x24 in 104x24
+PASS main wind value fit: text 80x24 in 138x24
+PASS main Wi-Fi touch height: 48 px
+PASS main Settings touch height: 48 px
+PASS main weather touch height: 328 px
+PASS main Today nav touch height: 48 px
+PASS main Calendar nav touch height: 48 px
+PASS main Forecast nav touch height: 48 px
+PASS main event row touch height: 54 px
+PASS month table exists: children=1, state='6 in view; tap a date', free=109496, biggest=65520
+PASS month has six rows
+PASS month rows reserve 44 px: 264 px table
+PASS forecast Wi-Fi control visible
+PASS forecast day label fit: text 45 px in 100 px
+PASS forecast day label fit: text 45 px in 100 px
+PASS forecast day label fit: text 45 px in 100 px
+PASS forecast day label fit: text 40 px in 100 px
+PASS forecast day label fit: text 43 px in 100 px
+PASS forecast day label fit: text 43 px in 100 px
+PASS forecast day label fit: text 45 px in 100 px
+PASS forecast condition fit: text 77x36 in 100x40
+PASS forecast condition fit: text 82x36 in 100x40
+PASS forecast condition fit: text 77x36 in 100x40
+PASS forecast condition fit: text 80x36 in 100x40
+PASS forecast condition fit: text 77x36 in 100x40
+PASS forecast condition fit: text 77x36 in 100x40
+PASS forecast condition fit: text 77x36 in 100x40
+PASS appearance Back/title do not overlap: 131 vs 230
+PASS Settings caption/value vertical centers connected multiline: d0/h48,d0/h24,d0/h24
+PASS Settings caption/value vertical centers single-line missing setup: d0/h24,d0/h24,d0/h24
+PASS Today row 0 title LEFT/AUTO: align=1 base_dir=2 text='יום הולדת / Birthday'
+PASS Today row 0 source LEFT/AUTO: align=1 base_dir=2 text='Family'
+PASS Today row 1 title LEFT/AUTO: align=1 base_dir=2 text='פגישת צוות / Team stand-up'
+PASS Today row 1 source LEFT/AUTO: align=1 base_dir=2 text='עבודה / Work'
+PASS Today row 2 title LEFT/AUTO: align=1 base_dir=2 text='Design review'
+PASS Today row 2 source LEFT/AUTO: align=1 base_dir=2 text='עבודה / Work'
+PASS Today row 3 title LEFT/AUTO: align=1 base_dir=2 text='A deliberately long planning e...'
+PASS Today row 3 source LEFT/AUTO: align=1 base_dir=2 text='עבודה / Work'
+PASS Today dynamic rows exercised: 4
+PASS Week row 0 title LEFT/AUTO: align=1 base_dir=2 text='יום הולדת / Birthday'
+PASS Week row 0 source LEFT/AUTO: align=1 base_dir=2 text='Family'
+PASS Week row 1 title LEFT/AUTO: align=1 base_dir=2 text='פגישת צוות / Team stand-up'
+PASS Week row 1 source LEFT/AUTO: align=1 base_dir=2 text='עבודה / Work'
+PASS Week row 2 title LEFT/AUTO: align=1 base_dir=2 text='Design review'
+PASS Week row 2 source LEFT/AUTO: align=1 base_dir=2 text='עבודה / Work'
+PASS Week row 3 title LEFT/AUTO: align=1 base_dir=2 text='A deliberately long planning event with extra information ...'
+PASS Week row 3 source LEFT/AUTO: align=1 base_dir=2 text='עבודה / Work'
+PASS Week row 4 title LEFT/AUTO: align=1 base_dir=2 text='Project check-in'
+PASS Week row 4 source LEFT/AUTO: align=1 base_dir=2 text='עבודה / Work'
+PASS Week row 5 title LEFT/AUTO: align=1 base_dir=2 text='Dentist appointment'
+PASS Week row 5 source LEFT/AUTO: align=1 base_dir=2 text='Family'
+PASS Week dynamic rows exercised: 6
+PASS Week event viewport height: 186 px
+PASS Week viewport fully contains three rows with 5 px vertical padding: rows=6 pad-y=5,5 raster-gaps=6,6 viewport=20,192 760x186 third=33,318 734x54
+PASS Details title AUTO direction
+PASS Details location AUTO direction
+PASS Month geometry table exists
+PASS Month weekday headings follow rendered table columns: 109/d0,109/d0,108/d0,108/d0,108/d0,108/d0,108/d0
+PASS Forecast seven columns share centers and equal pitch: c157/0/0/0,c371/0/0/0,c585/0/0/0,c799/0/0/0,c1013/0/0/0,c1227/0/0/0,c1441/0/0/0
+PASS default Neutral header contrast theme 0 light Today: #ffffff on #102831 = 15.33:1
+PASS default Neutral header contrast theme 0 light Week: #ffffff on #102831 = 15.33:1
+PASS default Neutral header contrast theme 0 light Month: #ffffff on #102831 = 15.33:1
+PASS default Neutral header contrast theme 0 light Forecast: #ffffff on #102831 = 15.33:1
+PASS default Neutral header contrast theme 0 dark Today: #ffffff on #080c10 = 19.62:1
+PASS default Neutral header contrast theme 0 dark Week: #ffffff on #080c10 = 19.62:1
+PASS default Neutral header contrast theme 0 dark Month: #ffffff on #080c10 = 19.62:1
+PASS default Neutral header contrast theme 0 dark Forecast: #ffffff on #080c10 = 19.62:1
+PASS default Neutral header contrast theme 1 light Today: #ffffff on #101010 = 19.03:1
+PASS default Neutral header contrast theme 1 light Week: #ffffff on #101010 = 19.03:1
+PASS default Neutral header contrast theme 1 light Month: #ffffff on #101010 = 19.03:1
+PASS default Neutral header contrast theme 1 light Forecast: #ffffff on #101010 = 19.03:1
+PASS default Neutral header contrast theme 1 dark Today: #ffffff on #000000 = 21.00:1
+PASS default Neutral header contrast theme 1 dark Week: #ffffff on #000000 = 21.00:1
+PASS default Neutral header contrast theme 1 dark Month: #ffffff on #000000 = 21.00:1
+PASS default Neutral header contrast theme 1 dark Forecast: #ffffff on #000000 = 21.00:1
+PASS default Neutral header contrast theme 2 light Today: #ffffff on #101410 = 18.59:1
+PASS default Neutral header contrast theme 2 light Week: #ffffff on #101410 = 18.59:1
+PASS default Neutral header contrast theme 2 light Month: #ffffff on #101410 = 18.59:1
+PASS default Neutral header contrast theme 2 light Forecast: #ffffff on #101410 = 18.59:1
+PASS default Neutral header contrast theme 2 dark Today: #ffffff on #000400 = 20.64:1
+PASS default Neutral header contrast theme 2 dark Week: #ffffff on #000400 = 20.64:1
+PASS default Neutral header contrast theme 2 dark Month: #ffffff on #000400 = 20.64:1
+PASS default Neutral header contrast theme 2 dark Forecast: #ffffff on #000400 = 20.64:1
+PASS default Neutral header contrast theme 3 light Today: #ffffff on #213029 = 13.82:1
+PASS default Neutral header contrast theme 3 light Week: #ffffff on #213029 = 13.82:1
+PASS default Neutral header contrast theme 3 light Month: #ffffff on #213029 = 13.82:1
+PASS default Neutral header contrast theme 3 light Forecast: #ffffff on #213029 = 13.82:1
+PASS default Neutral header contrast theme 3 dark Today: #ffffff on #081008 = 19.30:1
+PASS default Neutral header contrast theme 3 dark Week: #ffffff on #081008 = 19.30:1
+PASS default Neutral header contrast theme 3 dark Month: #ffffff on #081008 = 19.30:1
+PASS default Neutral header contrast theme 3 dark Forecast: #ffffff on #081008 = 19.30:1
+PASS default Neutral header contrast theme 4 light Today: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 4 light Week: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 4 light Month: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 4 light Forecast: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 4 dark Today: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral header contrast theme 4 dark Week: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral header contrast theme 4 dark Month: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral header contrast theme 4 dark Forecast: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral header contrast theme 5 light Today: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 5 light Week: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 5 light Month: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 5 light Forecast: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 5 dark Today: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral header contrast theme 5 dark Week: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral header contrast theme 5 dark Month: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral header contrast theme 5 dark Forecast: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral header contrast theme 6 light Today: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 6 light Week: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 6 light Month: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 6 light Forecast: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 6 dark Today: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral header contrast theme 6 dark Week: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral header contrast theme 6 dark Month: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral header contrast theme 6 dark Forecast: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral header contrast theme 7 light Today: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 7 light Week: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 7 light Month: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 7 light Forecast: #182431 on #f7f7f7 = 14.68:1
+PASS default Neutral header contrast theme 7 dark Today: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral header contrast theme 7 dark Week: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral header contrast theme 7 dark Month: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral header contrast theme 7 dark Forecast: #f7f3ff on #101018 = 17.32:1
+PASS default Neutral contrast covers all appearances: 16
+PASS default Neutral minimum final RGB565 contrast: 13.82:1 at default Neutral header contrast theme 3 light Today
+PASS static button label centers/fonts theme 0 light
+PASS Forecast equal outer margins theme 0 light: left=9 right=9 container=20,244 760x156
+PASS static button label centers/fonts theme 0 dark
+PASS Forecast equal outer margins theme 0 dark: left=9 right=9 container=20,244 760x156
+PASS static button label centers/fonts theme 1 light
+PASS Forecast equal outer margins theme 1 light: left=9 right=9 container=20,244 760x156
+PASS static button label centers/fonts theme 1 dark
+PASS Forecast equal outer margins theme 1 dark: left=9 right=9 container=20,244 760x156
+PASS static button label centers/fonts theme 2 light
+PASS Forecast equal outer margins theme 2 light: left=9 right=9 container=20,244 760x156
+PASS static button label centers/fonts theme 2 dark
+PASS Forecast equal outer margins theme 2 dark: left=9 right=9 container=20,244 760x156
+PASS static button label centers/fonts theme 3 light
+PASS Forecast equal outer margins theme 3 light: left=9 right=9 container=20,244 760x156
+PASS static button label centers/fonts theme 3 dark
+PASS Forecast equal outer margins theme 3 dark: left=9 right=9 container=20,244 760x156
+PASS static button label centers/fonts theme 4 light
+PASS Forecast equal outer margins theme 4 light: left=9 right=9 container=20,244 760x156
+PASS static button label centers/fonts theme 4 dark
+PASS Forecast equal outer margins theme 4 dark: left=9 right=9 container=20,244 760x156
+PASS static button label centers/fonts theme 5 light
+PASS Forecast equal outer margins theme 5 light: left=9 right=9 container=20,244 760x156
+PASS static button label centers/fonts theme 5 dark
+PASS Forecast equal outer margins theme 5 dark: left=9 right=9 container=20,244 760x156
+PASS static button label centers/fonts theme 6 light
+PASS Forecast equal outer margins theme 6 light: left=9 right=9 container=20,244 760x156
+PASS static button label centers/fonts theme 6 dark
+PASS Forecast equal outer margins theme 6 dark: left=9 right=9 container=20,244 760x156
+PASS static button label centers/fonts theme 7 light
+PASS Forecast equal outer margins theme 7 light: left=9 right=9 container=20,244 760x156
+PASS static button label centers/fonts theme 7 dark
+PASS Forecast equal outer margins theme 7 dark: left=9 right=9 container=20,244 760x156
+PASS static button checks exercised border widths 0/1/2: 7
+PASS static button checks cover all appearances: 16
+PASS static button center aggregate: samples=608 max-center2=1,0 (half-pixels), max-pressed-change=0
+PASS calendar long event row exists
+PASS calendar row opens Details
+PASS details long title fit: text 702x48 in 712x48
+PASS details long location fit: text 694x24 in 712x24
+PASS Details Back returns to Week
+PASS missing-location fixture row exists
+PASS missing location is omitted in Details
+PASS mixed Hebrew/English Details title keeps AUTO direction: יום הולדת / Birthday
+PASS Calendar recovery fixture has a saved scroll position: 8 px
+PASS deleted Calendar event import recovers to Week origin
+PASS deleted Calendar event notice is visible: This event is no longer available
+PASS deleted Calendar event restores Week scroll: 8 -> 8 px
+PASS Week scroll clamps when refreshed content shrinks to three fitting rows: 40 -> 0 px
+PASS main event row exists for deletion recovery
+PASS main row opens Details
+PASS deleted Main event recovers to Main origin
+PASS deleted event notice is visible: This event is no longer available
+PASS negative Main temperature fit: text 111 px in 142 px
+PASS negative Forecast temperature fit: text 111 px in 160 px
+PASS negative daily range fit: text 78 px in 100 px
+PASS negative daily range fit: text 78 px in 100 px
+PASS negative daily range fit: text 79 px in 100 px
+PASS negative daily range fit: text 79 px in 100 px
+PASS negative daily range fit: text 78 px in 100 px
+PASS negative daily range fit: text 78 px in 100 px
+PASS negative daily range fit: text 77 px in 100 px
+PASS starting connection state
+PASS setup AP connection state
+PASS connected state independent of sync failure
+PASS sync failure overrides prior success: Sync failed - saved 09:41
+PASS navigation object count stable: 323 -> 323
+PASS navigation LVGL memory stabilizes: 192248 -> 192264 bytes
+SUMMARY failures=0

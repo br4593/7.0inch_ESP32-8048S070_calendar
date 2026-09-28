@@ -1,0 +1,3586 @@
+{
+  "date": "2026-09-28",
+  "candidate": "0.6.31-weather-card-alignment",
+  "scope": "Source layout and proposed palette calculations; no LVGL screenshot or hardware observations",
+  "palette_checks": [
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "text_primary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 15.587,
+      "rgb565": 15.724,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "text_secondary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 8.161,
+      "rgb565": 8.215,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "text_muted",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 5.982,
+      "rgb565": 5.926,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "text_muted",
+      "background": "surface_subtle",
+      "minimum": 4.5,
+      "srgb": 5.678,
+      "rgb565": 5.783,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "text_muted",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 5.133,
+      "rgb565": 5.133,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "text_secondary",
+      "background": "input_inset",
+      "minimum": 4.5,
+      "srgb": 7.14,
+      "rgb565": 7.368,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "text_primary",
+      "background": "canvas",
+      "minimum": 4.5,
+      "srgb": 14.163,
+      "rgb565": 14.677,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "action",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 5.965,
+      "rgb565": 6.094,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "action",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 5.42,
+      "rgb565": 5.689,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "on_action",
+      "background": "action",
+      "minimum": 4.5,
+      "srgb": 5.965,
+      "rgb565": 6.094,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "on_action",
+      "background": "action_pressed",
+      "minimum": 4.5,
+      "srgb": 8.725,
+      "rgb565": 8.68,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "on_selection",
+      "background": "selection",
+      "minimum": 4.5,
+      "srgb": 5.965,
+      "rgb565": 6.094,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "text_primary",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 13.376,
+      "rgb565": 13.619,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "today_text",
+      "background": "today_fill",
+      "minimum": 4.5,
+      "srgb": 7.505,
+      "rgb565": 7.658,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "on_header",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 14.163,
+      "rgb565": 14.677,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "status_normal",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 6.081,
+      "rgb565": 6.384,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "status_attention",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 6.477,
+      "rgb565": 6.751,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "status_error",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 6.021,
+      "rgb565": 6.01,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "status_attention",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 7.129,
+      "rgb565": 7.232,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "focus",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 5.219,
+      "rgb565": 5.466,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "today_ring",
+      "background": "today_fill",
+      "minimum": 3,
+      "srgb": 4.726,
+      "rgb565": 4.778,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "light",
+      "foreground": "border",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 3.265,
+      "rgb565": 3.316,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "text_primary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 15.024,
+      "rgb565": 15.665,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "text_secondary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 11.339,
+      "rgb565": 12.009,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "text_muted",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 8.081,
+      "rgb565": 8.382,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "text_muted",
+      "background": "surface_subtle",
+      "minimum": 4.5,
+      "srgb": 7.236,
+      "rgb565": 7.554,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "text_muted",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 5.658,
+      "rgb565": 5.771,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "text_secondary",
+      "background": "input_inset",
+      "minimum": 4.5,
+      "srgb": 12.064,
+      "rgb565": 12.543,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "text_primary",
+      "background": "canvas",
+      "minimum": 4.5,
+      "srgb": 16.737,
+      "rgb565": 17.325,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "action",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 9.155,
+      "rgb565": 9.507,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "action",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 10.198,
+      "rgb565": 10.514,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "on_action",
+      "background": "action",
+      "minimum": 4.5,
+      "srgb": 10.112,
+      "rgb565": 10.274,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "on_action",
+      "background": "action_pressed",
+      "minimum": 4.5,
+      "srgb": 6.833,
+      "rgb565": 6.756,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "on_selection",
+      "background": "selection",
+      "minimum": 4.5,
+      "srgb": 7.598,
+      "rgb565": 7.6,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "text_primary",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 10.518,
+      "rgb565": 10.786,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "today_text",
+      "background": "today_fill",
+      "minimum": 4.5,
+      "srgb": 8.611,
+      "rgb565": 8.94,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "on_header",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 16.737,
+      "rgb565": 17.325,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "status_normal",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 11.406,
+      "rgb565": 11.911,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "status_attention",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 12.844,
+      "rgb565": 13.08,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "status_error",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 11.074,
+      "rgb565": 11.428,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "status_attention",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 11.529,
+      "rgb565": 11.827,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "focus",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 9.74,
+      "rgb565": 9.929,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "today_ring",
+      "background": "today_fill",
+      "minimum": 3,
+      "srgb": 5.537,
+      "rgb565": 5.679,
+      "pass_": true
+    },
+    {
+      "palette": "silver",
+      "mode": "dark",
+      "foreground": "border",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 4.899,
+      "rgb565": 4.88,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "text_primary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 15.587,
+      "rgb565": 15.724,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "text_secondary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 8.161,
+      "rgb565": 8.215,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "text_muted",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 5.982,
+      "rgb565": 5.926,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "text_muted",
+      "background": "surface_subtle",
+      "minimum": 4.5,
+      "srgb": 5.678,
+      "rgb565": 5.783,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "text_muted",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 5.116,
+      "rgb565": 5.21,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "text_secondary",
+      "background": "input_inset",
+      "minimum": 4.5,
+      "srgb": 7.14,
+      "rgb565": 7.368,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "text_primary",
+      "background": "canvas",
+      "minimum": 4.5,
+      "srgb": 14.163,
+      "rgb565": 14.677,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "action",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 6.692,
+      "rgb565": 6.839,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "action",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 6.081,
+      "rgb565": 6.384,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "on_action",
+      "background": "action",
+      "minimum": 4.5,
+      "srgb": 6.692,
+      "rgb565": 6.839,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "on_action",
+      "background": "action_pressed",
+      "minimum": 4.5,
+      "srgb": 9.886,
+      "rgb565": 10.184,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "on_selection",
+      "background": "selection",
+      "minimum": 4.5,
+      "srgb": 6.692,
+      "rgb565": 6.839,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "text_primary",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 13.331,
+      "rgb565": 13.825,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "today_text",
+      "background": "today_fill",
+      "minimum": 4.5,
+      "srgb": 7.505,
+      "rgb565": 7.658,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "on_header",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 14.163,
+      "rgb565": 14.677,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "status_normal",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 6.081,
+      "rgb565": 6.384,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "status_attention",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 6.477,
+      "rgb565": 6.751,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "status_error",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 6.021,
+      "rgb565": 6.01,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "status_attention",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 7.129,
+      "rgb565": 7.232,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "focus",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 5.855,
+      "rgb565": 6.133,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "today_ring",
+      "background": "today_fill",
+      "minimum": 3,
+      "srgb": 4.726,
+      "rgb565": 4.778,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "light",
+      "foreground": "border",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 3.265,
+      "rgb565": 3.316,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "text_primary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 15.024,
+      "rgb565": 15.665,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "text_secondary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 11.339,
+      "rgb565": 12.009,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "text_muted",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 8.081,
+      "rgb565": 8.382,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "text_muted",
+      "background": "surface_subtle",
+      "minimum": 4.5,
+      "srgb": 7.236,
+      "rgb565": 7.554,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "text_muted",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 5.754,
+      "rgb565": 5.9,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "text_secondary",
+      "background": "input_inset",
+      "minimum": 4.5,
+      "srgb": 12.064,
+      "rgb565": 12.543,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "text_primary",
+      "background": "canvas",
+      "minimum": 4.5,
+      "srgb": 16.737,
+      "rgb565": 17.325,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "action",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 9.792,
+      "rgb565": 10.256,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "action",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 10.909,
+      "rgb565": 11.343,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "on_action",
+      "background": "action",
+      "minimum": 4.5,
+      "srgb": 10.816,
+      "rgb565": 11.083,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "on_action",
+      "background": "action_pressed",
+      "minimum": 4.5,
+      "srgb": 7.577,
+      "rgb565": 7.619,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "on_selection",
+      "background": "selection",
+      "minimum": 4.5,
+      "srgb": 7.38,
+      "rgb565": 7.285,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "text_primary",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 10.698,
+      "rgb565": 11.026,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "today_text",
+      "background": "today_fill",
+      "minimum": 4.5,
+      "srgb": 8.611,
+      "rgb565": 8.94,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "on_header",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 16.737,
+      "rgb565": 17.325,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "status_normal",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 11.406,
+      "rgb565": 11.911,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "status_attention",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 12.844,
+      "rgb565": 13.08,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "status_error",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 11.074,
+      "rgb565": 11.428,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "status_attention",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 11.529,
+      "rgb565": 11.827,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "focus",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 10.418,
+      "rgb565": 10.712,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "today_ring",
+      "background": "today_fill",
+      "minimum": 3,
+      "srgb": 5.537,
+      "rgb565": 5.679,
+      "pass_": true
+    },
+    {
+      "palette": "sage",
+      "mode": "dark",
+      "foreground": "border",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 4.899,
+      "rgb565": 4.88,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "text_primary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 15.587,
+      "rgb565": 15.724,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "text_secondary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 8.161,
+      "rgb565": 8.215,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "text_muted",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 5.982,
+      "rgb565": 5.926,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "text_muted",
+      "background": "surface_subtle",
+      "minimum": 4.5,
+      "srgb": 5.678,
+      "rgb565": 5.783,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "text_muted",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 5.004,
+      "rgb565": 5.079,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "text_secondary",
+      "background": "input_inset",
+      "minimum": 4.5,
+      "srgb": 7.14,
+      "rgb565": 7.368,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "text_primary",
+      "background": "canvas",
+      "minimum": 4.5,
+      "srgb": 14.163,
+      "rgb565": 14.677,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "action",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 6.936,
+      "rgb565": 6.934,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "action",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 6.302,
+      "rgb565": 6.473,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "on_action",
+      "background": "action",
+      "minimum": 4.5,
+      "srgb": 6.936,
+      "rgb565": 6.934,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "on_action",
+      "background": "action_pressed",
+      "minimum": 4.5,
+      "srgb": 10.073,
+      "rgb565": 10.233,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "on_selection",
+      "background": "selection",
+      "minimum": 4.5,
+      "srgb": 6.936,
+      "rgb565": 6.934,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "text_primary",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 13.04,
+      "rgb565": 13.476,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "today_text",
+      "background": "today_fill",
+      "minimum": 4.5,
+      "srgb": 7.505,
+      "rgb565": 7.658,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "on_header",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 14.163,
+      "rgb565": 14.677,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "status_normal",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 6.081,
+      "rgb565": 6.384,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "status_attention",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 6.477,
+      "rgb565": 6.751,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "status_error",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 6.021,
+      "rgb565": 6.01,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "status_attention",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 7.129,
+      "rgb565": 7.232,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "focus",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 6.067,
+      "rgb565": 6.219,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "today_ring",
+      "background": "today_fill",
+      "minimum": 3,
+      "srgb": 4.726,
+      "rgb565": 4.778,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "light",
+      "foreground": "border",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 3.265,
+      "rgb565": 3.316,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "text_primary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 15.024,
+      "rgb565": 15.665,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "text_secondary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 11.339,
+      "rgb565": 12.009,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "text_muted",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 8.081,
+      "rgb565": 8.382,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "text_muted",
+      "background": "surface_subtle",
+      "minimum": 4.5,
+      "srgb": 7.236,
+      "rgb565": 7.554,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "text_muted",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 5.918,
+      "rgb565": 6.065,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "text_secondary",
+      "background": "input_inset",
+      "minimum": 4.5,
+      "srgb": 12.064,
+      "rgb565": 12.543,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "text_primary",
+      "background": "canvas",
+      "minimum": 4.5,
+      "srgb": 16.737,
+      "rgb565": 17.325,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "action",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 8.865,
+      "rgb565": 9.175,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "action",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 9.876,
+      "rgb565": 10.147,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "on_action",
+      "background": "action",
+      "minimum": 4.5,
+      "srgb": 9.792,
+      "rgb565": 9.915,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "on_action",
+      "background": "action_pressed",
+      "minimum": 4.5,
+      "srgb": 6.8,
+      "rgb565": 6.743,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "on_selection",
+      "background": "selection",
+      "minimum": 4.5,
+      "srgb": 7.514,
+      "rgb565": 7.607,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "text_primary",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 11.002,
+      "rgb565": 11.334,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "today_text",
+      "background": "today_fill",
+      "minimum": 4.5,
+      "srgb": 8.611,
+      "rgb565": 8.94,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "on_header",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 16.737,
+      "rgb565": 17.325,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "status_normal",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 11.406,
+      "rgb565": 11.911,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "status_attention",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 12.844,
+      "rgb565": 13.08,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "status_error",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 11.074,
+      "rgb565": 11.428,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "status_attention",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 11.529,
+      "rgb565": 11.827,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "focus",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 9.432,
+      "rgb565": 9.583,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "today_ring",
+      "background": "today_fill",
+      "minimum": 3,
+      "srgb": 5.537,
+      "rgb565": 5.679,
+      "pass_": true
+    },
+    {
+      "palette": "lavender",
+      "mode": "dark",
+      "foreground": "border",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 4.899,
+      "rgb565": 4.88,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "text_primary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 15.587,
+      "rgb565": 15.724,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "text_secondary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 8.161,
+      "rgb565": 8.215,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "text_muted",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 5.982,
+      "rgb565": 5.926,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "text_muted",
+      "background": "surface_subtle",
+      "minimum": 4.5,
+      "srgb": 5.678,
+      "rgb565": 5.783,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "text_muted",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 5.08,
+      "rgb565": 5.049,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "text_secondary",
+      "background": "input_inset",
+      "minimum": 4.5,
+      "srgb": 7.14,
+      "rgb565": 7.368,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "text_primary",
+      "background": "canvas",
+      "minimum": 4.5,
+      "srgb": 14.163,
+      "rgb565": 14.677,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "action",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 6.365,
+      "rgb565": 6.376,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "action",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 5.784,
+      "rgb565": 5.951,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "on_action",
+      "background": "action",
+      "minimum": 4.5,
+      "srgb": 6.365,
+      "rgb565": 6.376,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "on_action",
+      "background": "action_pressed",
+      "minimum": 4.5,
+      "srgb": 9.516,
+      "rgb565": 9.614,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "on_selection",
+      "background": "selection",
+      "minimum": 4.5,
+      "srgb": 6.365,
+      "rgb565": 6.376,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "text_primary",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 13.238,
+      "rgb565": 13.398,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "today_text",
+      "background": "today_fill",
+      "minimum": 4.5,
+      "srgb": 7.505,
+      "rgb565": 7.658,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "on_header",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 14.163,
+      "rgb565": 14.677,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "status_normal",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 6.081,
+      "rgb565": 6.384,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "status_attention",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 6.477,
+      "rgb565": 6.751,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "status_error",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 6.021,
+      "rgb565": 6.01,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "status_attention",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 7.129,
+      "rgb565": 7.232,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "focus",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 5.568,
+      "rgb565": 5.718,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "today_ring",
+      "background": "today_fill",
+      "minimum": 3,
+      "srgb": 4.726,
+      "rgb565": 4.778,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "light",
+      "foreground": "border",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 3.265,
+      "rgb565": 3.316,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "text_primary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 15.024,
+      "rgb565": 15.665,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "text_secondary",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 11.339,
+      "rgb565": 12.009,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "text_muted",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 8.081,
+      "rgb565": 8.382,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "text_muted",
+      "background": "surface_subtle",
+      "minimum": 4.5,
+      "srgb": 7.236,
+      "rgb565": 7.554,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "text_muted",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 5.797,
+      "rgb565": 5.894,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "text_secondary",
+      "background": "input_inset",
+      "minimum": 4.5,
+      "srgb": 12.064,
+      "rgb565": 12.543,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "text_primary",
+      "background": "canvas",
+      "minimum": 4.5,
+      "srgb": 16.737,
+      "rgb565": 17.325,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "action",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 9.599,
+      "rgb565": 9.859,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "action",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 10.694,
+      "rgb565": 10.904,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "on_action",
+      "background": "action",
+      "minimum": 4.5,
+      "srgb": 10.603,
+      "rgb565": 10.655,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "on_action",
+      "background": "action_pressed",
+      "minimum": 4.5,
+      "srgb": 7.084,
+      "rgb565": 7.197,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "on_selection",
+      "background": "selection",
+      "minimum": 4.5,
+      "srgb": 8.4,
+      "rgb565": 8.411,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "text_primary",
+      "background": "action_soft",
+      "minimum": 4.5,
+      "srgb": 10.777,
+      "rgb565": 11.015,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "today_text",
+      "background": "today_fill",
+      "minimum": 4.5,
+      "srgb": 8.611,
+      "rgb565": 8.94,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "on_header",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 16.737,
+      "rgb565": 17.325,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "status_normal",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 11.406,
+      "rgb565": 11.911,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "status_attention",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 12.844,
+      "rgb565": 13.08,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "status_error",
+      "background": "header",
+      "minimum": 4.5,
+      "srgb": 11.074,
+      "rgb565": 11.428,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "status_attention",
+      "background": "surface",
+      "minimum": 4.5,
+      "srgb": 11.529,
+      "rgb565": 11.827,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "focus",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 10.213,
+      "rgb565": 10.298,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "today_ring",
+      "background": "today_fill",
+      "minimum": 3,
+      "srgb": 5.537,
+      "rgb565": 5.679,
+      "pass_": true
+    },
+    {
+      "palette": "sand",
+      "mode": "dark",
+      "foreground": "border",
+      "background": "input_inset",
+      "minimum": 3,
+      "srgb": 4.899,
+      "rgb565": 4.88,
+      "pass_": true
+    }
+  ],
+  "source_geometry": [
+    {
+      "name": "main_screen",
+      "widgets": [
+        {
+          "id": "main_header",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 0,
+          "y": 0,
+          "width": 800,
+          "height": 64,
+          "text": null
+        },
+        {
+          "id": "main_time_label",
+          "type": "LVGLLabelWidget",
+          "parent": "main_header",
+          "x": 20,
+          "y": 18,
+          "width": 100,
+          "height": 28,
+          "text": "09:41"
+        },
+        {
+          "id": "main_date_label",
+          "type": "LVGLLabelWidget",
+          "parent": "main_header",
+          "x": 136,
+          "y": 18,
+          "width": 360,
+          "height": 28,
+          "text": "05/09/2026"
+        },
+        {
+          "id": "main_sync_state_label",
+          "type": "LVGLLabelWidget",
+          "parent": "main_header",
+          "x": 512,
+          "y": 18,
+          "width": 164,
+          "height": 28,
+          "text": "Up to date"
+        },
+        {
+          "id": "main_settings_button",
+          "type": "LVGLButtonWidget",
+          "parent": "main_header",
+          "x": 688,
+          "y": 8,
+          "width": 96,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "main_today_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 32,
+          "y": 84,
+          "width": 446,
+          "height": 28,
+          "text": "Today's calendar"
+        },
+        {
+          "id": "main_events_container",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 20,
+          "y": 116,
+          "width": 470,
+          "height": 256,
+          "text": null
+        },
+        {
+          "id": "main_events_state_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 36,
+          "y": 380,
+          "width": 438,
+          "height": 24,
+          "text": "Loading today..."
+        },
+        {
+          "id": "main_weather_card",
+          "type": "LVGLButtonWidget",
+          "parent": "",
+          "x": 510,
+          "y": 80,
+          "width": 270,
+          "height": 328,
+          "text": null
+        },
+        {
+          "id": "main_weather_location_label",
+          "type": "LVGLLabelWidget",
+          "parent": "main_weather_card",
+          "x": 526,
+          "y": 92,
+          "width": 238,
+          "height": 40,
+          "text": "Location not configured"
+        },
+        {
+          "id": "main_weather_icon_container",
+          "type": "LVGLContainerWidget",
+          "parent": "main_weather_card",
+          "x": 528,
+          "y": 146,
+          "width": 88,
+          "height": 88,
+          "text": null
+        },
+        {
+          "id": "main_weather_temperature_label",
+          "type": "LVGLLabelWidget",
+          "parent": "main_weather_card",
+          "x": 622,
+          "y": 158,
+          "width": 142,
+          "height": 28,
+          "text": "--.- C"
+        },
+        {
+          "id": "main_weather_condition_label",
+          "type": "LVGLLabelWidget",
+          "parent": "main_weather_card",
+          "x": 622,
+          "y": 186,
+          "width": 142,
+          "height": 48,
+          "text": "Weather unavailable"
+        },
+        {
+          "id": "main_weather_detail_label",
+          "type": "LVGLLabelWidget",
+          "parent": "main_weather_card",
+          "x": 526,
+          "y": 270,
+          "width": 238,
+          "height": 54,
+          "text": "Feels -- C  |  Humidity --%\nWind -- km/h"
+        },
+        {
+          "id": "main_weather_updated_label",
+          "type": "LVGLLabelWidget",
+          "parent": "main_weather_card",
+          "x": 526,
+          "y": 360,
+          "width": 238,
+          "height": 24,
+          "text": "Not updated"
+        },
+        {
+          "id": "main_primary_navigation",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 0,
+          "y": 424,
+          "width": 800,
+          "height": 56,
+          "text": null
+        },
+        {
+          "id": "main_nav_main_button",
+          "type": "LVGLButtonWidget",
+          "parent": "main_primary_navigation",
+          "x": 20,
+          "y": 428,
+          "width": 244,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "main_nav_calendar_button",
+          "type": "LVGLButtonWidget",
+          "parent": "main_primary_navigation",
+          "x": 278,
+          "y": 428,
+          "width": 244,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "main_nav_forecast_button",
+          "type": "LVGLButtonWidget",
+          "parent": "main_primary_navigation",
+          "x": 536,
+          "y": 428,
+          "width": 244,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "main_nav_indicator",
+          "type": "LVGLContainerWidget",
+          "parent": "main_primary_navigation",
+          "x": 110,
+          "y": 477,
+          "width": 64,
+          "height": 3,
+          "text": null
+        }
+      ]
+    },
+    {
+      "name": "agenda_screen",
+      "widgets": [
+        {
+          "id": "agenda_header",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 0,
+          "y": 0,
+          "width": 800,
+          "height": 64,
+          "text": null
+        },
+        {
+          "id": "header_time_label",
+          "type": "LVGLLabelWidget",
+          "parent": "agenda_header",
+          "x": 20,
+          "y": 18,
+          "width": 100,
+          "height": 28,
+          "text": "09:41"
+        },
+        {
+          "id": "header_date_label",
+          "type": "LVGLLabelWidget",
+          "parent": "agenda_header",
+          "x": 136,
+          "y": 18,
+          "width": 360,
+          "height": 28,
+          "text": "05/09/2026"
+        },
+        {
+          "id": "sync_state_label",
+          "type": "LVGLLabelWidget",
+          "parent": "agenda_header",
+          "x": 512,
+          "y": 18,
+          "width": 164,
+          "height": 28,
+          "text": "Up to date"
+        },
+        {
+          "id": "settings_button",
+          "type": "LVGLButtonWidget",
+          "parent": "agenda_header",
+          "x": 688,
+          "y": 8,
+          "width": 96,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "agenda_navigation_bar",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 0,
+          "y": 64,
+          "width": 800,
+          "height": 56,
+          "text": null
+        },
+        {
+          "id": "agenda_previous_button",
+          "type": "LVGLButtonWidget",
+          "parent": "agenda_navigation_bar",
+          "x": 12,
+          "y": 68,
+          "width": 52,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "agenda_next_button",
+          "type": "LVGLButtonWidget",
+          "parent": "agenda_navigation_bar",
+          "x": 152,
+          "y": 68,
+          "width": 52,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "agenda_today_button",
+          "type": "LVGLButtonWidget",
+          "parent": "agenda_navigation_bar",
+          "x": 72,
+          "y": 68,
+          "width": 72,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "agenda_period_label",
+          "type": "LVGLLabelWidget",
+          "parent": "agenda_navigation_bar",
+          "x": 216,
+          "y": 81,
+          "width": 310,
+          "height": 24,
+          "text": "30/08/2026 - 05/09/2026"
+        },
+        {
+          "id": "agenda_week_button",
+          "type": "LVGLButtonWidget",
+          "parent": "agenda_navigation_bar",
+          "x": 536,
+          "y": 68,
+          "width": 116,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "agenda_month_button",
+          "type": "LVGLButtonWidget",
+          "parent": "agenda_navigation_bar",
+          "x": 660,
+          "y": 68,
+          "width": 128,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "day_selector",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 0,
+          "y": 120,
+          "width": 800,
+          "height": 64,
+          "text": null
+        },
+        {
+          "id": "day_button_0",
+          "type": "LVGLButtonWidget",
+          "parent": "day_selector",
+          "x": 20,
+          "y": 128,
+          "width": 100,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "day_name_label_0",
+          "type": "LVGLLabelWidget",
+          "parent": "day_button_0",
+          "x": 20,
+          "y": 134,
+          "width": 100,
+          "height": 18,
+          "text": "SUN"
+        },
+        {
+          "id": "day_date_label_0",
+          "type": "LVGLLabelWidget",
+          "parent": "day_button_0",
+          "x": 20,
+          "y": 153,
+          "width": 100,
+          "height": 18,
+          "text": "30"
+        },
+        {
+          "id": "day_button_1",
+          "type": "LVGLButtonWidget",
+          "parent": "day_selector",
+          "x": 130,
+          "y": 128,
+          "width": 100,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "day_name_label_1",
+          "type": "LVGLLabelWidget",
+          "parent": "day_button_1",
+          "x": 130,
+          "y": 134,
+          "width": 100,
+          "height": 18,
+          "text": "MON"
+        },
+        {
+          "id": "day_date_label_1",
+          "type": "LVGLLabelWidget",
+          "parent": "day_button_1",
+          "x": 130,
+          "y": 153,
+          "width": 100,
+          "height": 18,
+          "text": "31"
+        },
+        {
+          "id": "day_button_2",
+          "type": "LVGLButtonWidget",
+          "parent": "day_selector",
+          "x": 240,
+          "y": 128,
+          "width": 100,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "day_name_label_2",
+          "type": "LVGLLabelWidget",
+          "parent": "day_button_2",
+          "x": 240,
+          "y": 134,
+          "width": 100,
+          "height": 18,
+          "text": "TUE"
+        },
+        {
+          "id": "day_date_label_2",
+          "type": "LVGLLabelWidget",
+          "parent": "day_button_2",
+          "x": 240,
+          "y": 153,
+          "width": 100,
+          "height": 18,
+          "text": "01"
+        },
+        {
+          "id": "day_button_3",
+          "type": "LVGLButtonWidget",
+          "parent": "day_selector",
+          "x": 350,
+          "y": 128,
+          "width": 100,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "day_name_label_3",
+          "type": "LVGLLabelWidget",
+          "parent": "day_button_3",
+          "x": 350,
+          "y": 134,
+          "width": 100,
+          "height": 18,
+          "text": "WED"
+        },
+        {
+          "id": "day_date_label_3",
+          "type": "LVGLLabelWidget",
+          "parent": "day_button_3",
+          "x": 350,
+          "y": 153,
+          "width": 100,
+          "height": 18,
+          "text": "02"
+        },
+        {
+          "id": "day_button_4",
+          "type": "LVGLButtonWidget",
+          "parent": "day_selector",
+          "x": 460,
+          "y": 128,
+          "width": 100,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "day_name_label_4",
+          "type": "LVGLLabelWidget",
+          "parent": "day_button_4",
+          "x": 460,
+          "y": 134,
+          "width": 100,
+          "height": 18,
+          "text": "THU"
+        },
+        {
+          "id": "day_date_label_4",
+          "type": "LVGLLabelWidget",
+          "parent": "day_button_4",
+          "x": 460,
+          "y": 153,
+          "width": 100,
+          "height": 18,
+          "text": "03"
+        },
+        {
+          "id": "day_button_5",
+          "type": "LVGLButtonWidget",
+          "parent": "day_selector",
+          "x": 570,
+          "y": 128,
+          "width": 100,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "day_name_label_5",
+          "type": "LVGLLabelWidget",
+          "parent": "day_button_5",
+          "x": 570,
+          "y": 134,
+          "width": 100,
+          "height": 18,
+          "text": "FRI"
+        },
+        {
+          "id": "day_date_label_5",
+          "type": "LVGLLabelWidget",
+          "parent": "day_button_5",
+          "x": 570,
+          "y": 153,
+          "width": 100,
+          "height": 18,
+          "text": "04"
+        },
+        {
+          "id": "day_button_6",
+          "type": "LVGLButtonWidget",
+          "parent": "day_selector",
+          "x": 680,
+          "y": 128,
+          "width": 100,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "day_name_label_6",
+          "type": "LVGLLabelWidget",
+          "parent": "day_button_6",
+          "x": 680,
+          "y": 134,
+          "width": 100,
+          "height": 18,
+          "text": "SAT"
+        },
+        {
+          "id": "day_date_label_6",
+          "type": "LVGLLabelWidget",
+          "parent": "day_button_6",
+          "x": 680,
+          "y": 153,
+          "width": 100,
+          "height": 18,
+          "text": "05"
+        },
+        {
+          "id": "agenda_rows_container",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 20,
+          "y": 192,
+          "width": 760,
+          "height": 180,
+          "text": null
+        },
+        {
+          "id": "agenda_state_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 36,
+          "y": 380,
+          "width": 728,
+          "height": 20,
+          "text": "Loading calendar..."
+        },
+        {
+          "id": "agenda_footer",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 20,
+          "y": 400,
+          "width": 760,
+          "height": 24,
+          "text": null
+        },
+        {
+          "id": "footer_label",
+          "type": "LVGLLabelWidget",
+          "parent": "agenda_footer",
+          "x": 28,
+          "y": 402,
+          "width": 744,
+          "height": 20,
+          "text": "Next: Team stand-up at 10:30"
+        },
+        {
+          "id": "agenda_primary_navigation",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 0,
+          "y": 424,
+          "width": 800,
+          "height": 56,
+          "text": null
+        },
+        {
+          "id": "agenda_nav_main_button",
+          "type": "LVGLButtonWidget",
+          "parent": "agenda_primary_navigation",
+          "x": 20,
+          "y": 428,
+          "width": 244,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "agenda_nav_calendar_button",
+          "type": "LVGLButtonWidget",
+          "parent": "agenda_primary_navigation",
+          "x": 278,
+          "y": 428,
+          "width": 244,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "agenda_nav_forecast_button",
+          "type": "LVGLButtonWidget",
+          "parent": "agenda_primary_navigation",
+          "x": 536,
+          "y": 428,
+          "width": 244,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "agenda_nav_indicator",
+          "type": "LVGLContainerWidget",
+          "parent": "agenda_primary_navigation",
+          "x": 368,
+          "y": 477,
+          "width": 64,
+          "height": 3,
+          "text": null
+        }
+      ]
+    },
+    {
+      "name": "event_details_screen",
+      "widgets": [
+        {
+          "id": "details_header",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 0,
+          "y": 0,
+          "width": 800,
+          "height": 64,
+          "text": null
+        },
+        {
+          "id": "details_back_button",
+          "type": "LVGLButtonWidget",
+          "parent": "details_header",
+          "x": 20,
+          "y": 8,
+          "width": 112,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "details_content",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 20,
+          "y": 80,
+          "width": 760,
+          "height": 380,
+          "text": null
+        },
+        {
+          "id": "details_title_label",
+          "type": "LVGLLabelWidget",
+          "parent": "details_content",
+          "x": 44,
+          "y": 104,
+          "width": 712,
+          "height": 68,
+          "text": "Team stand-up and weekly planning"
+        },
+        {
+          "id": "details_time_label",
+          "type": "LVGLLabelWidget",
+          "parent": "details_content",
+          "x": 44,
+          "y": 192,
+          "width": 712,
+          "height": 44,
+          "text": "Friday 05/09/2026, 10:30-11:00"
+        },
+        {
+          "id": "details_location_label",
+          "type": "LVGLLabelWidget",
+          "parent": "details_content",
+          "x": 44,
+          "y": 256,
+          "width": 712,
+          "height": 44,
+          "text": "Location: Main conference room"
+        },
+        {
+          "id": "details_calendar_label",
+          "type": "LVGLLabelWidget",
+          "parent": "details_content",
+          "x": 44,
+          "y": 320,
+          "width": 712,
+          "height": 44,
+          "text": "Calendar: Work"
+        }
+      ]
+    },
+    {
+      "name": "settings_screen",
+      "widgets": [
+        {
+          "id": "settings_header",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 0,
+          "y": 0,
+          "width": 800,
+          "height": 64,
+          "text": null
+        },
+        {
+          "id": "settings_back_button",
+          "type": "LVGLButtonWidget",
+          "parent": "settings_header",
+          "x": 20,
+          "y": 8,
+          "width": 112,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "settings_status_card",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 20,
+          "y": 76,
+          "width": 760,
+          "height": 242,
+          "text": null
+        },
+        {
+          "id": "settings_wifi_status_label",
+          "type": "LVGLLabelWidget",
+          "parent": "settings_status_card",
+          "x": 220,
+          "y": 84,
+          "width": 536,
+          "height": 48,
+          "text": "Not configured"
+        },
+        {
+          "id": "settings_time_status_label",
+          "type": "LVGLLabelWidget",
+          "parent": "settings_status_card",
+          "x": 220,
+          "y": 134,
+          "width": 536,
+          "height": 48,
+          "text": "Waiting for network time"
+        },
+        {
+          "id": "settings_feed_status_label",
+          "type": "LVGLLabelWidget",
+          "parent": "settings_status_card",
+          "x": 220,
+          "y": 184,
+          "width": 536,
+          "height": 48,
+          "text": "No private iCal address saved"
+        },
+        {
+          "id": "settings_setup_hint_label",
+          "type": "LVGLLabelWidget",
+          "parent": "settings_status_card",
+          "x": 44,
+          "y": 242,
+          "width": 712,
+          "height": 56,
+          "text": "Enter Wi-Fi on the display or use protected phone setup. Private service credentials stay on the trusted home network."
+        },
+        {
+          "id": "settings_enter_wifi_button",
+          "type": "LVGLButtonWidget",
+          "parent": "",
+          "x": 20,
+          "y": 326,
+          "width": 244,
+          "height": 56,
+          "text": null
+        },
+        {
+          "id": "settings_start_setup_button",
+          "type": "LVGLButtonWidget",
+          "parent": "",
+          "x": 278,
+          "y": 326,
+          "width": 244,
+          "height": 56,
+          "text": null
+        },
+        {
+          "id": "settings_sync_now_button",
+          "type": "LVGLButtonWidget",
+          "parent": "",
+          "x": 536,
+          "y": 326,
+          "width": 244,
+          "height": 56,
+          "text": null
+        },
+        {
+          "id": "settings_brightness_button",
+          "type": "LVGLButtonWidget",
+          "parent": "",
+          "x": 20,
+          "y": 398,
+          "width": 244,
+          "height": 56,
+          "text": null
+        },
+        {
+          "id": "settings_weather_button",
+          "type": "LVGLButtonWidget",
+          "parent": "",
+          "x": 278,
+          "y": 398,
+          "width": 244,
+          "height": 56,
+          "text": null
+        },
+        {
+          "id": "settings_firmware_button",
+          "type": "LVGLButtonWidget",
+          "parent": "",
+          "x": 536,
+          "y": 398,
+          "width": 244,
+          "height": 56,
+          "text": null
+        }
+      ]
+    },
+    {
+      "name": "month_screen",
+      "widgets": [
+        {
+          "id": "month_header",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 0,
+          "y": 0,
+          "width": 800,
+          "height": 64,
+          "text": null
+        },
+        {
+          "id": "month_time_label",
+          "type": "LVGLLabelWidget",
+          "parent": "month_header",
+          "x": 20,
+          "y": 18,
+          "width": 100,
+          "height": 28,
+          "text": "09:41"
+        },
+        {
+          "id": "month_sync_state_label",
+          "type": "LVGLLabelWidget",
+          "parent": "month_header",
+          "x": 512,
+          "y": 18,
+          "width": 164,
+          "height": 28,
+          "text": "Up to date"
+        },
+        {
+          "id": "month_settings_button",
+          "type": "LVGLButtonWidget",
+          "parent": "month_header",
+          "x": 688,
+          "y": 8,
+          "width": 96,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "month_navigation_bar",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 0,
+          "y": 64,
+          "width": 800,
+          "height": 56,
+          "text": null
+        },
+        {
+          "id": "month_previous_button",
+          "type": "LVGLButtonWidget",
+          "parent": "month_navigation_bar",
+          "x": 12,
+          "y": 68,
+          "width": 52,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "month_next_button",
+          "type": "LVGLButtonWidget",
+          "parent": "month_navigation_bar",
+          "x": 152,
+          "y": 68,
+          "width": 52,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "month_today_button",
+          "type": "LVGLButtonWidget",
+          "parent": "month_navigation_bar",
+          "x": 72,
+          "y": 68,
+          "width": 72,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "month_period_label",
+          "type": "LVGLLabelWidget",
+          "parent": "month_navigation_bar",
+          "x": 216,
+          "y": 81,
+          "width": 310,
+          "height": 24,
+          "text": "September 2026"
+        },
+        {
+          "id": "month_week_button",
+          "type": "LVGLButtonWidget",
+          "parent": "month_navigation_bar",
+          "x": 536,
+          "y": 68,
+          "width": 116,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "month_month_button",
+          "type": "LVGLButtonWidget",
+          "parent": "month_navigation_bar",
+          "x": 660,
+          "y": 68,
+          "width": 128,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "month_weekday_header",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 20,
+          "y": 120,
+          "width": 760,
+          "height": 36,
+          "text": null
+        },
+        {
+          "id": "month_weekday_label_0",
+          "type": "LVGLLabelWidget",
+          "parent": "month_weekday_header",
+          "x": 20,
+          "y": 128,
+          "width": 108,
+          "height": 20,
+          "text": "SUN"
+        },
+        {
+          "id": "month_weekday_label_1",
+          "type": "LVGLLabelWidget",
+          "parent": "month_weekday_header",
+          "x": 128,
+          "y": 128,
+          "width": 109,
+          "height": 20,
+          "text": "MON"
+        },
+        {
+          "id": "month_weekday_label_2",
+          "type": "LVGLLabelWidget",
+          "parent": "month_weekday_header",
+          "x": 237,
+          "y": 128,
+          "width": 108,
+          "height": 20,
+          "text": "TUE"
+        },
+        {
+          "id": "month_weekday_label_3",
+          "type": "LVGLLabelWidget",
+          "parent": "month_weekday_header",
+          "x": 345,
+          "y": 128,
+          "width": 109,
+          "height": 20,
+          "text": "WED"
+        },
+        {
+          "id": "month_weekday_label_4",
+          "type": "LVGLLabelWidget",
+          "parent": "month_weekday_header",
+          "x": 454,
+          "y": 128,
+          "width": 108,
+          "height": 20,
+          "text": "THU"
+        },
+        {
+          "id": "month_weekday_label_5",
+          "type": "LVGLLabelWidget",
+          "parent": "month_weekday_header",
+          "x": 562,
+          "y": 128,
+          "width": 109,
+          "height": 20,
+          "text": "FRI"
+        },
+        {
+          "id": "month_weekday_label_6",
+          "type": "LVGLLabelWidget",
+          "parent": "month_weekday_header",
+          "x": 671,
+          "y": 128,
+          "width": 109,
+          "height": 20,
+          "text": "SAT"
+        },
+        {
+          "id": "month_grid_container",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 20,
+          "y": 156,
+          "width": 760,
+          "height": 266,
+          "text": null
+        },
+        {
+          "id": "month_state_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 136,
+          "y": 32,
+          "width": 360,
+          "height": 28,
+          "text": "Loading event counts..."
+        },
+        {
+          "id": "month_primary_navigation",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 0,
+          "y": 424,
+          "width": 800,
+          "height": 56,
+          "text": null
+        },
+        {
+          "id": "month_nav_main_button",
+          "type": "LVGLButtonWidget",
+          "parent": "month_primary_navigation",
+          "x": 20,
+          "y": 428,
+          "width": 244,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "month_nav_calendar_button",
+          "type": "LVGLButtonWidget",
+          "parent": "month_primary_navigation",
+          "x": 278,
+          "y": 428,
+          "width": 244,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "month_nav_forecast_button",
+          "type": "LVGLButtonWidget",
+          "parent": "month_primary_navigation",
+          "x": 536,
+          "y": 428,
+          "width": 244,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "month_nav_indicator",
+          "type": "LVGLContainerWidget",
+          "parent": "month_primary_navigation",
+          "x": 368,
+          "y": 477,
+          "width": 64,
+          "height": 3,
+          "text": null
+        }
+      ]
+    },
+    {
+      "name": "brightness_settings_screen",
+      "widgets": [
+        {
+          "id": "brightness_header",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 0,
+          "y": 0,
+          "width": 800,
+          "height": 64,
+          "text": null
+        },
+        {
+          "id": "brightness_back_button",
+          "type": "LVGLButtonWidget",
+          "parent": "brightness_header",
+          "x": 20,
+          "y": 8,
+          "width": 112,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "brightness_card",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 20,
+          "y": 88,
+          "width": 760,
+          "height": 300,
+          "text": null
+        },
+        {
+          "id": "theme_style_dropdown",
+          "type": "LVGLDropdownWidget",
+          "parent": "brightness_card",
+          "x": 400,
+          "y": 98,
+          "width": 332,
+          "height": 44,
+          "text": null
+        },
+        {
+          "id": "dark_theme_switch",
+          "type": "LVGLSwitchWidget",
+          "parent": "brightness_card",
+          "x": 640,
+          "y": 158,
+          "width": 92,
+          "height": 44,
+          "text": null
+        },
+        {
+          "id": "brightness_value_label",
+          "type": "LVGLLabelWidget",
+          "parent": "brightness_card",
+          "x": 594,
+          "y": 224,
+          "width": 138,
+          "height": 28,
+          "text": "75%"
+        },
+        {
+          "id": "brightness_slider",
+          "type": "LVGLSliderWidget",
+          "parent": "brightness_card",
+          "x": 48,
+          "y": 256,
+          "width": 684,
+          "height": 44,
+          "text": null
+        }
+      ]
+    },
+    {
+      "name": "weather_screen",
+      "widgets": [
+        {
+          "id": "weather_header",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 0,
+          "y": 0,
+          "width": 800,
+          "height": 64,
+          "text": null
+        },
+        {
+          "id": "weather_back_button",
+          "type": "LVGLButtonWidget",
+          "parent": "weather_header",
+          "x": 20,
+          "y": 8,
+          "width": 112,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "weather_set_location_button",
+          "type": "LVGLButtonWidget",
+          "parent": "weather_header",
+          "x": 444,
+          "y": 8,
+          "width": 188,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "weather_refresh_button",
+          "type": "LVGLButtonWidget",
+          "parent": "weather_header",
+          "x": 644,
+          "y": 8,
+          "width": 136,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "weather_location_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 20,
+          "y": 70,
+          "width": 360,
+          "height": 34,
+          "text": "Location not configured"
+        },
+        {
+          "id": "weather_current_icon_container",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 24,
+          "y": 104,
+          "width": 64,
+          "height": 60,
+          "text": null
+        },
+        {
+          "id": "weather_temperature_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 96,
+          "y": 108,
+          "width": 124,
+          "height": 52,
+          "text": "-- C"
+        },
+        {
+          "id": "weather_condition_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 232,
+          "y": 110,
+          "width": 220,
+          "height": 48,
+          "text": "Weather unavailable"
+        },
+        {
+          "id": "weather_feels_like_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 468,
+          "y": 110,
+          "width": 312,
+          "height": 22,
+          "text": "Feels like -- C"
+        },
+        {
+          "id": "weather_humidity_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 468,
+          "y": 136,
+          "width": 150,
+          "height": 22,
+          "text": "Humidity --%"
+        },
+        {
+          "id": "weather_wind_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 626,
+          "y": 136,
+          "width": 154,
+          "height": 22,
+          "text": "Wind unavailable"
+        },
+        {
+          "id": "weather_updated_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 400,
+          "y": 76,
+          "width": 380,
+          "height": 24,
+          "text": "Not updated yet"
+        },
+        {
+          "id": "weather_state_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 20,
+          "y": 160,
+          "width": 760,
+          "height": 52,
+          "text": "Configure OpenWeather in Settings"
+        },
+        {
+          "id": "weather_attribution_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 20,
+          "y": 400,
+          "width": 760,
+          "height": 20,
+          "text": "Weather data by OpenWeather"
+        },
+        {
+          "id": "forecast_cards_container",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 20,
+          "y": 212,
+          "width": 760,
+          "height": 180,
+          "text": null
+        },
+        {
+          "id": "forecast_day_label_0",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 29,
+          "y": 220,
+          "width": 100,
+          "height": 22,
+          "text": "--"
+        },
+        {
+          "id": "forecast_icon_container_0",
+          "type": "LVGLContainerWidget",
+          "parent": "forecast_cards_container",
+          "x": 58,
+          "y": 246,
+          "width": 42,
+          "height": 42,
+          "text": null
+        },
+        {
+          "id": "forecast_temp_label_0",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 29,
+          "y": 294,
+          "width": 100,
+          "height": 22,
+          "text": "-- / -- C"
+        },
+        {
+          "id": "forecast_condition_label_0",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 29,
+          "y": 322,
+          "width": 100,
+          "height": 68,
+          "text": "Unavailable"
+        },
+        {
+          "id": "forecast_day_label_1",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 136,
+          "y": 220,
+          "width": 100,
+          "height": 22,
+          "text": "--"
+        },
+        {
+          "id": "forecast_icon_container_1",
+          "type": "LVGLContainerWidget",
+          "parent": "forecast_cards_container",
+          "x": 165,
+          "y": 246,
+          "width": 42,
+          "height": 42,
+          "text": null
+        },
+        {
+          "id": "forecast_temp_label_1",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 136,
+          "y": 294,
+          "width": 100,
+          "height": 22,
+          "text": "-- / -- C"
+        },
+        {
+          "id": "forecast_condition_label_1",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 136,
+          "y": 322,
+          "width": 100,
+          "height": 68,
+          "text": "Unavailable"
+        },
+        {
+          "id": "forecast_day_label_2",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 243,
+          "y": 220,
+          "width": 100,
+          "height": 22,
+          "text": "--"
+        },
+        {
+          "id": "forecast_icon_container_2",
+          "type": "LVGLContainerWidget",
+          "parent": "forecast_cards_container",
+          "x": 272,
+          "y": 246,
+          "width": 42,
+          "height": 42,
+          "text": null
+        },
+        {
+          "id": "forecast_temp_label_2",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 243,
+          "y": 294,
+          "width": 100,
+          "height": 22,
+          "text": "-- / -- C"
+        },
+        {
+          "id": "forecast_condition_label_2",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 243,
+          "y": 322,
+          "width": 100,
+          "height": 68,
+          "text": "Unavailable"
+        },
+        {
+          "id": "forecast_day_label_3",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 350,
+          "y": 220,
+          "width": 100,
+          "height": 22,
+          "text": "--"
+        },
+        {
+          "id": "forecast_icon_container_3",
+          "type": "LVGLContainerWidget",
+          "parent": "forecast_cards_container",
+          "x": 379,
+          "y": 246,
+          "width": 42,
+          "height": 42,
+          "text": null
+        },
+        {
+          "id": "forecast_temp_label_3",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 350,
+          "y": 294,
+          "width": 100,
+          "height": 22,
+          "text": "-- / -- C"
+        },
+        {
+          "id": "forecast_condition_label_3",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 350,
+          "y": 322,
+          "width": 100,
+          "height": 68,
+          "text": "Unavailable"
+        },
+        {
+          "id": "forecast_day_label_4",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 457,
+          "y": 220,
+          "width": 100,
+          "height": 22,
+          "text": "--"
+        },
+        {
+          "id": "forecast_icon_container_4",
+          "type": "LVGLContainerWidget",
+          "parent": "forecast_cards_container",
+          "x": 486,
+          "y": 246,
+          "width": 42,
+          "height": 42,
+          "text": null
+        },
+        {
+          "id": "forecast_temp_label_4",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 457,
+          "y": 294,
+          "width": 100,
+          "height": 22,
+          "text": "-- / -- C"
+        },
+        {
+          "id": "forecast_condition_label_4",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 457,
+          "y": 322,
+          "width": 100,
+          "height": 68,
+          "text": "Unavailable"
+        },
+        {
+          "id": "forecast_day_label_5",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 564,
+          "y": 220,
+          "width": 100,
+          "height": 22,
+          "text": "---"
+        },
+        {
+          "id": "forecast_icon_container_5",
+          "type": "LVGLContainerWidget",
+          "parent": "forecast_cards_container",
+          "x": 593,
+          "y": 246,
+          "width": 42,
+          "height": 42,
+          "text": null
+        },
+        {
+          "id": "forecast_temp_label_5",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 564,
+          "y": 294,
+          "width": 100,
+          "height": 22,
+          "text": "-- / --"
+        },
+        {
+          "id": "forecast_condition_label_5",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 564,
+          "y": 322,
+          "width": 100,
+          "height": 68,
+          "text": "Unavailable"
+        },
+        {
+          "id": "forecast_day_label_6",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 671,
+          "y": 220,
+          "width": 100,
+          "height": 22,
+          "text": "---"
+        },
+        {
+          "id": "forecast_icon_container_6",
+          "type": "LVGLContainerWidget",
+          "parent": "forecast_cards_container",
+          "x": 700,
+          "y": 246,
+          "width": 42,
+          "height": 42,
+          "text": null
+        },
+        {
+          "id": "forecast_temp_label_6",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 671,
+          "y": 294,
+          "width": 100,
+          "height": 22,
+          "text": "-- / --"
+        },
+        {
+          "id": "forecast_condition_label_6",
+          "type": "LVGLLabelWidget",
+          "parent": "forecast_cards_container",
+          "x": 671,
+          "y": 322,
+          "width": 100,
+          "height": 68,
+          "text": "Unavailable"
+        },
+        {
+          "id": "forecast_primary_navigation",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 0,
+          "y": 424,
+          "width": 800,
+          "height": 56,
+          "text": null
+        },
+        {
+          "id": "forecast_nav_main_button",
+          "type": "LVGLButtonWidget",
+          "parent": "forecast_primary_navigation",
+          "x": 20,
+          "y": 428,
+          "width": 244,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "forecast_nav_calendar_button",
+          "type": "LVGLButtonWidget",
+          "parent": "forecast_primary_navigation",
+          "x": 278,
+          "y": 428,
+          "width": 244,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "forecast_nav_forecast_button",
+          "type": "LVGLButtonWidget",
+          "parent": "forecast_primary_navigation",
+          "x": 536,
+          "y": 428,
+          "width": 244,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "forecast_nav_indicator",
+          "type": "LVGLContainerWidget",
+          "parent": "forecast_primary_navigation",
+          "x": 626,
+          "y": 477,
+          "width": 64,
+          "height": 3,
+          "text": null
+        }
+      ]
+    },
+    {
+      "name": "firmware_update_screen",
+      "widgets": [
+        {
+          "id": "firmware_header",
+          "type": "LVGLContainerWidget",
+          "parent": "",
+          "x": 0,
+          "y": 0,
+          "width": 800,
+          "height": 64,
+          "text": null
+        },
+        {
+          "id": "firmware_back_button",
+          "type": "LVGLButtonWidget",
+          "parent": "firmware_header",
+          "x": 20,
+          "y": 8,
+          "width": 112,
+          "height": 48,
+          "text": null
+        },
+        {
+          "id": "firmware_version_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 48,
+          "y": 104,
+          "width": 704,
+          "height": 28,
+          "text": "Current firmware: unknown"
+        },
+        {
+          "id": "firmware_state_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 48,
+          "y": 146,
+          "width": 704,
+          "height": 28,
+          "text": "Firmware update is disabled"
+        },
+        {
+          "id": "firmware_instructions_label",
+          "type": "LVGLLabelWidget",
+          "parent": "",
+          "x": 48,
+          "y": 188,
+          "width": 704,
+          "height": 72,
+          "text": "Enable updates only when you are ready. Follow the on-screen address from a device on the trusted home network. Keep USB recovery available."
+        },
+        {
+          "id": "firmware_progress_bar",
+          "type": "LVGLBarWidget",
+          "parent": "",
+          "x": 48,
+          "y": 280,
+          "width": 704,
+          "height": 28,
+          "text": null
+        },
+        {
+          "id": "firmware_enable_button",
+          "type": "LVGLButtonWidget",
+          "parent": "",
+          "x": 48,
+          "y": 354,
+          "width": 216,
+          "height": 56,
+          "text": null
+        },
+        {
+          "id": "firmware_cancel_button",
+          "type": "LVGLButtonWidget",
+          "parent": "",
+          "x": 292,
+          "y": 354,
+          "width": 216,
+          "height": 56,
+          "text": null
+        },
+        {
+          "id": "firmware_reboot_button",
+          "type": "LVGLButtonWidget",
+          "parent": "",
+          "x": 536,
+          "y": 354,
+          "width": 216,
+          "height": 56,
+          "text": null
+        }
+      ]
+    }
+  ],
+  "source_sha256": {
+    "ui/calendar.eez-project": "01e2516ff41d374fd4a979fccf6b0ac1adc310191068077310bba09a3f9fa1f2",
+    "src/app/ui_controller.cpp": "aa486dbce945df69cc7291e90356b692433c647a9794df2448d0762dbc993c84",
+    "src/app/theme_palette.cpp": "7b275f43b0cb2c0050ba69a0888a51b54bdf6642d8bd2f01a23d953ee35f61e9"
+  },
+  "verification": {
+    "baseline_target": {
+      "command": "env CCACHE_DISABLE=1 /home/barro/.platformio/penv/bin/pio run -e rgb-staged-startup -s",
+      "result": "Incremental build passed after approved outside-sandbox retry"
+    },
+    "host_tests": {
+      "result": "5/5 passed",
+      "directory": "/tmp/esp32-design-audit-host",
+      "known_warning": "Existing GCC16 weather_parser std::sort array-bounds warning"
+    },
+    "firmware_source_hashes_checked": 61,
+    "firmware_source_changed": [],
+    "hardware_tested": false,
+    "flashed": false,
+    "prototype_browser_qa": "Passed in Firefox headless; see browser-qa.png; 72 appearance/page/style renders, six status fixtures, navigation and >=44px button heights"
+  },
+  "font_fit_evidence": {
+    "font": "resolved lv_font_dejavu_16_persian_hebrew",
+    "line_height": 24,
+    "advance_rule": "(adv_w + 8) >> 4",
+    "main_weather_label": {
+      "width": 238,
+      "height": 54
+    },
+    "examples": [
+      {
+        "text": "Feels 27.0 C  |  Humidity 42%",
+        "width": 234,
+        "fits": true
+      },
+      {
+        "text": "Feels 27.0 C  |  Humidity 100%",
+        "width": 244,
+        "fits": false
+      },
+      {
+        "text": "Feels 100.0 F  |  Humidity 42%",
+        "width": 242,
+        "fits": false
+      }
+    ]
+  }
+}

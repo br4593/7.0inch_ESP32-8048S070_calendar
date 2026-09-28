@@ -1,0 +1,23 @@
+.pio/build/rgb-staged-startup-buffer16/lib38c/lvgl/libs/gif/gifdec.c.o: \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/gifdec.c \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/gifdec.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../misc/lv_fs.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../misc/../lv_conf_internal.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../misc/../lv_conf_kconfig.h \
+ /home/barro/.platformio/packages/framework-arduinoespressif32-libs/esp32s3/qio_opi/include/sdkconfig.h \
+ /home/barro/.platformio/packages/framework-arduinoespressif32-libs/esp32s3/include/esp_common/include/esp_attr.h \
+ /home/barro/dev/projects/esp32_touch_calendar/include/lv_conf.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../misc/lv_types.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../misc/lv_log.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../stdlib/lv_mem.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../stdlib/../lv_conf_internal.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../stdlib/lv_string.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../stdlib/../misc/lv_types.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../misc/lv_color.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../misc/lv_assert.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../misc/lv_log.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../misc/../stdlib/lv_mem.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../misc/lv_math.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../misc/lv_palette.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../misc/lv_color.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/libs/gif/../../misc/lv_color_op.h

@@ -1,0 +1,25 @@
+.pio/build/rgb-staged-startup-buffer16/lib38c/lvgl/drivers/evdev/lv_evdev.c.o: \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/lv_evdev.c \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/lv_evdev.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/lv_indev.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../core/lv_group.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../core/../lv_conf_internal.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../core/../lv_conf_kconfig.h \
+ /home/barro/.platformio/packages/framework-arduinoespressif32-libs/esp32s3/qio_opi/include/sdkconfig.h \
+ /home/barro/.platformio/packages/framework-arduinoespressif32-libs/esp32s3/include/esp_common/include/esp_attr.h \
+ /home/barro/dev/projects/esp32_touch_calendar/include/lv_conf.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../core/../misc/lv_types.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../core/../misc/../lv_conf_internal.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../core/../misc/lv_ll.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../core/../misc/lv_types.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../misc/lv_area.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../misc/../lv_conf_internal.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../misc/lv_types.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../misc/lv_math.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../misc/lv_timer.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../misc/../tick/lv_tick.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../misc/../tick/../lv_conf_internal.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../misc/../tick/../misc/lv_types.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../misc/lv_ll.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../misc/lv_event.h \
+ .pio/libdeps/rgb-staged-startup-buffer16/lvgl/src/drivers/evdev/../../indev/../misc/lv_array.h

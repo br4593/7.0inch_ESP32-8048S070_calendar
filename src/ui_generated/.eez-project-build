@@ -1,0 +1,15 @@
+{
+  "files": [
+    "actions.h",
+    "fonts.h",
+    "images.c",
+    "images.h",
+    "screens.c",
+    "screens.h",
+    "styles.c",
+    "styles.h",
+    "ui.c",
+    "ui.h",
+    "vars.h"
+  ]
+}

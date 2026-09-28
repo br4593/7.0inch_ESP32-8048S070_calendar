@@ -1,0 +1,575 @@
+TYPE	SCREEN	NAME/DEPTH	X	Y	W	H	...
+BUTTON	today	header/wifi	500	8	176	48	509	21	24	24	-67	1	yes	20	18	18	3	1	0	0	0	0	ff356645	ff356645	255	
+BUTTON	today	header/settings	688	8	96	48	689	23	96	20	1	1	no	64	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Settings
+GROUP	today	header/actions	500,8,176,48	688,8,96,48,gap=12
+BUTTON	today	weather/card	510	80	270	328	527	97	238	28	1	-133	yes	147	24	24	7	1	0	0	0	0	ff1d2430	ff46505f	255	ירושלים / Jerusalem
+BUTTON	today	nav/today	20	429	244	48	20	443	244	20	0	0	yes	48	18	18	3	0	0	0	0	0	ff1d2430	ff1d2430	255	Today
+BUTTON	today	nav/calendar	278	429	244	48	278	443	244	20	0	0	yes	74	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Calendar
+BUTTON	today	nav/forecast	536	429	244	48	536	443	244	20	0	0	yes	70	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Forecast
+GROUP	today	nav/buttons	20,429,244,48	278,429,244,48,gap=14	536,429,244,48,gap=14
+GROUP	today	cards	20,80,470,328	510,80,270,328,gap=20
+TREE	today	0	object	0	0	800	480	
+TREE	today	1	object	0	0	800	64	
+TREE	today	2	label	20	16	100	36	09:41
+TREE	today	2	label	136	8	352	24	28/09/2026
+TREE	today	2	label	136	34	352	22	Synced 09:41
+TREE	today	2	button	500	8	176	48	
+BUTTON	today	dynamic/button	500	8	176	48	509	21	24	24	-67	1	yes	20	18	18	3	1	0	0	0	0	ff356645	ff356645	255	
+TREE	today	3	label	509	21	24	24	
+TREE	today	3	label	537	21	132	24	Wi-Fi connected
+TREE	today	2	button	688	8	96	48	
+BUTTON	today	dynamic/button	688	8	96	48	689	23	96	20	1	1	no	64	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Settings
+TREE	today	3	label	689	23	96	20	Settings
+TREE	today	1	object	20	80	470	328	
+TREE	today	2	label	37	97	260	28	Today
+TREE	today	2	label	307	97	168	28	4 events
+TREE	today	2	object	37	135	436	224	
+TREE	today	3	button	37	135	436	54	
+BUTTON	today	dynamic/button	37	135	436	54	65	139	255	24	-62.5	-11	yes	150	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	יום הולדת / Birthday
+TREE	today	4	object	45	158	10	10	
+TREE	today	4	label	65	139	255	24	יום הולדת / Birthday
+TREE	today	4	label	65	163	255	22	Family
+TREE	today	4	label	324	151	130	24	All day
+TREE	today	3	button	37	191	436	54	
+BUTTON	today	dynamic/button	37	191	436	54	65	195	255	24	-62.5	-11	yes	213	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	פגישת צוות / Team stand-up
+TREE	today	4	object	45	214	10	10	
+TREE	today	4	label	65	195	255	24	פגישת צוות / Team stand-up
+TREE	today	4	label	65	219	255	22	עבודה / Work
+TREE	today	4	label	324	207	130	24	10:30 - 11:00
+TREE	today	3	button	37	247	436	54	
+BUTTON	today	dynamic/button	37	247	436	54	65	251	255	24	-62.5	-11	yes	253	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	A deliberately long planning e...
+TREE	today	4	object	45	270	10	10	
+TREE	today	4	label	65	251	255	24	A deliberately long planning e...
+TREE	today	4	label	65	275	255	22	עבודה / Work
+TREE	today	4	label	324	263	130	24	13:00 - 14:00
+TREE	today	3	button	37	303	436	54	
+BUTTON	today	dynamic/button	37	303	436	54	65	307	255	24	-62.5	-11	yes	163	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Dentist appointment
+TREE	today	4	object	45	326	10	10	
+TREE	today	4	label	65	307	255	24	Dentist appointment
+TREE	today	4	label	65	331	255	22	Family
+TREE	today	4	label	324	319	130	24	16:00 - 16:30
+TREE	today	2	label	37	367	436	26	Tap an event for details
+TREE	today	1	button	510	80	270	328	
+BUTTON	today	dynamic/button	510	80	270	328	527	97	238	28	1	-133	yes	147	24	24	7	1	0	0	0	0	ff1d2430	ff46505f	255	ירושלים / Jerusalem
+TREE	today	2	label	527	97	238	28	ירושלים / Jerusalem
+TREE	today	2	object	527	141	80	80	
+TREE	today	3	image	540	154	56	56	
+TREE	today	2	label	623	155	142	40	26.0 C
+TREE	today	2	label	623	197	142	48	מעונן חלקית
+TREE	today	2	label	527	257	130	24	Feels like
+TREE	today	2	label	661	257	104	24	27.0 C
+TREE	today	2	label	527	289	130	24	Humidity
+TREE	today	2	label	661	289	104	24	100%
+TREE	today	2	label	527	321	100	24	Wind
+TREE	today	2	label	627	321	138	24	11.9 km/h
+TREE	today	2	label	527	367	142	24	Updated 09:30
+TREE	today	2	label	673	367	92	24	Forecast >
+TREE	today	1	object	0	424	800	56	
+TREE	today	2	button	20	429	244	48	
+BUTTON	today	dynamic/button	20	429	244	48	20	443	244	20	0	0	yes	48	18	18	3	0	0	0	0	0	ff1d2430	ff1d2430	255	Today
+TREE	today	3	label	20	443	244	20	Today
+TREE	today	2	button	278	429	244	48	
+BUTTON	today	dynamic/button	278	429	244	48	278	443	244	20	0	0	yes	74	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Calendar
+TREE	today	3	label	278	443	244	20	Calendar
+TREE	today	2	button	536	429	244	48	
+BUTTON	today	dynamic/button	536	429	244	48	536	443	244	20	0	0	yes	70	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Forecast
+TREE	today	3	label	536	443	244	20	Forecast
+TREE	today	2	object	118	478	48	3	
+BUTTON	week	header/wifi	500	8	176	48	509	21	24	24	-67	1	yes	20	18	18	3	1	0	0	0	0	ff356645	ff356645	255	
+BUTTON	week	header/settings	688	8	96	48	689	23	96	20	1	1	no	64	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Settings
+GROUP	week	header/actions	500,8,176,48	688,8,96,48,gap=12
+BUTTON	week	period/prev	12	68	52	48	13	83	52	20	1	1	no	37	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Prev
+BUTTON	week	period/today	72	68	72	48	73	83	72	20	1	1	no	50	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Today
+BUTTON	week	period/next	152	68	52	48	153	83	52	20	1	1	no	38	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Next
+BUTTON	week	period/week	536	68	116	48	538	84	116	20	2	2	no	45	24	24	7	2	0	0	0	0	ff1d2430	ff1d2430	255	Week
+BUTTON	week	period/month	660	68	128	48	661	83	128	20	1	1	no	50	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Month
+GROUP	week	period/left	12,68,52,48	72,68,72,48,gap=8	152,68,52,48,gap=8
+GROUP	week	period/right	536,68,116,48	660,68,128,48,gap=8
+BUTTON	week	day/0	20	128	100	48	21	135	100	18	1	-8	no	36	18	18	3	1	0	0	0	0	ff46505f	ff46505f	255	SUN
+BUTTON	week	day/1	130	128	100	48	133	137	100	18	3	-6	no	41	18	18	3	3	0	0	0	0	ffffffff	ffffffff	255	MON
+BUTTON	week	day/2	240	128	100	48	241	135	100	18	1	-8	no	33	18	18	3	1	0	0	0	0	ff46505f	ff46505f	255	TUE
+BUTTON	week	day/3	350	128	100	48	351	135	100	18	1	-8	no	42	18	18	3	1	0	0	0	0	ff46505f	ff46505f	255	WED
+BUTTON	week	day/4	460	128	100	48	461	135	100	18	1	-8	no	35	18	18	3	1	0	0	0	0	ff46505f	ff46505f	255	THU
+BUTTON	week	day/5	570	128	100	48	571	135	100	18	1	-8	no	27	18	18	3	1	0	0	0	0	ff46505f	ff46505f	255	FRI
+BUTTON	week	day/6	680	128	100	48	681	135	100	18	1	-8	no	30	18	18	3	1	0	0	0	0	ff46505f	ff46505f	255	SAT
+GROUP	week	day/buttons	20,128,100,48	130,128,100,48,gap=10	240,128,100,48,gap=10	350,128,100,48,gap=10	460,128,100,48,gap=10	570,128,100,48,gap=10	680,128,100,48,gap=10
+BUTTON	week	nav/today	20	429	244	48	20	443	244	20	0	0	yes	48	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Today
+BUTTON	week	nav/calendar	278	429	244	48	278	443	244	20	0	0	yes	74	18	18	3	0	0	0	0	0	ff1d2430	ff1d2430	255	Calendar
+BUTTON	week	nav/forecast	536	429	244	48	536	443	244	20	0	0	yes	70	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Forecast
+GROUP	week	nav/buttons	20,429,244,48	278,429,244,48,gap=14	536,429,244,48,gap=14
+TREE	week	0	object	0	0	800	480	
+TREE	week	1	object	0	0	800	64	
+TREE	week	2	label	20	16	100	36	09:41
+TREE	week	2	label	136	8	352	24	28/09/2026
+TREE	week	2	label	136	34	352	22	Synced 09:41
+TREE	week	2	button	500	8	176	48	
+BUTTON	week	dynamic/button	500	8	176	48	509	21	24	24	-67	1	yes	20	18	18	3	1	0	0	0	0	ff356645	ff356645	255	
+TREE	week	3	label	509	21	24	24	
+TREE	week	3	label	537	21	132	24	Wi-Fi connected
+TREE	week	2	button	688	8	96	48	
+BUTTON	week	dynamic/button	688	8	96	48	689	23	96	20	1	1	no	64	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Settings
+TREE	week	3	label	689	23	96	20	Settings
+TREE	week	1	object	0	64	800	56	
+TREE	week	2	button	12	68	52	48	
+BUTTON	week	dynamic/button	12	68	52	48	13	83	52	20	1	1	no	37	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Prev
+TREE	week	3	label	13	83	52	20	Prev
+TREE	week	2	button	152	68	52	48	
+BUTTON	week	dynamic/button	152	68	52	48	153	83	52	20	1	1	no	38	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Next
+TREE	week	3	label	153	83	52	20	Next
+TREE	week	2	button	72	68	72	48	
+BUTTON	week	dynamic/button	72	68	72	48	73	83	72	20	1	1	no	50	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Today
+TREE	week	3	label	73	83	72	20	Today
+TREE	week	2	label	216	81	310	24	27/09/2026 - 03/10/2026
+TREE	week	2	button	536	68	116	48	
+BUTTON	week	dynamic/button	536	68	116	48	538	84	116	20	2	2	no	45	24	24	7	2	0	0	0	0	ff1d2430	ff1d2430	255	Week
+TREE	week	3	label	538	84	116	20	Week
+TREE	week	2	button	660	68	128	48	
+BUTTON	week	dynamic/button	660	68	128	48	661	83	128	20	1	1	no	50	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Month
+TREE	week	3	label	661	83	128	20	Month
+TREE	week	1	object	0	120	800	64	
+TREE	week	2	button	20	128	100	48	
+BUTTON	week	dynamic/button	20	128	100	48	21	135	100	18	1	-8	no	36	18	18	3	1	0	0	0	0	ff46505f	ff46505f	255	SUN
+TREE	week	3	label	21	135	100	18	SUN
+TREE	week	3	label	21	154	100	18	27/09 (0)
+TREE	week	2	button	130	128	100	48	
+BUTTON	week	dynamic/button	130	128	100	48	133	137	100	18	3	-6	no	41	18	18	3	3	0	0	0	0	ffffffff	ffffffff	255	MON
+TREE	week	3	label	133	137	100	18	MON
+TREE	week	3	label	133	156	100	18	28/09 (4)
+TREE	week	2	button	240	128	100	48	
+BUTTON	week	dynamic/button	240	128	100	48	241	135	100	18	1	-8	no	33	18	18	3	1	0	0	0	0	ff46505f	ff46505f	255	TUE
+TREE	week	3	label	241	135	100	18	TUE
+TREE	week	3	label	241	154	100	18	29/09 (0)
+TREE	week	2	button	350	128	100	48	
+BUTTON	week	dynamic/button	350	128	100	48	351	135	100	18	1	-8	no	42	18	18	3	1	0	0	0	0	ff46505f	ff46505f	255	WED
+TREE	week	3	label	351	135	100	18	WED
+TREE	week	3	label	351	154	100	18	30/09 (0)
+TREE	week	2	button	460	128	100	48	
+BUTTON	week	dynamic/button	460	128	100	48	461	135	100	18	1	-8	no	35	18	18	3	1	0	0	0	0	ff46505f	ff46505f	255	THU
+TREE	week	3	label	461	135	100	18	THU
+TREE	week	3	label	461	154	100	18	01/10 (0)
+TREE	week	2	button	570	128	100	48	
+BUTTON	week	dynamic/button	570	128	100	48	571	135	100	18	1	-8	no	27	18	18	3	1	0	0	0	0	ff46505f	ff46505f	255	FRI
+TREE	week	3	label	571	135	100	18	FRI
+TREE	week	3	label	571	154	100	18	02/10 (0)
+TREE	week	2	button	680	128	100	48	
+BUTTON	week	dynamic/button	680	128	100	48	681	135	100	18	1	-8	no	30	18	18	3	1	0	0	0	0	ff46505f	ff46505f	255	SAT
+TREE	week	3	label	681	135	100	18	SAT
+TREE	week	3	label	681	154	100	18	03/10 (0)
+TREE	week	1	object	20	192	760	180	
+TREE	week	2	button	33	205	734	54	
+BUTTON	week	dynamic/button	33	205	734	54	64	211	480	20	-96	-11	yes	150	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	יום הולדת / Birthday
+TREE	week	3	object	42	228	10	10	
+TREE	week	3	label	64	211	480	20	יום הולדת / Birthday
+TREE	week	3	label	64	234	480	20	Family
+TREE	week	3	label	554	221	195	24	All day
+TREE	week	2	button	33	265	734	54	
+BUTTON	week	dynamic/button	33	265	734	54	64	271	480	20	-96	-11	yes	213	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	פגישת צוות / Team stand-up
+TREE	week	3	object	42	288	10	10	
+TREE	week	3	label	64	271	480	20	פגישת צוות / Team stand-up
+TREE	week	3	label	64	294	480	20	עבודה / Work
+TREE	week	3	label	554	281	195	24	10:30 - 11:00
+TREE	week	2	button	33	325	734	54	
+BUTTON	week	dynamic/button	33	325	734	54	64	331	480	20	-96	-11	yes	478	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	A deliberately long planning event with extra information ...
+TREE	week	3	object	42	348	10	10	
+TREE	week	3	label	64	331	480	20	A deliberately long planning event with extra information ...
+TREE	week	3	label	64	354	480	20	עבודה / Work
+TREE	week	3	label	554	341	195	24	13:00 - 14:00
+TREE	week	2	button	33	385	734	54	
+BUTTON	week	dynamic/button	33	385	734	54	64	391	480	20	-96	-11	yes	163	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Dentist appointment
+TREE	week	3	object	42	408	10	10	
+TREE	week	3	label	64	391	480	20	Dentist appointment
+TREE	week	3	label	64	414	480	20	Family
+TREE	week	3	label	554	401	195	24	16:00 - 16:30
+TREE	week	1	label	36	380	728	20	4 events
+TREE	week	1	object	20	400	760	24	
+TREE	week	2	label	28	402	744	20	Tap an event for details
+TREE	week	1	object	0	424	800	56	
+TREE	week	2	button	20	429	244	48	
+BUTTON	week	dynamic/button	20	429	244	48	20	443	244	20	0	0	yes	48	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Today
+TREE	week	3	label	20	443	244	20	Today
+TREE	week	2	button	278	429	244	48	
+BUTTON	week	dynamic/button	278	429	244	48	278	443	244	20	0	0	yes	74	18	18	3	0	0	0	0	0	ff1d2430	ff1d2430	255	Calendar
+TREE	week	3	label	278	443	244	20	Calendar
+TREE	week	2	button	536	429	244	48	
+BUTTON	week	dynamic/button	536	429	244	48	536	443	244	20	0	0	yes	70	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Forecast
+TREE	week	3	label	536	443	244	20	Forecast
+TREE	week	2	object	376	478	48	3	
+BUTTON	month	header/wifi	500	8	176	48	509	21	24	24	-67	1	yes	20	18	18	3	1	0	0	0	0	ff356645	ff356645	255	
+BUTTON	month	header/settings	688	8	96	48	689	23	96	20	1	1	no	64	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Settings
+GROUP	month	header/actions	500,8,176,48	688,8,96,48,gap=12
+BUTTON	month	period/prev	12	68	52	48	13	83	52	20	1	1	no	37	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Prev
+BUTTON	month	period/today	72	68	72	48	73	83	72	20	1	1	no	50	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Today
+BUTTON	month	period/next	152	68	52	48	153	83	52	20	1	1	no	38	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Next
+BUTTON	month	period/week	536	68	116	48	537	83	116	20	1	1	no	45	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Week
+BUTTON	month	period/month	660	68	128	48	662	84	128	20	2	2	no	50	24	24	7	2	0	0	0	0	ff1d2430	ff1d2430	255	Month
+GROUP	month	period/left	12,68,52,48	72,68,72,48,gap=8	152,68,52,48,gap=8
+GROUP	month	period/right	536,68,116,48	660,68,128,48,gap=8
+GROUP	month	weekday/labels	20,128,108,20	128,128,109,20,gap=0	237,128,108,20,gap=0	345,128,109,20,gap=0	454,128,108,20,gap=0	562,128,109,20,gap=0	671,128,109,20,gap=0
+OBJECT	month	grid	20	156	760	266	21	157	758	264	1	0	0	0	0	
+BUTTON	month	nav/today	20	429	244	48	20	443	244	20	0	0	yes	48	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Today
+BUTTON	month	nav/calendar	278	429	244	48	278	443	244	20	0	0	yes	74	18	18	3	0	0	0	0	0	ff1d2430	ff1d2430	255	Calendar
+BUTTON	month	nav/forecast	536	429	244	48	536	443	244	20	0	0	yes	70	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Forecast
+GROUP	month	nav/buttons	20,429,244,48	278,429,244,48,gap=14	536,429,244,48,gap=14
+TREE	month	0	object	0	0	800	480	
+TREE	month	1	object	0	0	800	64	
+TREE	month	2	label	20	16	100	36	09:41
+TREE	month	2	label	136	8	352	24	28/09/2026
+TREE	month	2	label	136	34	352	22	Synced 09:41
+TREE	month	2	button	500	8	176	48	
+BUTTON	month	dynamic/button	500	8	176	48	509	21	24	24	-67	1	yes	20	18	18	3	1	0	0	0	0	ff356645	ff356645	255	
+TREE	month	3	label	509	21	24	24	
+TREE	month	3	label	537	21	132	24	Wi-Fi connected
+TREE	month	2	button	688	8	96	48	
+BUTTON	month	dynamic/button	688	8	96	48	689	23	96	20	1	1	no	64	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Settings
+TREE	month	3	label	689	23	96	20	Settings
+TREE	month	1	object	0	64	800	56	
+TREE	month	2	button	12	68	52	48	
+BUTTON	month	dynamic/button	12	68	52	48	13	83	52	20	1	1	no	37	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Prev
+TREE	month	3	label	13	83	52	20	Prev
+TREE	month	2	button	152	68	52	48	
+BUTTON	month	dynamic/button	152	68	52	48	153	83	52	20	1	1	no	38	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Next
+TREE	month	3	label	153	83	52	20	Next
+TREE	month	2	button	72	68	72	48	
+BUTTON	month	dynamic/button	72	68	72	48	73	83	72	20	1	1	no	50	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Today
+TREE	month	3	label	73	83	72	20	Today
+TREE	month	2	label	216	68	310	24	September 2026
+TREE	month	2	label	216	94	310	24	4 in view; tap a date
+TREE	month	2	button	536	68	116	48	
+BUTTON	month	dynamic/button	536	68	116	48	537	83	116	20	1	1	no	45	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Week
+TREE	month	3	label	537	83	116	20	Week
+TREE	month	2	button	660	68	128	48	
+BUTTON	month	dynamic/button	660	68	128	48	662	84	128	20	2	2	no	50	24	24	7	2	0	0	0	0	ff1d2430	ff1d2430	255	Month
+TREE	month	3	label	662	84	128	20	Month
+TREE	month	1	object	20	120	760	36	
+TREE	month	2	label	20	128	108	20	SUN
+TREE	month	2	label	128	128	109	20	MON
+TREE	month	2	label	237	128	108	20	TUE
+TREE	month	2	label	345	128	109	20	WED
+TREE	month	2	label	454	128	108	20	THU
+TREE	month	2	label	562	128	109	20	FRI
+TREE	month	2	label	671	128	109	20	SAT
+TREE	month	1	object	20	156	760	266	
+TREE	month	2	table	21	157	758	264	
+TREE	month	1	object	0	424	800	56	
+TREE	month	2	button	20	429	244	48	
+BUTTON	month	dynamic/button	20	429	244	48	20	443	244	20	0	0	yes	48	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Today
+TREE	month	3	label	20	443	244	20	Today
+TREE	month	2	button	278	429	244	48	
+BUTTON	month	dynamic/button	278	429	244	48	278	443	244	20	0	0	yes	74	18	18	3	0	0	0	0	0	ff1d2430	ff1d2430	255	Calendar
+TREE	month	3	label	278	443	244	20	Calendar
+TREE	month	2	button	536	429	244	48	
+BUTTON	month	dynamic/button	536	429	244	48	536	443	244	20	0	0	yes	70	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Forecast
+TREE	month	3	label	536	443	244	20	Forecast
+TREE	month	2	object	376	478	48	3	
+BUTTON	forecast	header/back	688	8	96	48	689	23	96	20	1	1	no	61	16	16	3	1	0	0	0	0	ff1d2430	ff1d2430	255	Settings
+BUTTON	forecast	header/wifi	500	8	176	48	509	21	24	24	-67	1	yes	20	18	18	3	1	0	0	0	0	ff356645	ff356645	255	
+BUTTON	forecast	action/location	476	72	184	44	477	85	184	20	1	1	no	86	16	16	3	1	0	0	0	0	ff1d2430	ff1d2430	255	Set location
+BUTTON	forecast	action/refresh	668	72	112	44	669	85	112	20	1	1	no	57	16	16	3	1	0	0	0	0	ff1d2430	ff1d2430	255	Refresh
+GROUP	forecast	header/actions	688,8,96,48	500,8,176,48,gap=-284	476,72,184,44,gap=-200	668,72,112,44,gap=8
+BUTTON	forecast	nav/today	20	429	244	48	20	443	244	20	0	0	yes	48	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Today
+BUTTON	forecast	nav/calendar	278	429	244	48	278	443	244	20	0	0	yes	74	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Calendar
+BUTTON	forecast	nav/forecast	536	429	244	48	536	443	244	20	0	0	yes	70	18	18	3	0	0	0	0	0	ff1d2430	ff1d2430	255	Forecast
+GROUP	forecast	nav/buttons	20,429,244,48	278,429,244,48,gap=14	536,429,244,48,gap=14
+TREE	forecast	0	object	0	0	800	480	
+TREE	forecast	1	object	0	0	800	64	
+TREE	forecast	2	button	688	8	96	48	
+BUTTON	forecast	dynamic/button	688	8	96	48	689	23	96	20	1	1	no	61	16	16	3	1	0	0	0	0	ff1d2430	ff1d2430	255	Settings
+TREE	forecast	3	label	689	23	96	20	Settings
+TREE	forecast	2	label	20	16	100	36	09:41
+TREE	forecast	2	label	136	8	352	24	28/09/2026
+TREE	forecast	2	label	136	34	352	22	Synced 09:41
+TREE	forecast	2	button	500	8	176	48	
+BUTTON	forecast	dynamic/button	500	8	176	48	509	21	24	24	-67	1	yes	20	18	18	3	1	0	0	0	0	ff356645	ff356645	255	
+TREE	forecast	3	label	509	21	24	24	
+TREE	forecast	3	label	537	21	132	24	Wi-Fi connected
+TREE	forecast	1	label	20	76	400	28	ירושלים / Jerusalem
+TREE	forecast	1	object	24	124	64	60	
+TREE	forecast	2	image	29	127	56	56	
+TREE	forecast	1	label	96	126	160	52	26.0 C
+TREE	forecast	1	label	272	128	180	48	מעונן חלקית
+TREE	forecast	1	label	468	126	312	24	Feels like 27.0 C
+TREE	forecast	1	label	468	154	150	24	Humidity 100%
+TREE	forecast	1	label	626	154	154	24	Wind 11.9 km/h
+TREE	forecast	1	label	480	190	300	24	Updated 09:30
+TREE	forecast	1	label	20	184	430	52	Weather ready
+TREE	forecast	1	label	20	402	760	20	Weather data by OpenWeather
+TREE	forecast	1	object	20	244	760	156	
+TREE	forecast	2	label	30	249	100	38	MON 28/09
+TREE	forecast	2	object	59	289	42	42	
+TREE	forecast	3	image	64	294	32	32	
+TREE	forecast	2	label	30	333	100	24	18 / 26
+TREE	forecast	2	label	30	359	100	40	Clear Precip 10%
+TREE	forecast	2	label	137	249	100	38	TUE 29/09
+TREE	forecast	2	object	166	289	42	42	
+TREE	forecast	3	image	171	294	32	32	
+TREE	forecast	2	label	137	333	100	24	19 / 27
+TREE	forecast	2	label	137	359	100	40	Few clouds Precip 10%
+TREE	forecast	2	label	244	249	100	38	WED 30/09
+TREE	forecast	2	object	273	289	42	42	
+TREE	forecast	3	image	278	294	32	32	
+TREE	forecast	2	label	244	333	100	24	20 / 28
+TREE	forecast	2	label	244	359	100	40	Cloudy Precip 10%
+TREE	forecast	2	label	351	249	100	38	THU 01/10
+TREE	forecast	2	object	380	289	42	42	
+TREE	forecast	3	image	385	294	32	32	
+TREE	forecast	2	label	351	333	100	24	21 / 29
+TREE	forecast	2	label	351	359	100	40	Rain Precip 70%
+TREE	forecast	2	label	458	249	100	38	FRI 02/10
+TREE	forecast	2	object	487	289	42	42	
+TREE	forecast	3	image	492	294	32	32	
+TREE	forecast	2	label	458	333	100	24	22 / 30
+TREE	forecast	2	label	458	359	100	40	Snow Precip 10%
+TREE	forecast	2	label	565	249	100	38	SAT 03/10
+TREE	forecast	2	object	594	289	42	42	
+TREE	forecast	3	image	599	294	32	32	
+TREE	forecast	2	label	565	333	100	24	23 / 31
+TREE	forecast	2	label	565	359	100	40	Storms Precip 10%
+TREE	forecast	2	label	672	249	100	38	SUN 04/10
+TREE	forecast	2	object	701	289	42	42	
+TREE	forecast	3	image	706	294	32	32	
+TREE	forecast	2	label	672	333	100	24	24 / 32
+TREE	forecast	2	label	672	359	100	40	Fog Precip 10%
+TREE	forecast	1	object	0	424	800	56	
+TREE	forecast	2	button	20	429	244	48	
+BUTTON	forecast	dynamic/button	20	429	244	48	20	443	244	20	0	0	yes	48	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Today
+TREE	forecast	3	label	20	443	244	20	Today
+TREE	forecast	2	button	278	429	244	48	
+BUTTON	forecast	dynamic/button	278	429	244	48	278	443	244	20	0	0	yes	74	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Calendar
+TREE	forecast	3	label	278	443	244	20	Calendar
+TREE	forecast	2	button	536	429	244	48	
+BUTTON	forecast	dynamic/button	536	429	244	48	536	443	244	20	0	0	yes	70	18	18	3	0	0	0	0	0	ff1d2430	ff1d2430	255	Forecast
+TREE	forecast	3	label	536	443	244	20	Forecast
+TREE	forecast	2	object	634	478	48	3	
+TREE	forecast	1	button	476	72	184	44	
+BUTTON	forecast	dynamic/button	476	72	184	44	477	85	184	20	1	1	no	86	16	16	3	1	0	0	0	0	ff1d2430	ff1d2430	255	Set location
+TREE	forecast	2	label	477	85	184	20	Set location
+TREE	forecast	1	button	668	72	112	44	
+BUTTON	forecast	dynamic/button	668	72	112	44	669	85	112	20	1	1	no	57	16	16	3	1	0	0	0	0	ff1d2430	ff1d2430	255	Refresh
+TREE	forecast	2	label	669	85	112	20	Refresh
+TREE	weather-form	0	object	0	0	800	480	
+TREE	weather-form	1	object	0	0	800	64	
+TREE	weather-form	2	button	688	8	96	48	
+BUTTON	weather-form	dynamic/button	688	8	96	48	689	23	96	20	1	1	no	61	16	16	3	1	0	0	0	0	ff1d2430	ff1d2430	255	Settings
+TREE	weather-form	3	label	689	23	96	20	Settings
+TREE	weather-form	2	label	20	16	100	36	09:41
+TREE	weather-form	2	label	136	8	352	24	28/09/2026
+TREE	weather-form	2	label	136	34	352	22	Synced 09:41
+TREE	weather-form	2	button	500	8	176	48	
+BUTTON	weather-form	dynamic/button	500	8	176	48	509	21	24	24	-67	1	yes	20	18	18	3	1	0	0	0	0	ff356645	ff356645	255	
+TREE	weather-form	3	label	509	21	24	24	
+TREE	weather-form	3	label	537	21	132	24	Wi-Fi connected
+TREE	weather-form	1	label	20	76	400	28	ירושלים / Jerusalem
+TREE	weather-form	1	object	24	124	64	60	
+TREE	weather-form	2	image	29	127	56	56	
+TREE	weather-form	1	label	96	126	160	52	26.0 C
+TREE	weather-form	1	label	272	128	180	48	מעונן חלקית
+TREE	weather-form	1	label	468	126	312	24	Feels like 27.0 C
+TREE	weather-form	1	label	468	154	150	24	Humidity 100%
+TREE	weather-form	1	label	626	154	154	24	Wind 11.9 km/h
+TREE	weather-form	1	label	480	190	300	24	Updated 09:30
+TREE	weather-form	1	label	20	184	430	52	Weather ready
+TREE	weather-form	1	label	20	402	760	20	Weather data by OpenWeather
+TREE	weather-form	1	object	20	244	760	156	
+TREE	weather-form	2	label	30	249	100	38	MON 28/09
+TREE	weather-form	2	object	59	289	42	42	
+TREE	weather-form	3	image	64	294	32	32	
+TREE	weather-form	2	label	30	333	100	24	18 / 26
+TREE	weather-form	2	label	30	359	100	40	Clear Precip 10%
+TREE	weather-form	2	label	137	249	100	38	TUE 29/09
+TREE	weather-form	2	object	166	289	42	42	
+TREE	weather-form	3	image	171	294	32	32	
+TREE	weather-form	2	label	137	333	100	24	19 / 27
+TREE	weather-form	2	label	137	359	100	40	Few clouds Precip 10%
+TREE	weather-form	2	label	244	249	100	38	WED 30/09
+TREE	weather-form	2	object	273	289	42	42	
+TREE	weather-form	3	image	278	294	32	32	
+TREE	weather-form	2	label	244	333	100	24	20 / 28
+TREE	weather-form	2	label	244	359	100	40	Cloudy Precip 10%
+TREE	weather-form	2	label	351	249	100	38	THU 01/10
+TREE	weather-form	2	object	380	289	42	42	
+TREE	weather-form	3	image	385	294	32	32	
+TREE	weather-form	2	label	351	333	100	24	21 / 29
+TREE	weather-form	2	label	351	359	100	40	Rain Precip 70%
+TREE	weather-form	2	label	458	249	100	38	FRI 02/10
+TREE	weather-form	2	object	487	289	42	42	
+TREE	weather-form	3	image	492	294	32	32	
+TREE	weather-form	2	label	458	333	100	24	22 / 30
+TREE	weather-form	2	label	458	359	100	40	Snow Precip 10%
+TREE	weather-form	2	label	565	249	100	38	SAT 03/10
+TREE	weather-form	2	object	594	289	42	42	
+TREE	weather-form	3	image	599	294	32	32	
+TREE	weather-form	2	label	565	333	100	24	23 / 31
+TREE	weather-form	2	label	565	359	100	40	Storms Precip 10%
+TREE	weather-form	2	label	672	249	100	38	SUN 04/10
+TREE	weather-form	2	object	701	289	42	42	
+TREE	weather-form	3	image	706	294	32	32	
+TREE	weather-form	2	label	672	333	100	24	24 / 32
+TREE	weather-form	2	label	672	359	100	40	Fog Precip 10%
+TREE	weather-form	1	object	0	424	800	56	
+TREE	weather-form	2	button	20	429	244	48	
+BUTTON	weather-form	dynamic/button	20	429	244	48	20	443	244	20	0	0	yes	48	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Today
+TREE	weather-form	3	label	20	443	244	20	Today
+TREE	weather-form	2	button	278	429	244	48	
+BUTTON	weather-form	dynamic/button	278	429	244	48	278	443	244	20	0	0	yes	74	18	18	3	0	0	0	0	0	ff5b6472	ff5b6472	255	Calendar
+TREE	weather-form	3	label	278	443	244	20	Calendar
+TREE	weather-form	2	button	536	429	244	48	
+BUTTON	weather-form	dynamic/button	536	429	244	48	536	443	244	20	0	0	yes	70	18	18	3	0	0	0	0	0	ff1d2430	ff1d2430	255	Forecast
+TREE	weather-form	3	label	536	443	244	20	Forecast
+TREE	weather-form	2	object	634	478	48	3	
+TREE	weather-form	1	object	0	64	800	416	
+TREE	weather-form	2	label	20	72	420	24	Weather location
+TREE	weather-form	2	textarea	20	100	188	48	
+TREE	weather-form	3	label	32	112	164	24	Jerusalem
+TREE	weather-form	2	textarea	218	100	135	48	
+TREE	weather-form	3	label	230	112	111	24	31.77
+TREE	weather-form	2	textarea	363	100	135	48	
+TREE	weather-form	3	label	375	112	111	24	35.21
+TREE	weather-form	2	dropdown	508	100	156	44	
+TREE	weather-form	2	button	674	100	106	44	
+BUTTON	weather-form	dynamic/button	674	100	106	44	700	110	54	24	0	0	yes	54	24	24	7	1	20	20	11	11	ff1d2430	ff1d2430	255	Cancel
+TREE	weather-form	3	label	700	110	54	24	Cancel
+TREE	weather-form	2	label	20	156	610	42	Typing in: location label (highlighted box)
+TREE	weather-form	2	button	650	154	130	44	
+BUTTON	weather-form	dynamic/button	650	154	130	44	695	164	40	24	0	0	yes	40	24	24	7	0	20	20	11	11	ffffffff	ffffffff	255	Save
+TREE	weather-form	3	label	695	164	40	24	Save
+TREE	weather-form	2	keyboard	12	204	776	268	
+OBJECT	weather-form	units-dropdown	508	100	156	44	520	112	132	20	1	11	11	11	11	
+MEASURE	weather-form	units-dropdown	content=132	metric=128	imperial=138	symbol=14	text+symbol(metric)=142	text+symbol(imperial)=152
+BUTTON	details	header/back	20	8	112	48	21	23	112	20	1	1	no	62	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	<  Back
+OBJECT	details	heading	250	18	300	28	250	18	300	28	0	0	0	0	0	Event details
+OBJECT	details	content	20	80	760	380	21	81	758	378	1	0	0	0	0	
+OBJECT	details	title	45	105	712	48	45	105	712	48	0	0	0	0	0	A deliberately long planning event with extra information that must remain readable in Event Details
+OBJECT	details	time	45	177	712	24	45	177	712	24	0	0	0	0	0	28/09/2026 13:00 - 28/09/2026 14:00
+OBJECT	details	location	45	225	712	24	45	225	712	24	0	0	0	0	0	Location: A long location including building entrance floor room number and Jerusalem
+OBJECT	details	calendar	45	273	712	24	45	273	712	24	0	0	0	0	0	Calendar: עבודה / Work
+TREE	details	0	object	0	0	800	480	
+TREE	details	1	object	0	0	800	64	
+TREE	details	2	button	20	8	112	48	
+BUTTON	details	dynamic/button	20	8	112	48	21	23	112	20	1	1	no	62	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	<  Back
+TREE	details	3	label	21	23	112	20	<  Back
+TREE	details	2	label	250	18	300	28	Event details
+TREE	details	1	object	20	80	760	380	
+TREE	details	2	label	45	105	712	48	A deliberately long planning event with extra information that must remain readable in Event Details
+TREE	details	2	label	45	177	712	24	28/09/2026 13:00 - 28/09/2026 14:00
+TREE	details	2	label	45	225	712	24	Location: A long location including building entrance floor room number and Jerusalem
+TREE	details	2	label	45	273	712	24	Calendar: עבודה / Work
+CHECK	details	scroll-reset	long-bottom=-18	long-scrolled=0	short-reopened=0
+BUTTON	settings	header/back	20	8	112	48	21	23	112	20	1	1	no	62	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	<  Back
+BUTTON	settings	action/wifi	20	326	244	56	21	344	244	22	1	1	no	87	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Enter Wi-Fi
+BUTTON	settings	action/setup	278	326	244	56	279	344	244	22	1	1	no	99	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Phone setup
+BUTTON	settings	action/sync	536	326	244	56	536	343	244	22	0	0	yes	114	24	24	7	0	0	0	0	0	ffffffff	ffffffff	255	Sync calendar
+BUTTON	settings	action/appearance	20	398	244	56	21	416	244	22	1	1	no	133	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Display & theme
+BUTTON	settings	action/weather	278	398	244	56	279	416	244	22	1	1	no	118	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Weather setup
+BUTTON	settings	action/firmware	536	398	244	56	537	416	244	22	1	1	no	137	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Firmware update
+GROUP	settings	action/row1	20,326,244,56	278,326,244,56,gap=14	536,326,244,56,gap=14
+GROUP	settings	action/row2	20,398,244,56	278,398,244,56,gap=14	536,398,244,56,gap=14
+TREE	settings	0	object	0	0	800	480	
+TREE	settings	1	object	0	0	800	64	
+TREE	settings	2	button	20	8	112	48	
+BUTTON	settings	dynamic/button	20	8	112	48	21	23	112	20	1	1	no	62	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	<  Back
+TREE	settings	3	label	21	23	112	20	<  Back
+TREE	settings	2	label	230	18	340	28	Calendar settings
+TREE	settings	1	object	20	76	760	242	
+TREE	settings	2	label	45	99	160	24	Wi-Fi
+TREE	settings	2	label	221	85	536	48	Connected using saved home Wi-Fi. Open http://192.168.1.42 on your home Wi-Fi
+TREE	settings	2	label	45	149	160	24	Local time
+TREE	settings	2	label	221	135	536	48	Jerusalem time synchronized
+TREE	settings	2	label	45	199	160	24	Calendar feed
+TREE	settings	2	label	221	185	536	48	2 private calendars saved - Calendar imported
+TREE	settings	2	label	45	243	712	56	Return your phone to home Wi-Fi, then open http://192.168.1.42 to manage private Google iCal addresses and see fetch results.
+TREE	settings	1	button	20	326	244	56	
+BUTTON	settings	dynamic/button	20	326	244	56	21	344	244	22	1	1	no	87	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Enter Wi-Fi
+TREE	settings	2	label	21	344	244	22	Enter Wi-Fi
+TREE	settings	1	button	278	326	244	56	
+BUTTON	settings	dynamic/button	278	326	244	56	279	344	244	22	1	1	no	99	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Phone setup
+TREE	settings	2	label	279	344	244	22	Phone setup
+TREE	settings	1	button	536	326	244	56	
+BUTTON	settings	dynamic/button	536	326	244	56	536	343	244	22	0	0	yes	114	24	24	7	0	0	0	0	0	ffffffff	ffffffff	255	Sync calendar
+TREE	settings	2	label	536	343	244	22	Sync calendar
+TREE	settings	1	button	20	398	244	56	
+BUTTON	settings	dynamic/button	20	398	244	56	21	416	244	22	1	1	no	133	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Display & theme
+TREE	settings	2	label	21	416	244	22	Display & theme
+TREE	settings	1	button	278	398	244	56	
+BUTTON	settings	dynamic/button	278	398	244	56	279	416	244	22	1	1	no	118	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Weather setup
+TREE	settings	2	label	279	416	244	22	Weather setup
+TREE	settings	1	button	536	398	244	56	
+BUTTON	settings	dynamic/button	536	398	244	56	537	416	244	22	1	1	no	137	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	Firmware update
+TREE	settings	2	label	537	416	244	22	Firmware update
+TREE	wifi-form	0	object	0	0	800	480	
+TREE	wifi-form	1	object	0	0	800	64	
+TREE	wifi-form	2	button	20	8	112	48	
+BUTTON	wifi-form	dynamic/button	20	8	112	48	21	23	112	20	1	1	no	62	24	24	7	1	0	0	0	0	ff1d2430	ff1d2430	255	<  Back
+TREE	wifi-form	3	label	21	23	112	20	<  Back
+TREE	wifi-form	2	label	230	18	340	28	Calendar settings
+TREE	wifi-form	1	object	0	64	800	416	
+TREE	wifi-form	2	label	20	72	420	24	Enter home Wi-Fi
+TREE	wifi-form	2	textarea	20	100	490	48	
+TREE	wifi-form	3	label	32	112	466	24	
+TREE	wifi-form	2	button	522	100	124	44	
+BUTTON	wifi-form	dynamic/button	522	100	124	44	543	110	83	24	0.5	0	yes	83	24	24	7	0	20	20	11	11	ffffffff	ffffffff	255	Scan Wi-Fi
+TREE	wifi-form	3	label	543	110	83	24	Scan Wi-Fi
+TREE	wifi-form	2	button	658	100	122	44	
+BUTTON	wifi-form	dynamic/button	658	100	122	44	692	110	54	24	0	0	yes	54	24	24	7	1	20	20	11	11	ff1d2430	ff1d2430	255	Cancel
+TREE	wifi-form	3	label	692	110	54	24	Cancel
+TREE	wifi-form	2	textarea	20	154	760	48	
+TREE	wifi-form	3	label	32	166	736	24	
+TREE	wifi-form	2	label	20	202	760	24	Typing in: network name (highlighted box)
+TREE	wifi-form	2	button	650	224	130	44	
+BUTTON	wifi-form	dynamic/button	650	224	130	44	682	234	66	24	0	0	yes	66	24	24	7	0	20	20	11	11	ffffffff	ffffffff	255	Connect
+TREE	wifi-form	3	label	682	234	66	24	Connect
+TREE	wifi-form	2	keyboard	12	274	776	198	
+BUTTON	appearance	header/back	20	8	112	48	21	23	112	20	1	1	no	52	16	16	3	1	0	0	0	0	ff1d2430	ff1d2430	255	<  Back
+OBJECT	appearance	heading	230	18	340	28	230	18	340	28	0	0	0	0	0	Brightness and theme
+OBJECT	appearance	card	20	88	760	300	21	89	758	298	1	0	0	0	0	
+OBJECT	appearance	preview	265	107	24	24	266	108	22	22	1	0	0	0	0	
+OBJECT	appearance	theme-dropdown	401	99	332	44	413	111	308	20	1	11	11	11	11	
+OBJECT	appearance	dark-switch	641	159	92	44	642	160	90	42	1	0	0	0	0	
+OBJECT	appearance	brightness-slider	49	257	684	44	49	257	684	44	0	0	0	0	0	
+TREE	appearance	0	object	0	0	800	480	
+TREE	appearance	1	object	0	0	800	64	
+TREE	appearance	2	button	20	8	112	48	
+BUTTON	appearance	dynamic/button	20	8	112	48	21	23	112	20	1	1	no	52	16	16	3	1	0	0	0	0	ff1d2430	ff1d2430	255	<  Back
+TREE	appearance	3	label	21	23	112	20	<  Back
+TREE	appearance	2	label	230	18	340	28	Brightness and theme
+TREE	appearance	1	object	20	88	760	300	
+TREE	appearance	2	label	49	107	200	28	Style
+TREE	appearance	2	object	265	107	24	24	
+TREE	appearance	2	object	299	107	24	24	
+TREE	appearance	2	object	333	107	24	24	
+TREE	appearance	2	dropdown	401	99	332	44	
+TREE	appearance	2	label	49	171	420	28	Dark theme
+TREE	appearance	2	switch	641	159	92	44	
+TREE	appearance	2	label	49	225	300	28	Brightness
+TREE	appearance	2	label	595	225	138	28	75%
+TREE	appearance	2	slider	49	257	684	44	
+TREE	appearance	2	label	49	331	684	28	Manual brightness only - no ambient-light sensor is attached.
+BUTTON	firmware	header/back	20	8	112	48	21	23	112	20	1	1	no	52	16	16	3	1	0	0	0	0	ff1d2430	ff1d2430	255	<  Back
+BUTTON	firmware	action/enable	49	355	216	56	50	373	216	22	1	1	no	107	16	16	3	1	0	0	0	0	ff1d2430	ff1d2430	255	Enable update
+BUTTON	firmware	action/cancel	293	355	216	56	294	373	216	22	1	1	no	49	16	16	3	1	0	0	0	0	ff1d2430	ff7e8187	255	Cancel
+BUTTON	firmware	action/reboot	537	355	216	56	538	373	216	22	1	1	no	53	16	16	3	1	0	0	0	0	ff1d2430	ff7e8187	255	Reboot
+GROUP	firmware	action/buttons	49,355,216,56	293,355,216,56,gap=28	537,355,216,56,gap=28
+OBJECT	firmware	heading	230	18	340	28	230	18	340	28	0	0	0	0	0	Firmware update
+OBJECT	firmware	version	49	105	704	28	49	105	704	28	0	0	0	0	0	Current firmware: 0.6.32-balanced-ui
+OBJECT	firmware	state	49	147	704	28	49	147	704	28	0	0	0	0	0	Firmware upload disabled
+OBJECT	firmware	instructions	49	189	704	72	49	189	704	72	0	0	0	0	0	Firmware updates are disabled
+OBJECT	firmware	progress	49	281	704	28	49	281	704	28	0	0	0	0	0	
+TREE	firmware	0	object	0	0	800	480	
+TREE	firmware	1	object	0	0	800	64	
+TREE	firmware	2	button	20	8	112	48	
+BUTTON	firmware	dynamic/button	20	8	112	48	21	23	112	20	1	1	no	52	16	16	3	1	0	0	0	0	ff1d2430	ff1d2430	255	<  Back
+TREE	firmware	3	label	21	23	112	20	<  Back
+TREE	firmware	2	label	230	18	340	28	Firmware update
+TREE	firmware	1	object	20	84	760	374	
+TREE	firmware	2	label	49	105	704	28	Current firmware: 0.6.32-balanced-ui
+TREE	firmware	2	label	49	147	704	28	Firmware upload disabled
+TREE	firmware	2	label	49	189	704	72	Firmware updates are disabled
+TREE	firmware	2	bar	49	281	704	28	
+TREE	firmware	2	button	49	355	216	56	
+BUTTON	firmware	dynamic/button	49	355	216	56	50	373	216	22	1	1	no	107	16	16	3	1	0	0	0	0	ff1d2430	ff1d2430	255	Enable update
+TREE	firmware	3	label	50	373	216	22	Enable update
+TREE	firmware	2	button	293	355	216	56	
+BUTTON	firmware	dynamic/button	293	355	216	56	294	373	216	22	1	1	no	49	16	16	3	1	0	0	0	0	ff1d2430	ff7e8187	255	Cancel
+TREE	firmware	3	label	294	373	216	22	Cancel
+TREE	firmware	2	button	537	355	216	56	
+BUTTON	firmware	dynamic/button	537	355	216	56	538	373	216	22	1	1	no	53	16	16	3	1	0	0	0	0	ff1d2430	ff7e8187	255	Reboot
+TREE	firmware	3	label	538	373	216	22	Reboot

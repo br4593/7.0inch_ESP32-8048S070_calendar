@@ -1,0 +1,46 @@
+{
+  "date": "2026-09-28",
+  "firmware_version": "0.6.32-balanced-ui",
+  "lvgl_version": "9.2.2",
+  "source_files_checked": 51,
+  "changed_source_files": [],
+  "firmware_build": {
+    "environment": "rgb-staged-startup",
+    "exit_code": 0,
+    "incremental": true,
+    "command": "env CCACHE_DISABLE=1 /home/barro/.platformio/penv/bin/pio run -e rgb-staged-startup -s",
+    "environment_retry": "Initial attempt could not write PlatformIO lock; approved retry passed."
+  },
+  "host_tests": {
+    "passed": 6,
+    "failed": 0,
+    "suites": [
+      "calendar_core_tests",
+      "ical_feed_tests",
+      "weather_tests",
+      "ota_health_window_tests",
+      "theme_palette_tests",
+      "ui_status_tests"
+    ],
+    "known_warning": "Existing GCC 16 std::sort array-bounds warning in weather_parser.cpp."
+  },
+  "native_captures": {
+    "count": 22,
+    "dimensions": [
+      800,
+      480
+    ],
+    "light_source": "Temporary actual-LVGL alignment harness in this audit",
+    "dark_and_original_theme_startup_source": "Existing current-source balanced-UI renderer captures"
+  },
+  "firmware_uploaded": false,
+  "physical_hardware_testing": false,
+  "saved_probe": {
+    "configure_exit_code": 0,
+    "build_exit_code": 0,
+    "run_exit_code": 0,
+    "geometry_reproduced_exactly": true,
+    "ink_metrics_reproduced_exactly": true,
+    "light_capture_pixel_mismatches": []
+  }
+}

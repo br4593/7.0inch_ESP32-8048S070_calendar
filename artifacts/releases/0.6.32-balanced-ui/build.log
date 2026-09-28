@@ -1,0 +1,726 @@
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::initialize()':
+src/app/ui_controller.cpp:321:58: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+  321 |                                             LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::style_settings_actions(const board::ConnectivityStatus&)':
+src/app/ui_controller.cpp:1107:30: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1107 |                 LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                 ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1110:30: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1110 |                 LV_PART_MAIN | LV_STATE_PRESSED);
+      |                 ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1115:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1115 |                                           LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1118:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1118 |                                           LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1120:55: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1120 |                                          LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1121:84: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1121 |             lv_obj_set_style_radius(button, metrics().control_radius, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::render_appearance_settings()':
+src/app/ui_controller.cpp:1155:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1155 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1157:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1157 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1159:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1159 |                                           LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1160:74: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1160 |             lv_obj_set_style_border_width(preview.first, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::ensure_main_row(std::size_t)':
+src/app/ui_controller.cpp:1179:90: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1179 |         lv_obj_set_style_bg_color(row, lv_color_hex(palette().action_soft), LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::render_main()':
+src/app/ui_controller.cpp:1275:54: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1275 |                                         LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::render_weather()':
+src/app/ui_controller.cpp:1498:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1498 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1503:61: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1503 |                                                LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1505:54: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1505 |                                         LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::apply_ascii_letter_spacing(lv_obj_t*) const':
+src/app/ui_controller.cpp:1576:61: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1576 |                                                LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::style_surface_card(lv_obj_t*) const':
+src/app/ui_controller.cpp:1605:82: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1605 |         lv_obj_set_style_bg_color(object, lv_color_hex(background), LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1606:68: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1606 |         lv_obj_set_style_bg_opa(object, LV_OPA_COVER, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1607:82: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1607 |         lv_obj_set_style_border_color(object, lv_color_hex(border), LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1608:74: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1608 |         lv_obj_set_style_border_width(object, border_width, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1609:80: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1609 |         lv_obj_set_style_border_side(object, LV_BORDER_SIDE_FULL, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1610:76: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1610 |         lv_obj_set_style_radius(object, recipe().card_radius, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                               ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1611:63: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1611 |         lv_obj_set_style_shadow_width(object, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                  ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1615:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1615 |                                       LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1616:72: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1616 |             lv_obj_set_style_bg_opa(object, LV_OPA_COVER, LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::style_event_row(lv_obj_t*, lv_obj_t*, bool) const':
+src/app/ui_controller.cpp:1625:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1625 |                                     LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1647:79: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1647 |         lv_obj_set_style_bg_color(row, lv_color_hex(background), LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                  ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1648:65: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1648 |         lv_obj_set_style_bg_opa(row, LV_OPA_COVER, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1650:48: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1650 |                                   LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1651:65: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1651 |         lv_obj_set_style_bg_opa(row, LV_OPA_COVER, LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                                    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1652:79: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1652 |         lv_obj_set_style_border_color(row, lv_color_hex(border), LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                  ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1653:71: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1653 |         lv_obj_set_style_border_width(row, border_width, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1654:69: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1654 |         lv_obj_set_style_border_side(row, border_side, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                        ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1655:73: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1655 |         lv_obj_set_style_radius(row, recipe().card_radius, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                            ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1656:60: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1656 |         lv_obj_set_style_shadow_width(row, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                               ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1664:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1664 |                                           LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1669:30: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1669 |                 LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                 ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1671:55: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1671 |                                          LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1673:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1673 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::style_dropdown_popup(lv_obj_t*) const':
+src/app/ui_controller.cpp:1684:48: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1684 |                                   LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1685:66: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1685 |         lv_obj_set_style_bg_opa(list, LV_OPA_COVER, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1687:49: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1687 |                                    LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1689:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1689 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1690:73: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1690 |         lv_obj_set_style_text_line_space(list, line_space, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                            ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1692:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1692 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1694:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1694 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1696:51: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1696 |                                      LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                      ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1697:75: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1697 |         lv_obj_set_style_radius(list, recipe().input_radius, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                              ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1699:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1699 |                                   LV_PART_SELECTED | LV_STATE_DEFAULT);
+      |                                   ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1701:54: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1701 |                                     LV_PART_SELECTED | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1703:59: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1703 |                                          LV_PART_SELECTED | LV_STATE_DEFAULT);
+      |                                          ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1705:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1705 |                                   LV_PART_SELECTED | LV_STATE_PRESSED);
+      |                                   ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1707:54: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1707 |                                     LV_PART_SELECTED | LV_STATE_PRESSED);
+      |                                     ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::neutralize_color_filter(lv_obj_t*) const':
+src/app/ui_controller.cpp:1720:67: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1720 |             lv_obj_set_style_shadow_width(object, 0, LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                                      ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::style_button_text(lv_obj_t*, uint32_t, uint32_t) const':
+src/app/ui_controller.cpp:1728:81: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1728 |         lv_obj_set_style_text_color(button, lv_color_hex(pressed), LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                                                    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::apply_appearance_to_tree(lv_obj_t*) const':
+src/app/ui_controller.cpp:1745:48: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1745 |                                   LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1747:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1747 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1749:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1749 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1752:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1752 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::apply_appearance_to_widgets()':
+src/app/ui_controller.cpp:1774:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1774 |                                           LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1784:92: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1784 |             lv_obj_set_style_bg_color(header, lv_color_hex(palette().header), LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                               ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1789:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1789 |                                           LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1791:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1791 |                                           LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1793:55: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1793 |                                          LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1798:58: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1798 |                                             LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1820:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1820 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1822:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1822 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1825:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1825 |                                       LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1827:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1827 |                                     LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1832:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1832 |                                           LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1836:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1836 |                                           LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1838:55: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1838 |                                          LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1839:84: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1839 |             lv_obj_set_style_radius(button, metrics().control_radius, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1858:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1858 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1860:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1860 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1862:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1862 |                                       LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1867:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1867 |                                           LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1870:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1870 |                                           LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1872:55: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1872 |                                          LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1873:84: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1873 |             lv_obj_set_style_radius(button, metrics().control_radius, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1893:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1893 |                                       LV_PART_SELECTED | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1895:58: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1895 |                                         LV_PART_SELECTED | LV_STATE_DEFAULT);
+      |                                         ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1901:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1901 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1906:57: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1906 |                                       LV_PART_INDICATOR | LV_STATE_CHECKED);
+      |                                       ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1910:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1910 |                                       LV_PART_KNOB | LV_STATE_CHECKED);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1914:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1914 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1916:57: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1916 |                                       LV_PART_INDICATOR | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1918:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1918 |                                       LV_PART_KNOB | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1942:53: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1942 |                                       LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1944:55: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1944 |                                         LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                         ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1948:53: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1948 |                                       LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1950:55: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1950 |                                         LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                         ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1962:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1962 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1966:57: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1966 |                                           LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1968:57: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1968 |                                           LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1970:62: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1970 |                                                LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                                ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::apply_dynamic_row_appearance() const':
+src/app/ui_controller.cpp:1985:58: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1985 |                                             LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:1990:58: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 1990 |                                             LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2004:58: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2004 |                                             LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2007:58: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2007 |                                             LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2012:58: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2012 |                                             LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2015:58: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2015 |                                             LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::style_icon_well(lv_obj_t*, bool) const':
+src/app/ui_controller.cpp:2049:46: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2049 |                                 LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                 ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2051:48: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2051 |                                   LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2053:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2053 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2055:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2055 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2057:51: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2057 |                                      LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                      ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2059:46: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2059 |                                 LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                 ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In lambda function:
+src/app/ui_controller.cpp:2110:60: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2110 |                                               LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                               ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2112:60: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2112 |                                               LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                               ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2114:59: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2114 |                                              LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                              ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2132:54: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2132 |                                         LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2134:54: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2134 |                                         LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2136:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2136 |                                           LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2138:54: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2138 |                                         LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2145:69: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2145 |                                                        LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                        ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2147:62: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2147 |                                                 LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                 ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2159:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2159 |                                           LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2161:54: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2161 |                                         LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::apply_manual_input_appearance(lv_obj_t*) const':
+src/app/ui_controller.cpp:2199:93: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2199 |         lv_obj_set_style_bg_color(object, lv_color_hex(palette().input_inset), LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                                ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2200:68: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2200 |         lv_obj_set_style_bg_opa(object, LV_OPA_COVER, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2201:96: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2201 |         lv_obj_set_style_text_color(object, lv_color_hex(palette().text_primary), LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2202:92: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2202 |         lv_obj_set_style_border_color(object, lv_color_hex(palette().border), LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                               ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2203:84: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2203 |         lv_obj_set_style_border_width(object, recipe().divider_width, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2204:80: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2204 |         lv_obj_set_style_border_side(object, LV_BORDER_SIDE_FULL, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2205:78: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2205 |         lv_obj_set_style_radius(object, metrics().input_radius, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                 ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2208:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2208 |                                       LV_PART_SELECTED | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2210:58: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2210 |                                         LV_PART_SELECTED | LV_STATE_DEFAULT);
+      |                                         ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2215:70: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2215 |                                         LV_PART_TEXTAREA_PLACEHOLDER | LV_STATE_DEFAULT);
+      |                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2217:57: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2217 |                                            LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                            ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2219:57: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2219 |                                            LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                            ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2221:55: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2221 |                                          LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2223:55: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2223 |                                          LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2225:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2225 |                                           LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2229:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2229 |                                           LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::set_dynamic_font(lv_obj_t*) const':
+src/app/ui_controller.cpp:2261:92: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2261 |         lv_obj_set_style_text_font(object, &lv_font_dejavu_16_persian_hebrew, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                               ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2262:74: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2262 |         lv_obj_set_style_base_dir(object, LV_BASE_DIR_AUTO, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::set_emphasis_font(lv_obj_t*) const':
+src/app/ui_controller.cpp:2268:49: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2268 |                                    LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::set_large_time_font(lv_obj_t*) const':
+src/app/ui_controller.cpp:2274:49: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2274 |                                    LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2276:48: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2276 |                                   LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::set_large_temperature_font(lv_obj_t*) const':
+src/app/ui_controller.cpp:2291:49: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2291 |                                    LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2293:48: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2293 |                                   LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::set_compact_ascii_font(lv_obj_t*) const':
+src/app/ui_controller.cpp:2299:49: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2299 |                                    LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2301:48: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2301 |                                   LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::style_calendar_period_controls() const':
+src/app/ui_controller.cpp:2333:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2333 |                                       LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::set_provider_header(lv_obj_t*) const':
+src/app/ui_controller.cpp:2350:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2350 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::update_status_indicators(bool)':
+src/app/ui_controller.cpp:2432:54: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2432 |                                         LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'lv_obj_t* calendar::{anonymous}::CalendarUiController::create_display_wifi_button(lv_obj_t*, const char*, lv_coord_t, lv_coord_t, lv_coord_t, lv_event_cb_t, uint32_t)':
+src/app/ui_controller.cpp:2470:48: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2470 |                                   LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2474:48: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2474 |                                   LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2479:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2479 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2482:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2482 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2484:51: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2484 |                                      LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                      ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2485:80: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2485 |         lv_obj_set_style_radius(button, metrics().control_radius, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2492:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2492 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::create_display_wifi_form()':
+src/app/ui_controller.cpp:2507:100: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2507 |         lv_obj_set_style_bg_color(display_wifi_form_, lv_color_hex(palette().canvas), LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2508:75: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2508 |         lv_obj_set_style_border_width(display_wifi_form_, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                              ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2509:70: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2509 |         lv_obj_set_style_pad_all(display_wifi_form_, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2515:95: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2515 |         lv_obj_set_style_text_color(title, lv_color_hex(palette().text_primary), LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                                  ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2548:110: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2548 |         lv_obj_set_style_text_color(display_wifi_feedback_, lv_color_hex(palette().text_muted), LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                                                 ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2577:74: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2577 |         lv_obj_set_style_pad_top(display_wifi_keyboard_, 3, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2578:77: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2578 |         lv_obj_set_style_pad_bottom(display_wifi_keyboard_, 3, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2579:75: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2579 |         lv_obj_set_style_pad_left(display_wifi_keyboard_, 4, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                              ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2580:76: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2580 |         lv_obj_set_style_pad_right(display_wifi_keyboard_, 4, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                               ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2581:74: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2581 |         lv_obj_set_style_pad_row(display_wifi_keyboard_, 3, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2582:77: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2582 |         lv_obj_set_style_pad_column(display_wifi_keyboard_, 3, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2595:58: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2595 |                                             LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2597:57: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2597 |                                            LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                            ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2599:55: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2599 |                                          LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2601:55: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2601 |                                          LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2603:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2603 |                                           LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2607:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2607 |                                           LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2610:49: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2610 |                                   LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                   ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2612:51: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2612 |                                     LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::create_weather_location_form()':
+src/app/ui_controller.cpp:2851:48: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2851 |                                   LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2853:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2853 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2855:47: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2855 |                                  LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                  ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2862:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2862 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2908:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2908 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2923:47: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2923 |                                  LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                  ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2925:47: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2925 |                                  LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                  ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2927:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2927 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2940:58: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2940 |                                             LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2942:57: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2942 |                                            LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                            ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2944:55: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2944 |                                          LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2946:55: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2946 |                                          LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2948:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2948 |                                           LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2952:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2952 |                                           LV_PART_MAIN | LV_STATE_FOCUSED);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2955:49: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2955 |                                   LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                   ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:2957:51: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 2957 |                                     LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::create_month_grid()':
+src/app/ui_controller.cpp:3137:64: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3137 |         lv_obj_set_style_pad_all(month_table_, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3138:69: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3138 |         lv_obj_set_style_border_width(month_table_, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                        ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3139:83: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3139 |         lv_obj_set_style_radius(month_table_, metrics().card_radius, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                      ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3141:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3141 |                                    LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                    ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3143:48: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3143 |                                   LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3145:49: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3145 |                                   LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                   ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3147:51: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3147 |                                     LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3149:58: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3149 |                                            LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                            ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3150:65: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3150 |         lv_obj_set_style_pad_top(month_table_, 4, LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                                   ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3151:68: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3151 |         lv_obj_set_style_pad_bottom(month_table_, 4, LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                                      ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3152:66: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3152 |         lv_obj_set_style_pad_left(month_table_, 4, LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                                    ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3153:67: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3153 |         lv_obj_set_style_pad_right(month_table_, 4, LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                                     ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3157:69: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3157 |         lv_obj_set_style_min_height(month_table_, 44, LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                                       ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3158:69: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3158 |         lv_obj_set_style_max_height(month_table_, 44, LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                                       ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3160:53: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3160 |                                       LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3162:53: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3162 |                                       LV_PART_ITEMS | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::render_month()':
+src/app/ui_controller.cpp:3318:84: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3318 |                                     lv_color_hex(month_status_color), LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::update_day_strip()':
+src/app/ui_controller.cpp:3363:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3363 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3366:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3366 |                                       LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3372:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3372 |                                           LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3374:56: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3374 |                                           LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                           ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3376:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3376 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::ensure_row(std::size_t)':
+src/app/ui_controller.cpp:3388:86: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3388 |         lv_obj_set_style_bg_color(row, lv_color_hex(palette().surface), LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3389:90: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3389 |         lv_obj_set_style_bg_color(row, lv_color_hex(palette().action_soft), LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3390:90: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3390 |         lv_obj_set_style_border_color(row, lv_color_hex(palette().divider), LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3391:60: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3391 |         lv_obj_set_style_border_width(row, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                               ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3392:74: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3392 |         lv_obj_set_style_radius(row, metrics().card_radius, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3393:55: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3393 |         lv_obj_set_style_pad_all(row, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3394:60: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3394 |         lv_obj_set_style_shadow_width(row, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                               ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3403:48: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3403 |                                   LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                   ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3405:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3405 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3406:75: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3406 |         lv_obj_set_style_border_width(row_colors_[index], 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                              ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3407:84: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3407 |         lv_obj_set_style_radius(row_colors_[index], LV_RADIUS_CIRCLE, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3418:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3418 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3420:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3420 |                                     LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3433:90: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3433 |         lv_obj_set_style_text_align(row_times_[index], LV_TEXT_ALIGN_RIGHT, LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                                                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3436:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3436 |                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3438:50: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3438 |                                     LV_PART_MAIN | LV_STATE_PRESSED);
+      |                                     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp: In member function 'void calendar::{anonymous}::CalendarUiController::render_rows(const calendar::CalendarEventList&)':
+src/app/ui_controller.cpp:3477:54: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3477 |                                         LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+src/app/ui_controller.cpp:3483:52: warning: bitwise operation between different enumeration types '<unnamed enum>' and '<unnamed enum>' is deprecated [-Wdeprecated-enum-enum-conversion]
+ 3483 |                                       LV_PART_MAIN | LV_STATE_DEFAULT);
+      |                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+Total image size: 1838522 bytes (.bin may be padded larger)
+Note: The reported total sizes may be smaller than those in the technical reference manual due to reserved memory and application configuration. The total flash size available for the application is not included by default, as it cannot be reliably determined due to the presence of other data like the bootloader, partition table, and application partition size.

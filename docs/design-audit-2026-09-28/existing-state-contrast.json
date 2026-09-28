@@ -1,0 +1,399 @@
+{
+  "schema_version": 1,
+  "subject": "ESP32 calendar 0.6.31 composed-state palette contrast",
+  "method": {
+    "contrast": "WCAG relative luminance contrast ratio",
+    "quantization": "Each foreground and background is truncated to RGB565 and expanded back to RGB888 before luminance calculation, matching tests/theme_palette_tests.cpp:35-44.",
+    "pressed_filter": "For LV_STATE_PRESSED records, both colors are additionally darkened before RGB565 using pinned LVGL 9.2.2 default theme color filter: black weight 35/255, original color weight 220/255. The filter is inheritable, so child label ink is filtered with its pressed parent.",
+    "thresholds": {
+      "text": 4.5,
+      "non_text_state_indicator": 3.0
+    }
+  },
+  "source_refs": [
+    "src/app/theme_palette.cpp:21-75",
+    "tests/theme_palette_tests.cpp:35-69",
+    "src/app/ui_controller.cpp:1511-1573",
+    "src/app/ui_controller.cpp:1627-1724",
+    "src/app/ui_controller.cpp:1840-1874",
+    "src/app/ui_controller.cpp:1954-2010",
+    "src/app/ui_controller.cpp:2930-2949",
+    "src/app/ui_controller.cpp:3069-3094",
+    "src/ui_generated/screens.c:186",
+    "src/ui_generated/screens.c:554",
+    "src/ui_generated/screens.c:617",
+    ".pio/libdeps/rgb-staged-startup/lvgl/src/themes/default/lv_theme_default.c:311-320",
+    ".pio/libdeps/rgb-staged-startup/lvgl/src/misc/lv_style.c:132-133"
+  ],
+  "verification": {
+    "command": "CCACHE_DISABLE=1 cmake -S /home/barro/dev/projects/esp32_touch_calendar -B /tmp/esp32-design-audit-host -DCMAKE_BUILD_TYPE=Release && CCACHE_DISABLE=1 cmake --build /tmp/esp32-design-audit-host --parallel && CCACHE_DISABLE=1 ctest --test-dir /tmp/esp32-design-audit-host --output-on-failure",
+    "result": "5/5 tests passed",
+    "theme_palette_tests": "passed",
+    "build_note": "GCC 16 emitted the existing weather_parser.cpp std::sort array-bounds warning at lines 606/657."
+  },
+  "failures": [
+    {
+      "appearance": "ModernQuietLight",
+      "state": "generated_today_or_active_period_pressed",
+      "foreground": "#38535D",
+      "background": "#0E5A66",
+      "threshold": 4.5,
+      "raw_rgb565": 1.05,
+      "effective_rgb565": 1.01
+    },
+    {
+      "appearance": "ModernQuietLight",
+      "state": "header_button_pressed",
+      "foreground": "#FFFFFF",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 1.19,
+      "effective_rgb565": 1.21
+    },
+    {
+      "appearance": "ModernQuietLight",
+      "state": "primary_nav_active_pressed",
+      "foreground": "#147A8A",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 4.28,
+      "effective_rgb565": 3.95
+    },
+    {
+      "appearance": "ModernQuietLight",
+      "state": "primary_nav_inactive_pressed",
+      "foreground": "#5B737B",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 4.34,
+      "effective_rgb565": 4.04
+    },
+    {
+      "appearance": "ModernQuietLight",
+      "state": "event_time_pressed",
+      "foreground": "#5B737B",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 4.34,
+      "effective_rgb565": 4.04
+    },
+    {
+      "appearance": "ModernQuietLight",
+      "state": "main_weather_muted_pressed",
+      "foreground": "#5B737B",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 4.34,
+      "effective_rgb565": 4.04
+    },
+    {
+      "appearance": "ModernQuietLight",
+      "state": "selected_today_ring",
+      "foreground": "#A56600",
+      "background": "#147A8A",
+      "threshold": 3.0,
+      "raw_rgb565": 1.08,
+      "effective_rgb565": 1.08
+    },
+    {
+      "appearance": "ModernQuietDark",
+      "state": "generated_previous_or_next_pressed",
+      "foreground": "#D3E0E4",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 1.11,
+      "effective_rgb565": 1.12
+    },
+    {
+      "appearance": "ModernQuietDark",
+      "state": "main_weather_condition_pressed",
+      "foreground": "#D3E0E4",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 1.11,
+      "effective_rgb565": 1.12
+    },
+    {
+      "appearance": "ModernQuietDark",
+      "state": "main_weather_muted_pressed",
+      "foreground": "#A4B7BE",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 1.77,
+      "effective_rgb565": 1.72
+    },
+    {
+      "appearance": "ModernQuietDark",
+      "state": "selection_against_adjacent_surface",
+      "foreground": "#285C69",
+      "background": "#141E24",
+      "threshold": 3.0,
+      "raw_rgb565": 2.37,
+      "effective_rgb565": 2.37
+    },
+    {
+      "appearance": "SwissGridLight",
+      "state": "generated_today_or_active_period_pressed",
+      "foreground": "#383838",
+      "background": "#0E5A66",
+      "threshold": 4.5,
+      "raw_rgb565": 1.46,
+      "effective_rgb565": 1.39
+    },
+    {
+      "appearance": "SwissGridLight",
+      "state": "header_button_pressed",
+      "foreground": "#FFFFFF",
+      "background": "#F6DDDE",
+      "threshold": 4.5,
+      "raw_rgb565": 1.27,
+      "effective_rgb565": 1.31
+    },
+    {
+      "appearance": "SwissGridDark",
+      "state": "generated_previous_or_next_pressed",
+      "foreground": "#D6D6D0",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 1.22,
+      "effective_rgb565": 1.2
+    },
+    {
+      "appearance": "SwissGridDark",
+      "state": "primary_nav_active_pressed",
+      "foreground": "#FF5B5F",
+      "background": "#3A2324",
+      "threshold": 4.5,
+      "raw_rgb565": 4.87,
+      "effective_rgb565": 4.04
+    },
+    {
+      "appearance": "SwissGridDark",
+      "state": "main_weather_condition_pressed",
+      "foreground": "#D6D6D0",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 1.22,
+      "effective_rgb565": 1.2
+    },
+    {
+      "appearance": "SwissGridDark",
+      "state": "main_weather_muted_pressed",
+      "foreground": "#A8A8A0",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 1.95,
+      "effective_rgb565": 1.92
+    },
+    {
+      "appearance": "SwissGridDark",
+      "state": "selection_against_adjacent_surface",
+      "foreground": "#333333",
+      "background": "#181818",
+      "threshold": 3.0,
+      "raw_rgb565": 1.35,
+      "effective_rgb565": 1.35
+    },
+    {
+      "appearance": "BauhausPrimaryLight",
+      "state": "generated_today_or_active_period_pressed",
+      "foreground": "#403D37",
+      "background": "#0E5A66",
+      "threshold": 4.5,
+      "raw_rgb565": 1.36,
+      "effective_rgb565": 1.34
+    },
+    {
+      "appearance": "BauhausPrimaryLight",
+      "state": "header_button_pressed",
+      "foreground": "#2A2100",
+      "background": "#00347E",
+      "threshold": 4.5,
+      "raw_rgb565": 1.37,
+      "effective_rgb565": 1.28
+    },
+    {
+      "appearance": "BauhausPrimaryLight",
+      "state": "primary_nav_active_pressed",
+      "foreground": "#FFFFFF",
+      "background": "#DDE7F5",
+      "threshold": 4.5,
+      "raw_rgb565": 1.24,
+      "effective_rgb565": 1.28
+    },
+    {
+      "appearance": "BauhausPrimaryLight",
+      "state": "selected_today_ring",
+      "foreground": "#7A5F00",
+      "background": "#C62828",
+      "threshold": 3.0,
+      "raw_rgb565": 1.1,
+      "effective_rgb565": 1.1
+    },
+    {
+      "appearance": "BauhausPrimaryDark",
+      "state": "generated_previous_or_next_pressed",
+      "foreground": "#D9D3C5",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 1.24,
+      "effective_rgb565": 1.24
+    },
+    {
+      "appearance": "BauhausPrimaryDark",
+      "state": "header_button_pressed",
+      "foreground": "#FFE072",
+      "background": "#548FDC",
+      "threshold": 4.5,
+      "raw_rgb565": 2.62,
+      "effective_rgb565": 2.54
+    },
+    {
+      "appearance": "BauhausPrimaryDark",
+      "state": "main_weather_condition_pressed",
+      "foreground": "#D9D3C5",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 1.24,
+      "effective_rgb565": 1.24
+    },
+    {
+      "appearance": "BauhausPrimaryDark",
+      "state": "main_weather_muted_pressed",
+      "foreground": "#AAA497",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 2.04,
+      "effective_rgb565": 2.01
+    },
+    {
+      "appearance": "BauhausPrimaryDark",
+      "state": "selection_against_adjacent_surface",
+      "foreground": "#A93633",
+      "background": "#1D1B16",
+      "threshold": 3.0,
+      "raw_rgb565": 2.81,
+      "effective_rgb565": 2.81
+    },
+    {
+      "appearance": "NordicQuietLight",
+      "state": "generated_today_or_active_period_pressed",
+      "foreground": "#3D514A",
+      "background": "#0E5A66",
+      "threshold": 4.5,
+      "raw_rgb565": 1.07,
+      "effective_rgb565": 1.08
+    },
+    {
+      "appearance": "NordicQuietLight",
+      "state": "header_button_pressed",
+      "foreground": "#FFFFFF",
+      "background": "#DCEBE5",
+      "threshold": 4.5,
+      "raw_rgb565": 1.22,
+      "effective_rgb565": 1.26
+    },
+    {
+      "appearance": "NordicQuietLight",
+      "state": "primary_nav_inactive_pressed",
+      "foreground": "#596D65",
+      "background": "#DCEBE5",
+      "threshold": 4.5,
+      "raw_rgb565": 4.51,
+      "effective_rgb565": 4.2
+    },
+    {
+      "appearance": "NordicQuietLight",
+      "state": "event_time_pressed",
+      "foreground": "#596D65",
+      "background": "#DCEBE5",
+      "threshold": 4.5,
+      "raw_rgb565": 4.51,
+      "effective_rgb565": 4.2
+    },
+    {
+      "appearance": "NordicQuietLight",
+      "state": "main_weather_muted_pressed",
+      "foreground": "#596D65",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 4.65,
+      "effective_rgb565": 4.36
+    },
+    {
+      "appearance": "NordicQuietLight",
+      "state": "selected_today_ring",
+      "foreground": "#9B6E1B",
+      "background": "#286B57",
+      "threshold": 3.0,
+      "raw_rgb565": 1.43,
+      "effective_rgb565": 1.43
+    },
+    {
+      "appearance": "NordicQuietDark",
+      "state": "generated_previous_or_next_pressed",
+      "foreground": "#D5E1DB",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 1.11,
+      "effective_rgb565": 1.11
+    },
+    {
+      "appearance": "NordicQuietDark",
+      "state": "main_weather_condition_pressed",
+      "foreground": "#D5E1DB",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 1.11,
+      "effective_rgb565": 1.11
+    },
+    {
+      "appearance": "NordicQuietDark",
+      "state": "main_weather_muted_pressed",
+      "foreground": "#9FB3AA",
+      "background": "#DCECEF",
+      "threshold": 4.5,
+      "raw_rgb565": 1.89,
+      "effective_rgb565": 1.81
+    },
+    {
+      "appearance": "NordicQuietDark",
+      "state": "selection_against_adjacent_surface",
+      "foreground": "#285B4A",
+      "background": "#16211C",
+      "threshold": 3.0,
+      "raw_rgb565": 2.11,
+      "effective_rgb565": 2.11
+    }
+  ],
+  "confirmed_passes": {
+    "input_primary_on_inset_min_rgb565": 13.75,
+    "input_placeholder_on_inset_min_rgb565": 7.54,
+    "focus_on_external_canvas_min_rgb565": 5.29,
+    "weather_condition_text_on_canvas_min_rgb565": 7.85,
+    "dark_weather_icon_opaque_core_on_actual_well_min_rgb565": 3.05,
+    "arbitrary_calendar_marker_on_normal_row_min_rgb565": 5.45,
+    "arbitrary_calendar_marker_on_pressed_row_min_rgb565": 4.48,
+    "modern_quiet_light_input_border_on_external_canvas_rgb565": 3.05
+  },
+  "disabled_state": {
+    "wcag_status": "exempt inactive component",
+    "runtime_behavior": "Pinned LVGL default theme applies an inheritable 50 percent grey filter toward #E0E0E0. The generated theme remains light even when the application selects a dark palette.",
+    "effective_text_background_rgb565": {
+      "ModernQuietLight": 2.65,
+      "ModernQuietDark": 3.18,
+      "SwissGridLight": 3.0,
+      "SwissGridDark": 3.02,
+      "BauhausPrimaryLight": 2.85,
+      "BauhausPrimaryDark": 3.0,
+      "NordicQuietLight": 2.62,
+      "NordicQuietDark": 3.03
+    },
+    "recommendation": "Treat as a physical-panel legibility choice rather than a WCAG contrast failure. Use explicit disabled tokens or restyle the disabled selector if disabled controls must remain easy to read."
+  },
+  "severity": {
+    "high": "Pressed text contrast fails in every appearance through at least one reachable control state.",
+    "medium": "Today indication fails against selected fill in three light appearances; selected fill is below 3:1 against adjacent cells in all dark appearances."
+  },
+  "limitations": "This is source and formula evidence against the pinned LVGL implementation. No simulator screenshot or physical-panel observation was performed."
+}

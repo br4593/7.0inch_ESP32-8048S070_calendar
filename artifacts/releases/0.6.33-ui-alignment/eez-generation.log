@@ -1,0 +1,7 @@
+Observed EEZ Studio 0.28.0 export summary, reported by UI agent:
+No error and no warning detected
+Build duration: 0.175 seconds
+Build successfully finished at 9/28/2026, 5:52:11 PM
+11 outputs: screens.h, screens.c, actions.h, vars.h, images.h, images.c, fonts.h, styles.h, styles.c, ui.h, ui.c
+Editable source: ui/calendar.eez-project
+Generated directory: src/ui_generated

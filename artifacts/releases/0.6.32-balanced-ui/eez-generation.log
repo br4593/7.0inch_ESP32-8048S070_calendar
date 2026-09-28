@@ -1,0 +1,16 @@
+Build project: /home/barro/dev/projects/esp32_touch_calendar/ui/calendar.eez-project
+Configuration: Default
+No error and no warning detected
+File "/home/barro/dev/projects/esp32_touch_calendar/src/ui_generated/screens.h" built
+File "/home/barro/dev/projects/esp32_touch_calendar/src/ui_generated/screens.c" built
+File "/home/barro/dev/projects/esp32_touch_calendar/src/ui_generated/actions.h" built
+File "/home/barro/dev/projects/esp32_touch_calendar/src/ui_generated/vars.h" built
+File "/home/barro/dev/projects/esp32_touch_calendar/src/ui_generated/images.h" built
+File "/home/barro/dev/projects/esp32_touch_calendar/src/ui_generated/images.c" built
+File "/home/barro/dev/projects/esp32_touch_calendar/src/ui_generated/fonts.h" built
+File "/home/barro/dev/projects/esp32_touch_calendar/src/ui_generated/styles.h" built
+File "/home/barro/dev/projects/esp32_touch_calendar/src/ui_generated/styles.c" built
+File "/home/barro/dev/projects/esp32_touch_calendar/src/ui_generated/ui.h" built
+File "/home/barro/dev/projects/esp32_touch_calendar/src/ui_generated/ui.c" built
+Build duration: 0.212 seconds
+Build successfully finished at 9/28/2026, 5:09:19 PM

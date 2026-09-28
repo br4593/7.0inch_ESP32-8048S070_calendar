@@ -1,0 +1,8 @@
+LVGL 9.2.2; RGB565; real EEZ/controller; desktop service/clock/storage fixtures; no hardware
+theme_id=1
+mode=dark
+objects=323
+pool_bytes=297944
+used_bytes=192160
+peak_used_bytes=199568
+failures=0

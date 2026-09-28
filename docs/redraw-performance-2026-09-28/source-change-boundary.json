@@ -1,0 +1,19 @@
+{
+  "baseline": "0.6.33-ui-alignment",
+  "candidate": "0.6.34-redraw-performance",
+  "files_checked": 122,
+  "changed_files": [
+    "src/app/ui_controller.cpp",
+    "src/board/runtime.cpp",
+    "src/board/st7262_panel_adapter.c",
+    "include/app/firmware_version.hpp",
+    "tools/ui_preview/README.md",
+    "tools/ui_preview/services.cpp",
+    "tools/ui_preview/fixtures.hpp",
+    "tools/ui_preview/preview.cpp",
+    "platformio.ini"
+  ],
+  "generated_ui_unchanged": true,
+  "board_profile_unchanged": true,
+  "framework_unchanged": true
+}

@@ -1,0 +1,13 @@
+{
+  "baseline": "0.6.32-balanced-ui",
+  "candidate": "0.6.33-ui-alignment",
+  "files_checked": 114,
+  "changed_files": [
+    "src/app/ui_controller.cpp",
+    "src/ui_generated/screens.h",
+    "src/ui_generated/screens.c",
+    "include/app/firmware_version.hpp",
+    "ui/calendar.eez-project"
+  ],
+  "unchanged_board_and_driver": true
+}

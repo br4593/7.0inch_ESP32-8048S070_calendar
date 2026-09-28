@@ -1,0 +1,960 @@
+--- before/src/app/ui_controller.cpp
++++ after/src/app/ui_controller.cpp
+@@ -61,6 +61,25 @@
+ 
+ struct RowBinding {
+     char event_id[kMaxEventIdBytes + 1]{};
++};
++
++struct FirmwareRenderSignature {
++    board::OtaState state = board::OtaState::Disabled;
++    int32_t progress = 0;
++    bool can_arm = false;
++    bool can_cancel = false;
++    bool can_reboot = false;
++    ThemeId theme_id = kDefaultThemeId;
++    bool dark_theme = false;
++    char instructions[192]{};
++
++    bool matches(const FirmwareRenderSignature& other) const {
++        return state == other.state && progress == other.progress &&
++               can_arm == other.can_arm && can_cancel == other.can_cancel &&
++               can_reboot == other.can_reboot && theme_id == other.theme_id &&
++               dark_theme == other.dark_theme &&
++               std::strcmp(instructions, other.instructions) == 0;
++    }
+ };
+ 
+ enum class PrimaryPage : std::uint8_t { Main, Calendar, Forecast };
+@@ -542,10 +561,12 @@
+     void preview_brightness() {
+         if (!initialized_) return;
+         const int32_t value = lv_slider_get_value(objects.brightness_slider);
+-        appearance_.brightness_percent = clamp_brightness_percent(
++        const std::uint8_t brightness = clamp_brightness_percent(
+             static_cast<std::uint8_t>(std::max(0, std::min(100, static_cast<int>(value)))));
+-        board_runtime::setBacklightPercent(appearance_.brightness_percent);
+-        render_appearance_settings();
++        if (brightness == appearance_.brightness_percent) return;
++        appearance_.brightness_percent = brightness;
++        board_runtime::setBacklightPercent(brightness);
++        update_brightness_value_label();
+     }
+ 
+     void commit_brightness() {
+@@ -1075,31 +1096,50 @@
+         } else {
+             hint = "Tap Set up to scan and choose the home Wi-Fi. The iCal address is entered only after the display joins it.";
+         }
+-        const std::array<std::pair<lv_obj_t*, lv_obj_t*>, 3> status_values{{
+-            {objects.settings_wifi_caption_label, objects.settings_wifi_status_label},
+-            {objects.settings_time_caption_label, objects.settings_time_status_label},
+-            {objects.settings_feed_caption_label, objects.settings_feed_status_label}}};
+-        // Restore wrapping before replacing text so a formerly one-line value
+-        // cannot be truncated against its old height during the update.
+-        for (const auto& pair : status_values) {
+-            lv_label_set_long_mode(pair.second, LV_LABEL_LONG_WRAP);
+-            lv_obj_set_height(pair.second, LV_SIZE_CONTENT);
+-        }
+-        set_label_text_if_changed(objects.settings_wifi_status_label, wifi.c_str());
+-        set_label_text_if_changed(objects.settings_time_status_label, time);
+-        set_label_text_if_changed(objects.settings_feed_status_label, feed.c_str());
++        const bool appearance_changed = !settings_status_layout_valid_ ||
++            appearance_.theme_id != last_settings_status_theme_id_ ||
++            appearance_.dark_theme != last_settings_status_dark_theme_;
++        update_settings_status_value(0, objects.settings_wifi_caption_label,
++                                     objects.settings_wifi_status_label, wifi,
++                                     appearance_changed);
++        update_settings_status_value(1, objects.settings_time_caption_label,
++                                     objects.settings_time_status_label, time,
++                                     appearance_changed);
++        update_settings_status_value(2, objects.settings_feed_caption_label,
++                                     objects.settings_feed_status_label, feed,
++                                     appearance_changed);
+         set_label_text_if_changed(objects.settings_setup_hint_label, hint.c_str());
+-        for (const auto& pair : status_values) {
+-            lv_obj_t* value = pair.second;
+-            lv_obj_update_layout(value);
+-            // Two lines fit each 50 px status row. Overflow remains explicit.
+-            const int32_t measured = lv_obj_get_height(value);
+-            const int32_t height = std::min<int32_t>(48, measured);
+-            lv_obj_set_height(value, height);
+-            if (measured > height) lv_label_set_long_mode(value, LV_LABEL_LONG_DOT);
+-            lv_obj_set_y(value, lv_obj_get_y(pair.first) +
+-                (lv_obj_get_height(pair.first) - height) / 2);
+-        }
++        last_settings_status_theme_id_ = appearance_.theme_id;
++        last_settings_status_dark_theme_ = appearance_.dark_theme;
++        settings_status_layout_valid_ = true;
++    }
++
++    // LV_LABEL_LONG_DOT replaces the displayed text with an ellipsized copy.
++    // Keep the unmodified source text here, rather than comparing it with the
++    // label, so an unchanged overflow value does not trigger a 250 ms redraw.
++    void update_settings_status_value(std::size_t index, lv_obj_t* caption,
++                                      lv_obj_t* value, const std::string& text,
++                                      bool force_layout) {
++        if (index >= settings_status_text_.size() || value == nullptr || caption == nullptr) return;
++        if (!force_layout && settings_status_text_valid_[index] &&
++            settings_status_text_[index] == text) {
++            return;
++        }
++        settings_status_text_[index] = text;
++        settings_status_text_valid_[index] = true;
++        // Restore wrapping before measuring a new value so a formerly
++        // ellipsized two-line value can grow correctly.
++        lv_label_set_long_mode(value, LV_LABEL_LONG_WRAP);
++        lv_obj_set_height(value, LV_SIZE_CONTENT);
++        lv_label_set_text(value, text.c_str());
++        lv_obj_update_layout(value);
++        // Two lines fit each 50 px status row. Overflow remains explicit.
++        const int32_t measured = lv_obj_get_height(value);
++        const int32_t height = std::min<int32_t>(48, measured);
++        lv_obj_set_height(value, height);
++        if (measured > height) lv_label_set_long_mode(value, LV_LABEL_LONG_DOT);
++        lv_obj_set_y(value, lv_obj_get_y(caption) +
++            (lv_obj_get_height(caption) - height) / 2);
+     }
+ 
+     void style_settings_actions(const board::ConnectivityStatus& status) {
+@@ -1187,10 +1227,16 @@
+             lv_slider_set_value(objects.brightness_slider, appearance_.brightness_percent, LV_ANIM_OFF);
+         }
+         if (objects.brightness_value_label != nullptr) {
+-            lv_label_set_text_fmt(objects.brightness_value_label, "%u%%",
+-                                  static_cast<unsigned>(appearance_.brightness_percent));
+-            set_dynamic_font(objects.brightness_value_label);
+-        }
++            update_brightness_value_label();
++        }
++    }
++
++    void update_brightness_value_label() {
++        if (objects.brightness_value_label == nullptr) return;
++        char text[8];
++        std::snprintf(text, sizeof(text), "%u%%",
++                      static_cast<unsigned>(appearance_.brightness_percent));
++        set_label_text_if_changed(objects.brightness_value_label, text);
+     }
+ 
+     void ensure_main_row(std::size_t index) {
+@@ -1542,8 +1588,6 @@
+         last_firmware_render_ms_ = millis();
+         firmware_render_time_valid_ = true;
+         const board::OtaStatus status = board::ota_service().status();
+-        const std::string version = std::string("Current firmware: ") + kFirmwareVersion;
+-        set_label_text_if_changed(objects.firmware_version_label, version.c_str());
+         const char* state = "Disabled";
+         switch (status.state) {
+             case board::OtaState::Disabled: state = "Firmware upload disabled"; break;
+@@ -1553,45 +1597,75 @@
+             case board::OtaState::ReadyToReboot: state = "Firmware ready"; break;
+             case board::OtaState::Failed: state = "Firmware update failed"; break;
+         }
+-        set_label_text_if_changed(objects.firmware_state_label, state);
++        FirmwareRenderSignature next{};
++        next.state = status.state;
++        next.theme_id = appearance_.theme_id;
++        next.dark_theme = appearance_.dark_theme;
+         if (status.state == board::OtaState::Armed) {
+-            char instructions[192];
+-            std::snprintf(instructions, sizeof(instructions),
++            std::snprintf(next.instructions, sizeof(next.instructions),
+                           "Open %s on home Wi-Fi\nCode: %s  (%lu seconds)",
+                           status.upload_url, status.one_time_code,
+                           static_cast<unsigned long>(status.seconds_remaining));
+-            set_label_text_if_changed(objects.firmware_instructions_label, instructions);
+         } else if (status.state == board::OtaState::Receiving) {
+-            char instructions[96];
+-            std::snprintf(instructions, sizeof(instructions), "Received %lu KiB",
++            std::snprintf(next.instructions, sizeof(next.instructions), "Received %lu KiB",
+                           static_cast<unsigned long>(status.received_bytes / 1024U));
+-            set_label_text_if_changed(objects.firmware_instructions_label, instructions);
+         } else {
+-            set_label_text_if_changed(objects.firmware_instructions_label, status.detail);
+-        }
+-        int32_t progress = 0;
+-        if (status.state == board::OtaState::ReadyToReboot) progress = 100;
++            std::snprintf(next.instructions, sizeof(next.instructions), "%s", status.detail);
++        }
++        if (status.state == board::OtaState::ReadyToReboot) next.progress = 100;
+         else if (status.total_bytes != 0) {
+-            progress = static_cast<int32_t>(std::min<std::size_t>(100,
++            next.progress = static_cast<int32_t>(std::min<std::size_t>(100,
+                 (status.received_bytes * 100U) / status.total_bytes));
+         }
+-        if (lv_bar_get_value(objects.firmware_progress_bar) != progress) {
+-            lv_bar_set_value(objects.firmware_progress_bar, progress, LV_ANIM_OFF);
+-        }
+-        const bool can_arm = status.state == board::OtaState::Disabled ||
+-                             status.state == board::OtaState::Failed;
+-        const bool can_cancel = status.state == board::OtaState::Armed;
+-        const bool can_reboot = status.state == board::OtaState::ReadyToReboot;
+-        if (can_arm) lv_obj_remove_state(objects.firmware_enable_button, LV_STATE_DISABLED);
++        next.can_arm = status.state == board::OtaState::Disabled ||
++                       status.state == board::OtaState::Failed;
++        next.can_cancel = status.state == board::OtaState::Armed;
++        next.can_reboot = status.state == board::OtaState::ReadyToReboot;
++        const bool text_or_appearance_changed = !firmware_paint_signature_valid_ ||
++            next.state != firmware_paint_signature_.state ||
++            next.theme_id != firmware_paint_signature_.theme_id ||
++            next.dark_theme != firmware_paint_signature_.dark_theme ||
++            std::strcmp(next.instructions, firmware_paint_signature_.instructions) != 0;
++        if (firmware_paint_signature_valid_ &&
++            next.matches(firmware_paint_signature_)) {
++            return;
++        }
++        firmware_paint_signature_ = next;
++        firmware_paint_signature_valid_ = true;
++        const std::string version = std::string("Current firmware: ") + kFirmwareVersion;
++        set_label_text_if_changed(objects.firmware_version_label, version.c_str());
++        set_label_text_if_changed(objects.firmware_state_label, state);
++        set_label_text_if_changed(objects.firmware_instructions_label, next.instructions);
++        if (lv_bar_get_value(objects.firmware_progress_bar) != next.progress) {
++            lv_bar_set_value(objects.firmware_progress_bar, next.progress, LV_ANIM_OFF);
++        }
++        style_firmware_actions(next);
++        if (text_or_appearance_changed) {
++            set_dynamic_font(objects.firmware_version_label);
++            set_dynamic_font(objects.firmware_state_label);
++            set_dynamic_font(objects.firmware_instructions_label);
++        }
++    }
++
++    void style_firmware_actions(const FirmwareRenderSignature& signature) {
++        if (firmware_actions_paint_valid_ &&
++            signature.can_arm == last_firmware_can_arm_ &&
++            signature.can_cancel == last_firmware_can_cancel_ &&
++            signature.can_reboot == last_firmware_can_reboot_ &&
++            signature.theme_id == last_firmware_theme_id_ &&
++            signature.dark_theme == last_firmware_dark_theme_) {
++            return;
++        }
++        if (signature.can_arm) lv_obj_remove_state(objects.firmware_enable_button, LV_STATE_DISABLED);
+         else lv_obj_add_state(objects.firmware_enable_button, LV_STATE_DISABLED);
+-        if (can_cancel) lv_obj_remove_state(objects.firmware_cancel_button, LV_STATE_DISABLED);
++        if (signature.can_cancel) lv_obj_remove_state(objects.firmware_cancel_button, LV_STATE_DISABLED);
+         else lv_obj_add_state(objects.firmware_cancel_button, LV_STATE_DISABLED);
+-        if (can_reboot) lv_obj_remove_state(objects.firmware_reboot_button, LV_STATE_DISABLED);
++        if (signature.can_reboot) lv_obj_remove_state(objects.firmware_reboot_button, LV_STATE_DISABLED);
+         else lv_obj_add_state(objects.firmware_reboot_button, LV_STATE_DISABLED);
+         for (const auto& action : std::array<std::pair<lv_obj_t*, bool>, 3>{{
+-                 {objects.firmware_enable_button, can_arm},
+-                 {objects.firmware_cancel_button, can_cancel},
+-                 {objects.firmware_reboot_button, can_reboot}}}) {
++                 {objects.firmware_enable_button, signature.can_arm},
++                 {objects.firmware_cancel_button, signature.can_cancel},
++                 {objects.firmware_reboot_button, signature.can_reboot}}}) {
+             lv_obj_t* button = action.first;
+             const bool primary = action.second;
+             lv_obj_set_style_bg_color(button,
+@@ -1602,9 +1676,12 @@
+             style_button_text(button, primary ? palette().on_action : palette().text_muted,
+                               primary ? palette().on_action : palette().text_primary);
+         }
+-        set_dynamic_font(objects.firmware_version_label);
+-        set_dynamic_font(objects.firmware_state_label);
+-        set_dynamic_font(objects.firmware_instructions_label);
++        last_firmware_can_arm_ = signature.can_arm;
++        last_firmware_can_cancel_ = signature.can_cancel;
++        last_firmware_can_reboot_ = signature.can_reboot;
++        last_firmware_theme_id_ = signature.theme_id;
++        last_firmware_dark_theme_ = signature.dark_theme;
++        firmware_actions_paint_valid_ = true;
+     }
+ 
+     void apply_ascii_letter_spacing(lv_obj_t* object) const {
+@@ -1810,6 +1887,12 @@
+         // The tree walk below resets button styles even when the primary
+         // Settings action and theme signature appear unchanged.
+         settings_actions_styled_ = false;
++        // The tree walk below can override screen-local text and control
++        // styling even if the selected theme ID did not change. Force the
++        // next screen render to restore its derived layout and paint.
++        settings_status_layout_valid_ = false;
++        firmware_paint_signature_valid_ = false;
++        firmware_actions_paint_valid_ = false;
+         // EEZ owns these static trees. Walk every generated screen so a
+         // runtime theme change also updates inactive screens and their labels.
+         const std::array<lv_obj_t*, 8> screens{
+@@ -3759,6 +3842,19 @@
+     bool live_date_update_time_valid_ = false;
+     bool settings_render_time_valid_ = false;
+     bool firmware_render_time_valid_ = false;
++    std::array<std::string, 3> settings_status_text_{};
++    std::array<bool, 3> settings_status_text_valid_{};
++    ThemeId last_settings_status_theme_id_ = kDefaultThemeId;
++    bool last_settings_status_dark_theme_ = false;
++    bool settings_status_layout_valid_ = false;
++    FirmwareRenderSignature firmware_paint_signature_{};
++    bool firmware_paint_signature_valid_ = false;
++    bool firmware_actions_paint_valid_ = false;
++    bool last_firmware_can_arm_ = false;
++    bool last_firmware_can_cancel_ = false;
++    bool last_firmware_can_reboot_ = false;
++    ThemeId last_firmware_theme_id_ = kDefaultThemeId;
++    bool last_firmware_dark_theme_ = false;
+     bool status_render_time_valid_ = false;
+     const char* last_connection_status_label_ = nullptr;
+     const char* last_calendar_status_label_ = nullptr;
+--- before/src/board/runtime.cpp
++++ after/src/board/runtime.cpp
+@@ -10,6 +10,10 @@
+ #include <array>
+ #include <cstddef>
+ #include <cstdint>
++
++#ifdef APP_RGB_DIAGNOSTICS
++extern "C" std::uint32_t app_rgb_take_vsync_count(void);
++#endif
+ 
+ namespace board_runtime {
+ namespace {
+@@ -37,11 +41,18 @@
+ struct RgbDiagnostics {
+   std::uint32_t flushes = 0;
+   std::uint32_t pixels = 0;
++  std::uint32_t rendered_frames = 0;
++  std::uint32_t total_copy_us = 0;
+   std::uint32_t max_copy_us = 0;
++  std::uint32_t max_frame_copy_us = 0;
+   std::uint32_t max_handler_us = 0;
+   std::uint32_t max_service_gap_us = 0;
+ };
+ RgbDiagnostics rgb_diagnostics;
++std::uint32_t current_frame_copy_us = 0;
++bool current_frame_has_pixels = false;
++bool skip_current_rendered_frame = false;
++bool diagnostics_measurement_ready = false;
+ std::uint32_t last_diagnostic_ms = 0;
+ std::uint32_t last_service_start_us = 0;
+ bool service_start_seen = false;
+@@ -59,6 +70,8 @@
+   const std::size_t bytes_per_row =
+       static_cast<std::size_t>(width) * bytes_per_pixel;
+ #ifdef APP_RGB_DIAGNOSTICS
++  if (trace_first_flush) skip_current_rendered_frame = true;
++  const bool measure_flush = !skip_current_rendered_frame;
+   const std::uint32_t copy_start_us = micros();
+ #endif
+ 
+@@ -91,11 +104,38 @@
+     Serial.flush();
+   }
+ #ifdef APP_RGB_DIAGNOSTICS
+-  ++rgb_diagnostics.flushes;
+-  rgb_diagnostics.pixels += static_cast<std::uint32_t>(width * height);
+-  rgb_diagnostics.max_copy_us = std::max(
+-      rgb_diagnostics.max_copy_us,
+-      static_cast<std::uint32_t>(micros() - copy_start_us));
++  const bool is_last_flush = lv_display_flush_is_last(display);
++  if (measure_flush && width > 0 && height > 0) {
++    const std::uint32_t copy_us =
++        static_cast<std::uint32_t>(micros() - copy_start_us);
++    const std::uint32_t pixel_count =
++        static_cast<std::uint32_t>(width * height);
++    ++rgb_diagnostics.flushes;
++    rgb_diagnostics.pixels += pixel_count;
++    rgb_diagnostics.total_copy_us += copy_us;
++    rgb_diagnostics.max_copy_us =
++        std::max(rgb_diagnostics.max_copy_us, copy_us);
++    current_frame_copy_us += copy_us;
++    current_frame_has_pixels = true;
++  }
++  if (is_last_flush) {
++    const bool skipped_frame = skip_current_rendered_frame;
++    if (!skip_current_rendered_frame && current_frame_has_pixels) {
++      ++rgb_diagnostics.rendered_frames;
++      rgb_diagnostics.max_frame_copy_us = std::max(
++          rgb_diagnostics.max_frame_copy_us, current_frame_copy_us);
++    }
++    current_frame_copy_us = 0;
++    current_frame_has_pixels = false;
++    skip_current_rendered_frame = false;
++    if (skipped_frame) {
++      // Begin the first diagnostic window after the serial-heavy boot trace so
++      // panel, copy and handler counters all cover the same interval.
++      (void)app_rgb_take_vsync_count();
++      last_diagnostic_ms = millis();
++      diagnostics_measurement_ready = true;
++    }
++  }
+ #endif
+   lv_display_flush_ready(display);
+   if (trace_first_flush) {
+@@ -124,6 +164,18 @@
+ void initialize() {
+   smartdisplay_init();
+   lv_display_t* display = lv_display_get_default();
++  if (display != nullptr) {
++    const lv_draw_buf_t* draw_buffer = lv_display_get_buf_active(display);
++    if (draw_buffer != nullptr) {
++      Serial.printf("[boot] LVGL draw buffer active: %lu bytes (%lu x %lu, stride=%lu)\n",
++                    static_cast<unsigned long>(draw_buffer->data_size),
++                    static_cast<unsigned long>(draw_buffer->header.w),
++                    static_cast<unsigned long>(draw_buffer->header.h),
++                    static_cast<unsigned long>(draw_buffer->header.stride));
++    } else {
++      Serial.println("[boot] LVGL draw buffer active: unavailable");
++    }
++  }
+   if (display != nullptr && lv_display_get_user_data(display) != nullptr) {
+     lv_display_set_flush_cb(display, flushRgbInBoundedChunks);
+     Serial.printf("[boot] RGB flush has one owner; chunking enabled: %ld rows\n",
+@@ -173,28 +225,44 @@
+ 
+ void serviceLvgl() {
+ #ifdef APP_RGB_DIAGNOSTICS
++  const bool measure_handler = diagnostics_measurement_ready;
+   const std::uint32_t handler_start_us = micros();
+-  if (service_start_seen) {
++  if (measure_handler && service_start_seen) {
+     rgb_diagnostics.max_service_gap_us = std::max(
+         rgb_diagnostics.max_service_gap_us,
+         static_cast<std::uint32_t>(handler_start_us - last_service_start_us));
+   }
+-  last_service_start_us = handler_start_us;
+-  service_start_seen = true;
++  if (measure_handler) {
++    last_service_start_us = handler_start_us;
++    service_start_seen = true;
++  }
+ #endif
+   const std::uint32_t requested_delay_ms = lv_timer_handler();
+ #ifdef APP_RGB_DIAGNOSTICS
+-  const std::uint32_t handler_us =
+-      static_cast<std::uint32_t>(micros() - handler_start_us);
+-  rgb_diagnostics.max_handler_us = std::max(rgb_diagnostics.max_handler_us,
+-                                            handler_us);
++  if (measure_handler) {
++    const std::uint32_t handler_us =
++        static_cast<std::uint32_t>(micros() - handler_start_us);
++    rgb_diagnostics.max_handler_us = std::max(rgb_diagnostics.max_handler_us,
++                                              handler_us);
++  } else if (diagnostics_measurement_ready) {
++    // The traced frame completed during this handler. Start service-gap timing
++    // after its serial output rather than charging that output to the next gap.
++    last_service_start_us = micros();
++    service_start_seen = true;
++  }
+   const std::uint32_t now_ms = millis();
+-  if (static_cast<std::uint32_t>(now_ms - last_diagnostic_ms) >= 5000) {
+-    Serial.printf("[rgb] window_ms=%lu flushes=%lu pixels=%lu max_copy_us=%lu max_handler_us=%lu max_service_gap_us=%lu heap=%u largest=%u\n",
++  if (diagnostics_measurement_ready &&
++      static_cast<std::uint32_t>(now_ms - last_diagnostic_ms) >= 5000) {
++    const std::uint32_t vsyncs = app_rgb_take_vsync_count();
++    Serial.printf("[rgb] window_ms=%lu flushes=%lu pixels=%lu rendered_frames=%lu vsyncs=%lu total_copy_us=%lu max_copy_us=%lu max_frame_copy_us=%lu max_handler_us=%lu max_service_gap_us=%lu heap=%u largest=%u\n",
+                   static_cast<unsigned long>(now_ms - last_diagnostic_ms),
+                   static_cast<unsigned long>(rgb_diagnostics.flushes),
+                   static_cast<unsigned long>(rgb_diagnostics.pixels),
++                  static_cast<unsigned long>(rgb_diagnostics.rendered_frames),
++                  static_cast<unsigned long>(vsyncs),
++                  static_cast<unsigned long>(rgb_diagnostics.total_copy_us),
+                   static_cast<unsigned long>(rgb_diagnostics.max_copy_us),
++                  static_cast<unsigned long>(rgb_diagnostics.max_frame_copy_us),
+                   static_cast<unsigned long>(rgb_diagnostics.max_handler_us),
+                   static_cast<unsigned long>(rgb_diagnostics.max_service_gap_us),
+                   static_cast<unsigned>(heap_caps_get_free_size(MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT)),
+--- before/src/board/st7262_panel_adapter.c
++++ after/src/board/st7262_panel_adapter.c
+@@ -13,6 +13,46 @@
+ #include <assert.h>
+ #include <stdint.h>
+ 
++#ifdef APP_LVGL_DRAW_BUFFER_ROWS
++_Static_assert(APP_LVGL_DRAW_BUFFER_ROWS > 0,
++               "APP_LVGL_DRAW_BUFFER_ROWS must be positive");
++_Static_assert(APP_LVGL_DRAW_BUFFER_ROWS <= UINT32_MAX / DISPLAY_WIDTH,
++               "APP_LVGL_DRAW_BUFFER_ROWS overflows the pixel count");
++#endif
++
++#if defined(APP_RGB_DIAGNOSTICS) && ESP_IDF_VERSION_MAJOR >= 5
++#include <esp_attr.h>
++#include <freertos/FreeRTOS.h>
++#include <freertos/portmacro.h>
++
++static portMUX_TYPE diagnostics_vsync_mux = portMUX_INITIALIZER_UNLOCKED;
++static uint32_t diagnostics_vsync_count;
++
++static bool IRAM_ATTR diagnostics_rgb_vsync(
++    esp_lcd_panel_handle_t panel,
++    const esp_lcd_rgb_panel_event_data_t *event_data, void *user_context) {
++    (void)panel;
++    (void)event_data;
++    (void)user_context;
++    portENTER_CRITICAL_ISR(&diagnostics_vsync_mux);
++    ++diagnostics_vsync_count;
++    portEXIT_CRITICAL_ISR(&diagnostics_vsync_mux);
++    return false;
++}
++
++uint32_t app_rgb_take_vsync_count(void) {
++    portENTER_CRITICAL(&diagnostics_vsync_mux);
++    const uint32_t count = diagnostics_vsync_count;
++    diagnostics_vsync_count = 0;
++    portEXIT_CRITICAL(&diagnostics_vsync_mux);
++    return count;
++}
++#elif defined(APP_RGB_DIAGNOSTICS)
++uint32_t app_rgb_take_vsync_count(void) {
++    return 0;
++}
++#endif
++
+ static void initial_rgb_flush(lv_display_t *display, const lv_area_t *area,
+                               uint8_t *pixels) {
+     esp_lcd_panel_handle_t panel = lv_display_get_user_data(display);
+@@ -26,11 +66,32 @@
+     lv_display_t *display = lv_display_create(DISPLAY_WIDTH, DISPLAY_HEIGHT);
+     assert(display != NULL);
+     const lv_color_format_t format = lv_display_get_color_format(display);
+-    const uint32_t draw_buffer_size =
+-        lv_color_format_get_size(format) * LVGL_BUFFER_PIXELS;
+-    void *draw_buffer = heap_caps_malloc(draw_buffer_size,
+-                                          LVGL_BUFFER_MALLOC_FLAGS);
++    const uint32_t bytes_per_pixel = lv_color_format_get_size(format);
++#ifdef APP_LVGL_DRAW_BUFFER_ROWS
++    uint32_t draw_buffer_pixels = DISPLAY_WIDTH * APP_LVGL_DRAW_BUFFER_ROWS;
++#else
++    // Preserve the board profile's exact default draw-buffer contract.
++    uint32_t draw_buffer_pixels = LVGL_BUFFER_PIXELS;
++#endif
++    assert(bytes_per_pixel > 0);
++    assert(draw_buffer_pixels > 0);
++    assert(draw_buffer_pixels <= UINT32_MAX / bytes_per_pixel);
++    uint32_t draw_buffer_size = bytes_per_pixel * draw_buffer_pixels;
++    void *draw_buffer =
++        heap_caps_malloc(draw_buffer_size, LVGL_BUFFER_MALLOC_FLAGS);
++#ifdef APP_LVGL_DRAW_BUFFER_ROWS
++    if (draw_buffer == NULL && APP_LVGL_DRAW_BUFFER_ROWS != 8) {
++        log_w("LVGL %lu-row draw buffer allocation failed; falling back to 8 rows",
++              (unsigned long)APP_LVGL_DRAW_BUFFER_ROWS);
++        draw_buffer_pixels = DISPLAY_WIDTH * 8;
++        draw_buffer_size = bytes_per_pixel * draw_buffer_pixels;
++        draw_buffer =
++            heap_caps_malloc(draw_buffer_size, LVGL_BUFFER_MALLOC_FLAGS);
++    }
++#endif
+     assert(draw_buffer != NULL);
++    log_i("LVGL draw buffer: %lu pixels, %lu bytes",
++          (unsigned long)draw_buffer_pixels, (unsigned long)draw_buffer_size);
+     lv_display_set_buffers(display, draw_buffer, NULL, draw_buffer_size,
+                            LV_DISPLAY_RENDER_MODE_PARTIAL);
+ 
+@@ -91,6 +152,13 @@
+     };
+     esp_lcd_panel_handle_t panel = NULL;
+     ESP_ERROR_CHECK(esp_lcd_new_rgb_panel(&config, &panel));
++#if defined(APP_RGB_DIAGNOSTICS) && ESP_IDF_VERSION_MAJOR >= 5
++    const esp_lcd_rgb_panel_event_callbacks_t diagnostics_callbacks = {
++        .on_vsync = diagnostics_rgb_vsync,
++    };
++    ESP_ERROR_CHECK(esp_lcd_rgb_panel_register_event_callbacks(
++        panel, &diagnostics_callbacks, NULL));
++#endif
+     ESP_ERROR_CHECK(esp_lcd_panel_reset(panel));
+     ESP_ERROR_CHECK(esp_lcd_panel_init(panel));
+ #ifdef DISPLAY_IPS
+--- before/include/app/firmware_version.hpp
++++ after/include/app/firmware_version.hpp
+@@ -2,8 +2,10 @@
+ 
+ namespace calendar {
+ 
+-#if defined(APP_RGB_STAGED_STARTUP)
+-inline constexpr char kFirmwareVersion[] = "0.6.33-ui-alignment";
++#if defined(APP_RGB_STAGED_STARTUP) && defined(APP_LVGL_DRAW_BUFFER_ROWS)
++inline constexpr char kFirmwareVersion[] = "0.6.34-redraw-buffer16";
++#elif defined(APP_RGB_STAGED_STARTUP)
++inline constexpr char kFirmwareVersion[] = "0.6.34-redraw-performance";
+ #elif defined(APP_RGB_DIAGNOSTICS)
+ inline constexpr char kFirmwareVersion[] = "0.6.19-rgb-diagnostics";
+ #elif defined(APP_OWN_ST7262_PANEL)
+--- before/tools/ui_preview/README.md
++++ after/tools/ui_preview/README.md
+@@ -41,6 +41,16 @@
+ when refreshed content shrinks to three rows.
+ `runtime.txt` records the LVGL version, object count and allocator use. One or
+ more failed checks makes the renderer exit with status 1; a clean run exits 0.
++`performance.txt` records native LVGL flush callbacks, completed dirty refreshes
++and copied RGB565 pixels for two-second idle windows and individual fixture
++changes. These counters expose redundant software redraws; they are not display
++FPS or panel refresh measurements. The redraw checks require unchanged Settings
++and Firmware screens to settle at zero dirty pixels, while still exercising
++Settings line-count changes, OTA countdown/progress/state changes, and a
++brightness drag followed by one preferences save on release. A bounded
++three-line Settings fixture also verifies `LONG_DOT` truncation, zero idle
++redraw after LVGL mutates the displayed label buffer, and clean restoration of
++the full cached source value.
+ 
+ Screenshots establish software layout only. Physical-panel observation is still
+ required for color, legibility, touch, redraw artifacts and stability. Desktop
+--- before/tools/ui_preview/services.cpp
++++ after/tools/ui_preview/services.cpp
+@@ -16,6 +16,14 @@
+ calendar::weather::WeatherSnapshot weather;
+ board::CalendarDocument pending_document;
+ std::time_t now = 0;
++unsigned appearance_save_count = 0;
++unsigned backlight_update_count = 0;
++std::uint8_t last_backlight_percent = 0;
++void reset_runtime_counters() {
++  appearance_save_count = 0;
++  backlight_update_count = 0;
++  last_backlight_percent = 0;
++}
+ void queue_calendar(const std::string &text) {
+   board::CalendarDocument document;
+   document.reserve(text.size());
+@@ -125,6 +133,7 @@
+   return preview::appearance;
+ }
+ bool save_appearance_preferences(const AppearancePreferences &value) {
++  ++preview::appearance_save_count;
+   preview::appearance = value;
+   return true;
+ }
+@@ -133,7 +142,10 @@
+ }
+ } // namespace calendar
+ namespace board_runtime {
+-void setBacklightPercent(std::uint8_t) {}
++void setBacklightPercent(std::uint8_t value) {
++  ++preview::backlight_update_count;
++  preview::last_backlight_percent = value;
++}
+ } // namespace board_runtime
+ namespace board {
+ CalendarDocument::~CalendarDocument() { release(); }
+--- before/tools/ui_preview/fixtures.hpp
++++ after/tools/ui_preview/fixtures.hpp
+@@ -14,6 +14,10 @@
+ extern calendar::weather::WeatherSnapshot weather;
+ extern board::CalendarDocument pending_document;
+ extern std::time_t now;
++extern unsigned appearance_save_count;
++extern unsigned backlight_update_count;
++extern std::uint8_t last_backlight_percent;
+ void set_fixture(bool mixed, bool imperial);
+ void queue_calendar(const std::string &document);
++void reset_runtime_counters();
+ } // namespace preview
+--- before/tools/ui_preview/preview.cpp
++++ after/tools/ui_preview/preview.cpp
+@@ -28,18 +28,45 @@
+ std::array<std::uint16_t, kWidth * 40> draw_buffer{};
+ std::array<void *, 4> supplementary_pools{};
+ std::ofstream checks;
++std::ofstream performance;
+ unsigned failures = 0;
+ unsigned static_button_samples = 0;
+ int max_static_center2_x = 0;
+ int max_static_center2_y = 0;
+ int max_static_pressed_center_change = 0;
+ 
++struct RenderStats {
++  std::uint64_t flushes = 0;
++  std::uint64_t refreshes = 0;
++  std::uint64_t pixels = 0;
++};
++RenderStats render_stats;
++void pump(int rounds);
++
+ void flush(lv_display_t *display, const lv_area_t *area, std::uint8_t *data) {
++  ++render_stats.flushes;
++  render_stats.pixels += static_cast<std::uint64_t>(area->x2 - area->x1 + 1) *
++                         static_cast<std::uint64_t>(area->y2 - area->y1 + 1);
++  if (lv_display_flush_is_last(display))
++    ++render_stats.refreshes;
+   auto *source = reinterpret_cast<std::uint16_t *>(data);
+   for (int y = area->y1; y <= area->y2; ++y)
+     for (int x = area->x1; x <= area->x2; ++x)
+       pixels[y * kWidth + x] = *source++;
+   lv_display_flush_ready(display);
++}
++void reset_render_stats() { render_stats = {}; }
++RenderStats measure_pump(int rounds) {
++  lv_refr_now(nullptr);
++  reset_render_stats();
++  pump(rounds);
++  return render_stats;
++}
++std::string render_stats_text(const RenderStats &stats) {
++  std::ostringstream out;
++  out << "flushes=" << stats.flushes << " refreshes=" << stats.refreshes
++      << " pixels=" << stats.pixels;
++  return out.str();
+ }
+ void pump(int rounds = 12) {
+   for (int i = 0; i < rounds; ++i) {
+@@ -72,6 +99,237 @@
+   checks << '\n';
+   if (!condition)
+     ++failures;
++}
++
++void record_performance(std::string_view name, const RenderStats &stats) {
++  performance << name << ' ' << render_stats_text(stats) << '\n';
++}
++
++bool settings_values_centered() {
++  const std::array<std::pair<lv_obj_t *, lv_obj_t *>, 3> pairs{
++      {{objects.settings_wifi_caption_label,
++        objects.settings_wifi_status_label},
++       {objects.settings_time_caption_label,
++        objects.settings_time_status_label},
++       {objects.settings_feed_caption_label,
++        objects.settings_feed_status_label}}};
++  for (const auto &pair : pairs) {
++    lv_area_t caption{}, value{};
++    lv_obj_update_layout(pair.second);
++    lv_obj_get_coords(pair.first, &caption);
++    lv_obj_get_coords(pair.second, &value);
++    const int height = lv_obj_get_height(pair.second);
++    if (height > 48 ||
++        std::abs((value.y1 + value.y2) - (caption.y1 + caption.y2)) > 1)
++      return false;
++  }
++  return true;
++}
++
++unsigned swatch_style_change_count = 0;
++void count_swatch_style_changes(lv_event_t *) { ++swatch_style_change_count; }
++
++void verify_redraw_performance() {
++  constexpr int kIdleRounds = 100; // 2 seconds at the preview's 20 ms tick.
++
++  calendar::show_calendar_main();
++  pump(40);
++  const RenderStats today_idle = measure_pump(kIdleRounds);
++  record_performance("today_idle_2s", today_idle);
++
++  calendar::show_calendar_settings();
++  pump(40);
++  const RenderStats settings_idle = measure_pump(kIdleRounds);
++  record_performance("settings_idle_2s", settings_idle);
++  check(settings_idle.pixels == 0, "idle Settings has no dirty pixels",
++        render_stats_text(settings_idle));
++
++  const board::ConnectivityStatus connected = preview::connection;
++  preview::connection.setup_ap_active = true;
++  preview::connection.wifi_connected = false;
++  std::strcpy(preview::connection.setup_ssid, "Calendar Setup");
++  std::strcpy(preview::connection.setup_password, "48273190");
++  std::strcpy(preview::connection.setup_address, "192.168.4.1");
++  std::strcpy(preview::connection.wifi_detail,
++              "Waiting for a phone to finish setup");
++  const RenderStats settings_two_line = measure_pump(20);
++  record_performance("settings_change_two_line", settings_two_line);
++  check(settings_two_line.pixels > 0 &&
++            std::strchr(lv_label_get_text(objects.settings_wifi_status_label),
++                        '\n') != nullptr,
++        "Settings two-line status change redraws once",
++        render_stats_text(settings_two_line));
++  check(settings_values_centered(), "Settings two-line values remain centered");
++  const RenderStats settings_two_line_idle = measure_pump(kIdleRounds);
++  record_performance("settings_two_line_idle_2s", settings_two_line_idle);
++  check(settings_two_line_idle.pixels == 0,
++        "unchanged two-line Settings has no dirty pixels",
++        render_stats_text(settings_two_line_idle));
++
++  preview::connection = connected;
++  const RenderStats settings_one_line = measure_pump(20);
++  record_performance("settings_change_one_line", settings_one_line);
++  check(settings_one_line.pixels > 0, "Settings one-line status change redraws",
++        render_stats_text(settings_one_line));
++  check(settings_values_centered(), "Settings one-line values remain centered");
++
++  const std::string connected_feed_text =
++      lv_label_get_text(objects.settings_feed_status_label);
++  preview::connection.fetch_state = board::CalendarFetchState::Failed;
++  std::snprintf(preview::connection.summary,
++                sizeof(preview::connection.summary),
++                "%s", "Overflow sentinel summary retained for cache identity");
++  std::snprintf(
++      preview::connection.fetch_detail,
++      sizeof(preview::connection.fetch_detail), "%s",
++      "Overflow sentinel: remote calendar refresh repeatedly failed while saved events remained available");
++  const std::string overflow_source =
++      std::to_string(preview::connection.configured_feed_count) +
++      " private calendars saved - " + preview::connection.fetch_detail;
++  const RenderStats settings_overflow = measure_pump(20);
++  record_performance("settings_change_overflow", settings_overflow);
++  const char *overflow_display =
++      lv_label_get_text(objects.settings_feed_status_label);
++  check(settings_overflow.pixels > 0 &&
++            lv_label_get_long_mode(objects.settings_feed_status_label) ==
++                LV_LABEL_LONG_DOT &&
++            lv_obj_get_height(objects.settings_feed_status_label) == 48 &&
++            overflow_display != nullptr &&
++            overflow_source != overflow_display,
++        "Settings overflow is ellipsized after full source is cached",
++        render_stats_text(settings_overflow));
++  check(settings_values_centered(), "Settings overflow value remains centered");
++  const RenderStats settings_overflow_idle = measure_pump(kIdleRounds);
++  record_performance("settings_overflow_idle_2s", settings_overflow_idle);
++  check(settings_overflow_idle.pixels == 0,
++        "unchanged ellipsized Settings has no dirty pixels",
++        render_stats_text(settings_overflow_idle));
++
++  preview::connection = connected;
++  const RenderStats settings_restored = measure_pump(20);
++  record_performance("settings_restore_after_overflow", settings_restored);
++  const char *restored_feed =
++      lv_label_get_text(objects.settings_feed_status_label);
++  check(settings_restored.pixels > 0 && restored_feed != nullptr &&
++            connected_feed_text == restored_feed &&
++            std::strstr(restored_feed, "Overflow sentinel") == nullptr &&
++            lv_label_get_long_mode(objects.settings_feed_status_label) ==
++                LV_LABEL_LONG_WRAP,
++        "Settings value restores after overflow without stale text",
++        render_stats_text(settings_restored));
++  check(settings_values_centered(),
++        "Settings restored value remains centered after overflow");
++
++  preview::ota_status = {};
++  preview::ota_status.state = board::OtaState::Disabled;
++  std::strcpy(preview::ota_status.detail, "Firmware updates are disabled");
++  calendar::show_calendar_firmware_update();
++  pump(40);
++  const RenderStats firmware_idle = measure_pump(kIdleRounds);
++  record_performance("firmware_disabled_idle_2s", firmware_idle);
++  check(firmware_idle.pixels == 0, "idle Firmware has no dirty pixels",
++        render_stats_text(firmware_idle));
++
++  preview::ota_status.state = board::OtaState::Armed;
++  std::strcpy(preview::ota_status.upload_url, "http://192.168.1.42/update");
++  std::strcpy(preview::ota_status.one_time_code, "482731");
++  preview::ota_status.seconds_remaining = 300;
++  const RenderStats armed = measure_pump(20);
++  record_performance("firmware_change_armed", armed);
++  check(armed.pixels > 0 &&
++            std::strstr(lv_label_get_text(objects.firmware_instructions_label),
++                        "300 seconds") != nullptr,
++        "Firmware Armed countdown renders", render_stats_text(armed));
++  preview::ota_status.seconds_remaining = 299;
++  const RenderStats countdown = measure_pump(20);
++  record_performance("firmware_countdown_tick", countdown);
++  check(countdown.pixels > 0 &&
++            std::strstr(lv_label_get_text(objects.firmware_instructions_label),
++                        "299 seconds") != nullptr,
++        "Firmware countdown decrement renders", render_stats_text(countdown));
++
++  preview::ota_status = {};
++  preview::ota_status.state = board::OtaState::Receiving;
++  preview::ota_status.received_bytes = 256 * 1024;
++  preview::ota_status.total_bytes = 1024 * 1024;
++  const RenderStats receiving = measure_pump(20);
++  record_performance("firmware_change_receiving", receiving);
++  check(receiving.pixels > 0 &&
++            lv_bar_get_value(objects.firmware_progress_bar) == 25 &&
++            std::strstr(lv_label_get_text(objects.firmware_instructions_label),
++                        "256 KiB") != nullptr,
++        "Firmware Receiving bytes and progress render",
++        render_stats_text(receiving));
++  preview::ota_status.received_bytes = 512 * 1024;
++  const RenderStats receiving_progress = measure_pump(20);
++  record_performance("firmware_receiving_progress", receiving_progress);
++  check(receiving_progress.pixels > 0 &&
++            lv_bar_get_value(objects.firmware_progress_bar) == 50,
++        "Firmware Receiving progress update renders",
++        render_stats_text(receiving_progress));
++
++  preview::ota_status = {};
++  preview::ota_status.state = board::OtaState::ReadyToReboot;
++  std::strcpy(preview::ota_status.detail, "Verified image is ready to install");
++  const RenderStats ready = measure_pump(20);
++  record_performance("firmware_change_ready", ready);
++  check(ready.pixels > 0 &&
++            !lv_obj_has_state(objects.firmware_reboot_button,
++                              LV_STATE_DISABLED),
++        "Firmware Ready-to-reboot primary action renders",
++        render_stats_text(ready));
++  const RenderStats ready_idle = measure_pump(kIdleRounds);
++  record_performance("firmware_ready_idle_2s", ready_idle);
++  check(ready_idle.pixels == 0,
++        "unchanged Ready Firmware has no dirty pixels",
++        render_stats_text(ready_idle));
++
++  calendar::show_calendar_brightness_settings();
++  pump(20);
++  for (auto *swatch : {objects.theme_preview_canvas,
++                       objects.theme_preview_surface,
++                       objects.theme_preview_accent})
++    lv_obj_add_event_cb(swatch, count_swatch_style_changes,
++                        LV_EVENT_STYLE_CHANGED, nullptr);
++  swatch_style_change_count = 0;
++  preview::reset_runtime_counters();
++  const unsigned selected_theme =
++      lv_dropdown_get_selected(objects.theme_style_dropdown);
++  const bool selected_dark =
++      lv_obj_has_state(objects.dark_theme_switch, LV_STATE_CHECKED);
++  int next_brightness = lv_slider_get_value(objects.brightness_slider) + 7;
++  if (next_brightness > 100)
++    next_brightness -= 14;
++  lv_slider_set_value(objects.brightness_slider, next_brightness, LV_ANIM_OFF);
++  lv_refr_now(nullptr);
++  reset_render_stats();
++  calendar::preview_calendar_brightness();
++  pump(4);
++  const RenderStats brightness_drag = render_stats;
++  record_performance("brightness_single_drag_step", brightness_drag);
++  check(preview::backlight_update_count == 1 &&
++            preview::last_backlight_percent == next_brightness,
++        "brightness drag updates backlight once");
++  check(preview::appearance_save_count == 0,
++        "brightness drag does not save preferences");
++  check(swatch_style_change_count == 0 &&
++            lv_dropdown_get_selected(objects.theme_style_dropdown) ==
++                selected_theme &&
++            lv_obj_has_state(objects.dark_theme_switch, LV_STATE_CHECKED) ==
++                selected_dark,
++        "brightness drag leaves theme controls and swatches untouched",
++        "swatch_style_changes=" +
++            std::to_string(swatch_style_change_count));
++  std::ostringstream brightness_text;
++  brightness_text << next_brightness << '%';
++  check(std::strcmp(lv_label_get_text(objects.brightness_value_label),
++                    brightness_text.str().c_str()) == 0,
++        "brightness drag updates percentage label");
++  calendar::commit_calendar_brightness();
++  pump(20);
++  check(preview::appearance_save_count == 1,
++        "brightness release saves preferences once",
++        std::to_string(preview::appearance_save_count));
+ }
+ unsigned count_objects(lv_obj_t *object) {
+   unsigned n = 1;
+@@ -1467,6 +1725,7 @@
+   const std::string directory = argv[1];
+   std::filesystem::create_directories(directory);
+   checks.open(directory + "/checks.txt");
++  performance.open(directory + "/performance.txt");
+   setenv("TZ", "IST-2IDT,M3.4.4/26,M10.5.0", 1);
+   tzset();
+   std::tm local{};
+@@ -1502,6 +1761,7 @@
+   ui_init();
+   calendar::initialize_calendar_ui();
+   pump(40);
++  verify_redraw_performance();
+   capture_primary_screens(directory);
+   verify_lazy_forms_and_capture(directory);
+   verify_firmware_states_and_capture(directory);
+--- before/platformio.ini
++++ after/platformio.ini
+@@ -77,6 +77,14 @@
+     ${env:rgb-idf5-diagnostics.build_flags}
+     -D APP_RGB_STAGED_STARTUP=1
+ 
++; Controlled FPS experiment: keep the accepted 12.5 MHz scanout, 8-row flush
++; chunks and 10-row RGB bounce buffers while doubling only LVGL's draw buffer.
++[env:rgb-staged-startup-buffer16]
++extends = env:rgb-staged-startup
++build_flags =
++    ${env:rgb-staged-startup.build_flags}
++    -D APP_LVGL_DRAW_BUFFER_ROWS=16
++
+ [env:touch-display-check-idf5]
+ extends = env:touch-display-check
+ platform = https://github.com/pioarduino/platform-espressif32/releases/download/55.03.39/platform-espressif32.zip

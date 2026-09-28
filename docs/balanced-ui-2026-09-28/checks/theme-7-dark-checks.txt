@@ -1,0 +1,146 @@
+PASS pressed main Wi-Fi child 0 [Wi-Fi connected]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed main Wi-Fi child 1 []: #f1f3f8 on #403526 = 10.78:1
+PASS pressed main Wi-Fi has label child
+PASS pressed main Settings child 0 [Settings]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed main Settings has label child
+PASS pressed main Today nav child 0 [Today]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed main Today nav has label child
+PASS pressed main Calendar nav child 0 [Calendar]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed main Calendar nav has label child
+PASS pressed main Forecast nav child 0 [Forecast]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed main Forecast nav has label child
+PASS pressed main event row child 0 [All day]: #adb5c3 on #403526 = 5.80:1
+PASS pressed main event row child 1 [Family]: #adb5c3 on #403526 = 5.80:1
+PASS pressed main event row child 2 [Maya's birthday]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed main event row has label child
+PASS pressed main weather card child 0 [Forecast >]: #d0d5e0 on #403526 = 8.13:1
+PASS pressed main weather card child 1 [Updated 09:30]: #adb5c3 on #403526 = 5.80:1
+PASS pressed main weather card child 2 [7.4 mph]: #d0d5e0 on #403526 = 8.13:1
+PASS pressed main weather card child 3 [Wind]: #d0d5e0 on #403526 = 8.13:1
+PASS pressed main weather card child 4 [100%]: #d0d5e0 on #403526 = 8.13:1
+PASS pressed main weather card child 5 [Humidity]: #d0d5e0 on #403526 = 8.13:1
+PASS pressed main weather card child 6 [100.0 F]: #d0d5e0 on #403526 = 8.13:1
+PASS pressed main weather card child 7 [Feels like]: #d0d5e0 on #403526 = 8.13:1
+PASS pressed main weather card child 8 [Partly cloudy]: #d0d5e0 on #403526 = 8.13:1
+PASS pressed main weather card child 9 [100.0 F]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed main weather card child 10 [Jerusalem]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed main weather card has label child
+PASS pressed week Wi-Fi child 0 [Wi-Fi connected]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed week Wi-Fi child 1 []: #f1f3f8 on #403526 = 10.78:1
+PASS pressed week Wi-Fi has label child
+PASS pressed week Settings child 0 [Settings]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed week Settings has label child
+PASS pressed week Previous child 0 [Prev]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed week Previous has label child
+PASS pressed week Next child 0 [Next]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed week Next has label child
+PASS pressed week Today child 0 [Today]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed week Today has label child
+PASS pressed week mode child 0 [Week]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed week mode has label child
+PASS pressed month mode child 0 [Month]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed month mode has label child
+PASS pressed week Today nav child 0 [Today]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed week Today nav has label child
+PASS pressed week Calendar nav child 0 [Calendar]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed week Calendar nav has label child
+PASS pressed week Forecast nav child 0 [Forecast]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed week Forecast nav has label child
+PASS pressed week event row child 0 [All day]: #adb5c3 on #403526 = 5.80:1
+PASS pressed week event row child 1 [Family]: #adb5c3 on #403526 = 5.80:1
+PASS pressed week event row child 2 [Maya's birthday]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed week event row has label child
+PASS pressed month Wi-Fi child 0 [Wi-Fi connected]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed month Wi-Fi child 1 []: #f1f3f8 on #403526 = 10.78:1
+PASS pressed month Wi-Fi has label child
+PASS pressed month Settings child 0 [Settings]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed month Settings has label child
+PASS pressed forecast Back child 0 [Settings]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed forecast Back has label child
+PASS pressed forecast Refresh child 0 [Refresh]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed forecast Refresh has label child
+PASS pressed forecast location child 0 [Set location]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed forecast location has label child
+PASS pressed forecast Wi-Fi child 0 [Wi-Fi connected]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed forecast Wi-Fi child 1 []: #f1f3f8 on #403526 = 10.78:1
+PASS pressed forecast Wi-Fi has label child
+PASS pressed forecast Today nav child 0 [Today]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed forecast Today nav has label child
+PASS pressed forecast Calendar nav child 0 [Calendar]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed forecast Calendar nav has label child
+PASS pressed forecast Forecast nav child 0 [Forecast]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed forecast Forecast nav has label child
+PASS pressed settings Back child 0 [<  Back]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed settings Back has label child
+PASS pressed settings Wi-Fi child 0 [Enter Wi-Fi]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed settings Wi-Fi has label child
+PASS pressed settings setup child 0 [Phone setup]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed settings setup has label child
+PASS pressed settings sync child 0 [Sync calendar]: #10141d on #c59959 = 7.08:1
+PASS pressed settings sync has label child
+PASS pressed settings appearance child 0 [Display & theme]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed settings appearance has label child
+PASS pressed settings weather child 0 [Weather setup]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed settings weather has label child
+PASS pressed settings firmware child 0 [Firmware update]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed settings firmware has label child
+PASS pressed appearance Back child 0 [<  Back]: #f1f3f8 on #403526 = 10.78:1
+PASS pressed appearance Back has label child
+PASS main card top alignment
+PASS main card bottom alignment
+PASS Work source identity visible
+PASS Family source identity visible
+PASS main feels value fit: text 59x24 in 104x24
+PASS main humidity value fit: text 45x24 in 104x24
+PASS main wind value fit: text 66x24 in 138x24
+PASS main Wi-Fi touch height: 48 px
+PASS main Settings touch height: 48 px
+PASS main weather touch height: 328 px
+PASS main Today nav touch height: 48 px
+PASS main Calendar nav touch height: 48 px
+PASS main Forecast nav touch height: 48 px
+PASS main event row touch height: 54 px
+PASS month table exists: children=1, state='4 in view; tap a date', free=117072, biggest=65520
+PASS month has six rows
+PASS month rows reserve 44 px: 264 px table
+PASS forecast Wi-Fi control visible
+PASS forecast day label fit: text 45 px in 100 px
+PASS forecast day label fit: text 45 px in 100 px
+PASS forecast day label fit: text 45 px in 100 px
+PASS forecast day label fit: text 40 px in 100 px
+PASS forecast day label fit: text 43 px in 100 px
+PASS forecast day label fit: text 43 px in 100 px
+PASS forecast day label fit: text 45 px in 100 px
+PASS forecast condition fit: text 77x36 in 100x40
+PASS forecast condition fit: text 82x36 in 100x40
+PASS forecast condition fit: text 77x36 in 100x40
+PASS forecast condition fit: text 80x36 in 100x40
+PASS forecast condition fit: text 77x36 in 100x40
+PASS forecast condition fit: text 77x36 in 100x40
+PASS forecast condition fit: text 77x36 in 100x40
+PASS appearance Back/title do not overlap: 131 vs 230
+PASS calendar long event row exists
+PASS calendar row opens Details
+PASS details long title fit: text 702x48 in 712x48
+PASS details long location fit: text 694x24 in 712x24
+PASS Details Back returns to Week
+PASS main event row exists for deletion recovery
+PASS main row opens Details
+PASS deleted Main event recovers to Main origin
+PASS deleted event notice is visible: This event is no longer available
+PASS negative Main temperature fit: text 106 px in 142 px
+PASS negative Forecast temperature fit: text 106 px in 160 px
+PASS negative daily range fit: text 73 px in 100 px
+PASS negative daily range fit: text 74 px in 100 px
+PASS negative daily range fit: text 79 px in 100 px
+PASS negative daily range fit: text 75 px in 100 px
+PASS negative daily range fit: text 74 px in 100 px
+PASS negative daily range fit: text 74 px in 100 px
+PASS negative daily range fit: text 73 px in 100 px
+PASS starting connection state
+PASS setup AP connection state
+PASS connected state independent of sync failure
+PASS sync failure overrides prior success: Sync failed - saved 09:41
+PASS navigation object count stable: 312 -> 312
+PASS navigation LVGL memory stabilizes: 185032 -> 185056 bytes
+SUMMARY failures=0

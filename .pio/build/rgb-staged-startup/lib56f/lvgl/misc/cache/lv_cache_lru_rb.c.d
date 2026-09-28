@@ -1,0 +1,28 @@
+.pio/build/rgb-staged-startup/lib56f/lvgl/misc/cache/lv_cache_lru_rb.c.o: \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/lv_cache_lru_rb.c \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/lv_cache_lru_rb.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/lv_cache_entry.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../../osal/lv_os.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../../osal/../lv_conf_internal.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../../osal/../lv_conf_kconfig.h \
+ /home/barro/.platformio/packages/framework-arduinoespressif32-libs/esp32s3/qio_opi/include/sdkconfig.h \
+ /home/barro/.platformio/packages/framework-arduinoespressif32-libs/esp32s3/include/esp_common/include/esp_attr.h \
+ /home/barro/dev/projects/esp32_touch_calendar/include/lv_conf.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../../osal/../misc/lv_types.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../../osal/../misc/../lv_conf_internal.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../../osal/lv_os_none.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../lv_types.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/lv_cache_private.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../../stdlib/lv_sprintf.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../../stdlib/../misc/lv_types.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../../stdlib/lv_string.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../../stdlib/../lv_conf_internal.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../lv_ll.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../../lv_conf_internal.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../lv_types.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../lv_rb_private.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../lv_rb.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../lv_assert.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../lv_log.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../../stdlib/lv_mem.h \
+ .pio/libdeps/rgb-staged-startup/lvgl/src/misc/cache/../../stdlib/lv_string.h

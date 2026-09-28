@@ -1,0 +1,42 @@
+screen	name	hitbox	ink_bbox	dx	dy	text
+today	header/settings	688,8,96,48	706,28,767,42	1.0	3.5	Settings
+today	nav/today	20,429,244,48	118,446,164,460	-0.5	0.5	Today
+today	nav/calendar	278,429,244,48	364,446,435,457	0.0	-1.0	Calendar
+today	nav/forecast	536,429,244,48	625,446,691,457	0.5	-1.0	Forecast
+week	header/settings	688,8,96,48	706,28,767,42	1.0	3.5	Settings
+week	period/prev	12,68,52,48	22,88,55,99	1.0	2.0	Prev
+week	period/today	72,68,72,48	84,88,131,102	0.0	3.5	Today
+week	period/next	152,68,52,48	162,88,197,99	2.0	2.0	Next
+week	period/week	536,68,116,48	574,89,616,100	1.5	3.0	Week
+week	period/month	660,68,128,48	702,88,747,99	1.0	2.0	Month
+week	nav/today	20,429,244,48	118,446,164,460	-0.5	0.5	Today
+week	nav/calendar	278,429,244,48	364,446,435,457	0.0	-1.0	Calendar
+week	nav/forecast	536,429,244,48	625,446,691,457	0.5	-1.0	Forecast
+month	header/settings	688,8,96,48	706,28,767,42	1.0	3.5	Settings
+month	period/prev	12,68,52,48	22,88,55,99	1.0	2.0	Prev
+month	period/today	72,68,72,48	84,88,131,102	0.0	3.5	Today
+month	period/next	152,68,52,48	162,88,197,99	2.0	2.0	Next
+month	period/week	536,68,116,48	573,88,615,99	0.5	2.0	Week
+month	period/month	660,68,128,48	703,89,749,100	2.5	3.0	Month
+month	nav/today	20,429,244,48	118,446,164,460	-0.5	0.5	Today
+month	nav/calendar	278,429,244,48	364,446,435,457	0.0	-1.0	Calendar
+month	nav/forecast	536,429,244,48	625,446,691,457	0.5	-1.0	Forecast
+forecast	header/back	688,8,96,48	707,26,765,38	0.5	0.5	Settings
+forecast	action/location	476,72,184,44	527,88,609,97	0.5	-1.0	Set location
+forecast	action/refresh	668,72,112,44	698,87,750,97	0.5	-1.5	Refresh
+forecast	nav/today	20,429,244,48	118,446,164,460	-0.5	0.5	Today
+forecast	nav/calendar	278,429,244,48	364,446,435,457	0.0	-1.0	Calendar
+forecast	nav/forecast	536,429,244,48	625,446,691,457	0.5	-1.0	Forecast
+details	header/back	20,8,112,48	48,28,106,39	1.5	2.0	<  Back
+settings	header/back	20,8,112,48	48,28,106,39	1.5	2.0	<  Back
+settings	action/wifi	20,326,244,56	101,349,184,360	1.0	1.0	Enter Wi-Fi
+settings	action/setup	278,326,244,56	353,349,448,363	1.0	2.5	Phone setup
+settings	action/sync	536,326,244,56	602,348,713,362	0.0	1.5	Sync calendar
+settings	action/appearance	20,398,244,56	78,421,207,435	1.0	2.5	Display & theme
+settings	action/weather	278,398,244,56	343,421,458,435	1.0	2.5	Weather setup
+settings	action/firmware	536,398,244,56	592,421,725,435	1.0	2.5	Firmware update
+appearance	header/back	20,8,112,48	52,26,101,35	1.0	-1.0	<  Back
+firmware	header/back	20,8,112,48	52,26,101,35	1.0	-1.0	<  Back
+firmware	action/enable	49,355,216,56	106,375,209,385	1.0	-2.5	Enable update
+firmware	action/cancel	293,355,216,56	378,376,420,385	-1.5	-2.0	Cancel
+firmware	action/reboot	537,355,216,56	621,376,670,385	1.0	-2.0	Reboot

@@ -1,0 +1,9 @@
+.pio/build/rgb-staged-startup/src/app/ical_feed.cpp.o: \
+ src/app/ical_feed.cpp include/app/ical_feed.hpp \
+ include/app/calendar_types.hpp \
+ /home/barro/.platformio/packages/framework-arduinoespressif32-libs/esp32s3/include/heap/include/esp_heap_caps.h \
+ /home/barro/.platformio/packages/framework-arduinoespressif32-libs/esp32s3/include/heap/include/multi_heap.h \
+ /home/barro/.platformio/packages/framework-arduinoespressif32-libs/esp32s3/include/esp_common/include/esp_err.h \
+ /home/barro/.platformio/packages/framework-arduinoespressif32-libs/esp32s3/include/esp_common/include/esp_compiler.h \
+ /home/barro/.platformio/packages/framework-arduinoespressif32-libs/esp32s3/include/esp_common/include/esp_attr.h \
+ include/calendar_limits.hpp include/app/calendar_provider.hpp

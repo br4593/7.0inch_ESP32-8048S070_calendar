@@ -1,0 +1,2110 @@
+--- before/src/app/ui_controller.cpp
++++ after/src/app/ui_controller.cpp
+@@ -284,6 +284,9 @@
+         set_dynamic_font(objects.event_details_screen);
+         set_dynamic_font(objects.settings_screen);
+         set_dynamic_font(objects.month_screen);
++        set_dynamic_font(objects.brightness_settings_screen);
++        set_dynamic_font(objects.weather_screen);
++        set_dynamic_font(objects.firmware_update_screen);
+         set_dynamic_font(objects.settings_wifi_status_label);
+         set_dynamic_font(objects.settings_time_status_label);
+         set_dynamic_font(objects.settings_feed_status_label);
+@@ -325,7 +328,7 @@
+         // LV_LABEL_LONG_DOT edits the label text in place when truncating, so
+         // give each label an owned copy before enabling that mode.
+         for (lv_obj_t* label : {objects.main_weather_location_label,
+-                                objects.weather_location_label}) {
++                                objects.weather_location_label, objects.weather_state_label}) {
+             if (label != nullptr) {
+                 lv_label_set_text(label, lv_label_get_text(label));
+                 lv_label_set_long_mode(label, LV_LABEL_LONG_DOT);
+@@ -1072,10 +1075,31 @@
+         } else {
+             hint = "Tap Set up to scan and choose the home Wi-Fi. The iCal address is entered only after the display joins it.";
+         }
++        const std::array<std::pair<lv_obj_t*, lv_obj_t*>, 3> status_values{{
++            {objects.settings_wifi_caption_label, objects.settings_wifi_status_label},
++            {objects.settings_time_caption_label, objects.settings_time_status_label},
++            {objects.settings_feed_caption_label, objects.settings_feed_status_label}}};
++        // Restore wrapping before replacing text so a formerly one-line value
++        // cannot be truncated against its old height during the update.
++        for (const auto& pair : status_values) {
++            lv_label_set_long_mode(pair.second, LV_LABEL_LONG_WRAP);
++            lv_obj_set_height(pair.second, LV_SIZE_CONTENT);
++        }
+         set_label_text_if_changed(objects.settings_wifi_status_label, wifi.c_str());
+         set_label_text_if_changed(objects.settings_time_status_label, time);
+         set_label_text_if_changed(objects.settings_feed_status_label, feed.c_str());
+         set_label_text_if_changed(objects.settings_setup_hint_label, hint.c_str());
++        for (const auto& pair : status_values) {
++            lv_obj_t* value = pair.second;
++            lv_obj_update_layout(value);
++            // Two lines fit each 50 px status row. Overflow remains explicit.
++            const int32_t measured = lv_obj_get_height(value);
++            const int32_t height = std::min<int32_t>(48, measured);
++            lv_obj_set_height(value, height);
++            if (measured > height) lv_label_set_long_mode(value, LV_LABEL_LONG_DOT);
++            lv_obj_set_y(value, lv_obj_get_y(pair.first) +
++                (lv_obj_get_height(pair.first) - height) / 2);
++        }
+     }
+ 
+     void style_settings_actions(const board::ConnectivityStatus& status) {
+@@ -1201,7 +1225,7 @@
+         // an owned buffer before enabling it, then keep using copied text.
+         lv_label_set_text(main_row_titles_[index], "");
+         lv_label_set_long_mode(main_row_titles_[index], LV_LABEL_LONG_DOT);
+-        lv_obj_set_style_text_align(main_row_titles_[index], LV_TEXT_ALIGN_AUTO, LV_PART_MAIN);
++        lv_obj_set_style_text_align(main_row_titles_[index], LV_TEXT_ALIGN_LEFT, LV_PART_MAIN);
+         set_dynamic_font(main_row_titles_[index]);
+ 
+         main_row_sources_[index] = lv_label_create(row);
+@@ -1209,7 +1233,7 @@
+         lv_obj_set_size(main_row_sources_[index], 255, 22);
+         lv_label_set_text(main_row_sources_[index], "");
+         lv_label_set_long_mode(main_row_sources_[index], LV_LABEL_LONG_DOT);
+-        lv_obj_set_style_text_align(main_row_sources_[index], LV_TEXT_ALIGN_AUTO, LV_PART_MAIN);
++        lv_obj_set_style_text_align(main_row_sources_[index], LV_TEXT_ALIGN_LEFT, LV_PART_MAIN);
+         set_dynamic_font(main_row_sources_[index]);
+ 
+         main_row_times_[index] = lv_label_create(row);
+@@ -1564,6 +1588,20 @@
+         else lv_obj_add_state(objects.firmware_cancel_button, LV_STATE_DISABLED);
+         if (can_reboot) lv_obj_remove_state(objects.firmware_reboot_button, LV_STATE_DISABLED);
+         else lv_obj_add_state(objects.firmware_reboot_button, LV_STATE_DISABLED);
++        for (const auto& action : std::array<std::pair<lv_obj_t*, bool>, 3>{{
++                 {objects.firmware_enable_button, can_arm},
++                 {objects.firmware_cancel_button, can_cancel},
++                 {objects.firmware_reboot_button, can_reboot}}}) {
++            lv_obj_t* button = action.first;
++            const bool primary = action.second;
++            lv_obj_set_style_bg_color(button,
++                lv_color_hex(primary ? palette().action : palette().surface_subtle), LV_PART_MAIN);
++            lv_obj_set_style_bg_color(button,
++                lv_color_hex(primary ? palette().action_pressed : palette().action_soft),
++                LV_PART_MAIN | LV_STATE_PRESSED);
++            style_button_text(button, primary ? palette().on_action : palette().text_muted,
++                              primary ? palette().on_action : palette().text_primary);
++        }
+         set_dynamic_font(objects.firmware_version_label);
+         set_dynamic_font(objects.firmware_state_label);
+         set_dynamic_font(objects.firmware_instructions_label);
+@@ -1726,6 +1764,17 @@
+         neutralize_color_filter(button);
+         lv_obj_set_style_text_color(button, lv_color_hex(normal), LV_PART_MAIN);
+         lv_obj_set_style_text_color(button, lv_color_hex(pressed), LV_PART_MAIN | LV_STATE_PRESSED);
++        // Single-label controls share one font and center within the final
++        // content rectangle, including border changes in selected states.
++        if (lv_obj_get_child_count(button) == 1) {
++            lv_obj_t* label = lv_obj_get_child(button, 0);
++            if (lv_obj_check_type(label, &lv_label_class)) {
++                set_compact_ascii_font(label);
++                lv_label_set_long_mode(label, LV_LABEL_LONG_CLIP);
++                lv_obj_set_size(label, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
++                lv_obj_center(label);
++            }
++        }
+         // Labels do not enter PRESSED when their button does. Inherit the
+         // resolved parent ink so the displayed label follows the button state.
+         for (std::uint32_t i = 0; i < lv_obj_get_child_count(button); ++i) {
+@@ -1882,7 +1931,8 @@
+         style_calendar_period_controls();
+ 
+         for (lv_obj_t* card : {objects.main_events_container, objects.main_weather_card,
+-                               objects.forecast_cards_container, objects.details_content,
++                               objects.forecast_cards_container, objects.weather_current_summary_card,
++                               objects.details_content,
+                                objects.settings_status_card, objects.brightness_card}) {
+             style_surface_card(card);
+         }
+@@ -1971,6 +2021,7 @@
+             lv_obj_invalidate(month_table_);
+         }
+         render_appearance_settings();
++        render_firmware_update();
+         update_status_indicators(true);
+     }
+ 
+@@ -2064,11 +2115,24 @@
+                                objects.forecast_cards_container}) style_surface_card(card);
+         style_icon_well(objects.main_weather_icon_container, true);
+         style_icon_well(objects.weather_current_icon_container, true);
+-        for (lv_obj_t* icon : {objects.forecast_icon_container_0, objects.forecast_icon_container_1,
+-                               objects.forecast_icon_container_2, objects.forecast_icon_container_3,
+-                               objects.forecast_icon_container_4, objects.forecast_icon_container_5,
+-                               objects.forecast_icon_container_6}) {
+-            style_icon_well(icon, false);
++        const std::array<lv_obj_t*, 7> forecast_icons{
++            objects.forecast_icon_container_0, objects.forecast_icon_container_1,
++            objects.forecast_icon_container_2, objects.forecast_icon_container_3,
++            objects.forecast_icon_container_4, objects.forecast_icon_container_5,
++            objects.forecast_icon_container_6};
++        lv_obj_update_layout(objects.forecast_cards_container);
++        // EEZ owns the seven columns; center their shared grid inside each
++        // theme's actual content width rather than its outer border rectangle.
++        const int32_t grid_width = 7 * 100 + 6 * 7;
++        const int32_t inset =
++            (lv_obj_get_content_width(objects.forecast_cards_container) - grid_width) / 2;
++        for (std::size_t index = 0; index < forecast_icons.size(); ++index) {
++            const int32_t x = inset + static_cast<int32_t>(index) * 107;
++            lv_obj_set_x(forecast_day_labels_[index], x);
++            lv_obj_set_x(forecast_temp_labels_[index], x);
++            lv_obj_set_x(forecast_condition_labels_[index], x);
++            lv_obj_set_x(forecast_icons[index], x + 29);
++            style_icon_well(forecast_icons[index], false);
+         }
+ 
+         for (lv_obj_t* label : {objects.main_weather_location_label,
+@@ -2203,6 +2267,14 @@
+         lv_obj_set_style_border_width(object, recipe().divider_width, LV_PART_MAIN | LV_STATE_DEFAULT);
+         lv_obj_set_style_border_side(object, LV_BORDER_SIDE_FULL, LV_PART_MAIN | LV_STATE_DEFAULT);
+         lv_obj_set_style_radius(object, metrics().input_radius, LV_PART_MAIN | LV_STATE_DEFAULT);
++        if (lv_obj_check_type(object, &lv_dropdown_class) ||
++            lv_obj_check_type(object, &lv_textarea_class)) {
++            // LVGL one-line textareas otherwise replace the requested height
++            // with content sizing. Reserve the bundled 24 px font line inside
++            // a stable 44 px target, including a two-pixel focused border.
++            lv_obj_set_style_pad_all(object, 8, LV_PART_MAIN);
++            lv_obj_set_height(object, 44);
++        }
+         if (lv_obj_check_type(object, &lv_dropdown_class)) {
+             lv_obj_set_style_bg_color(object, lv_color_hex(palette().selection),
+                                       LV_PART_SELECTED | LV_STATE_DEFAULT);
+@@ -2380,7 +2452,7 @@
+             case UiStatusSeverity::Normal: return palette().status_normal;
+             case UiStatusSeverity::Attention: return palette().status_attention;
+             case UiStatusSeverity::Error: return palette().status_error;
+-            case UiStatusSeverity::Neutral: return palette().text_muted;
++            case UiStatusSeverity::Neutral: return palette().on_header;
+         }
+         return palette().text_muted;
+     }
+@@ -2393,6 +2465,10 @@
+                           palette().text_primary);
+         set_compact_ascii_font(icon);
+         set_compact_ascii_font(label);
++        lv_obj_set_height(icon, LV_SIZE_CONTENT);
++        lv_obj_set_height(label, LV_SIZE_CONTENT);
++        lv_obj_align(icon, LV_ALIGN_LEFT_MID, 8, 0);
++        lv_obj_align(label, LV_ALIGN_LEFT_MID, 36, 0);
+     }
+ 
+     void update_status_indicators(bool force = false) {
+@@ -2541,7 +2617,7 @@
+         lv_obj_add_event_cb(display_wifi_password_, on_display_wifi_field_clicked, LV_EVENT_CLICKED, nullptr);
+ 
+         display_wifi_feedback_ = lv_label_create(display_wifi_form_);
+-        lv_obj_set_pos(display_wifi_feedback_, 20, 138);
++        lv_obj_set_pos(display_wifi_feedback_, 20, 136);
+         lv_obj_set_size(display_wifi_feedback_, 760, 24);
+         lv_label_set_text(display_wifi_feedback_, "Credentials are stored on this display and are never shown again.");
+         lv_label_set_long_mode(display_wifi_feedback_, LV_LABEL_LONG_DOT);
+@@ -2549,7 +2625,7 @@
+         set_dynamic_font(display_wifi_feedback_);
+ 
+         display_wifi_network_picker_ = lv_dropdown_create(display_wifi_form_);
+-        lv_obj_set_pos(display_wifi_network_picker_, 20, 160);
++        lv_obj_set_pos(display_wifi_network_picker_, 20, 168);
+         lv_obj_set_size(display_wifi_network_picker_, 610, 44);
+         lv_dropdown_set_text(display_wifi_network_picker_, "Nearby Wi-Fi appears here after a scan");
+         lv_dropdown_set_options(display_wifi_network_picker_, "");
+@@ -2560,11 +2636,11 @@
+                             LV_EVENT_READY, nullptr);
+         lv_obj_add_flag(display_wifi_network_picker_, LV_OBJ_FLAG_HIDDEN);
+ 
+-        create_display_wifi_button(display_wifi_form_, "Connect", 650, 160, 130,
++        create_display_wifi_button(display_wifi_form_, "Connect", 650, 168, 130,
+                                    on_display_wifi_connect_clicked, palette().action);
+ 
+         display_wifi_keyboard_ = lv_keyboard_create(display_wifi_form_);
+-        lv_obj_set_size(display_wifi_keyboard_, 776, 198);
++        lv_obj_set_size(display_wifi_keyboard_, 776, 188);
+         // Bottom-align with a physical margin. This reserves enough height for
+         // all four LVGL text-keyboard rows on the 800 x 480 panel.
+         lv_obj_align(display_wifi_keyboard_, LV_ALIGN_BOTTOM_MID, 0, -8);
+@@ -2574,11 +2650,11 @@
+                             LV_EVENT_READY, nullptr);
+         lv_obj_add_event_cb(display_wifi_keyboard_, on_display_wifi_cancel_clicked,
+                             LV_EVENT_CANCEL, nullptr);
+-        lv_obj_set_style_pad_top(display_wifi_keyboard_, 3, LV_PART_MAIN | LV_STATE_DEFAULT);
+-        lv_obj_set_style_pad_bottom(display_wifi_keyboard_, 3, LV_PART_MAIN | LV_STATE_DEFAULT);
++        lv_obj_set_style_pad_top(display_wifi_keyboard_, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
++        lv_obj_set_style_pad_bottom(display_wifi_keyboard_, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
+         lv_obj_set_style_pad_left(display_wifi_keyboard_, 4, LV_PART_MAIN | LV_STATE_DEFAULT);
+         lv_obj_set_style_pad_right(display_wifi_keyboard_, 4, LV_PART_MAIN | LV_STATE_DEFAULT);
+-        lv_obj_set_style_pad_row(display_wifi_keyboard_, 3, LV_PART_MAIN | LV_STATE_DEFAULT);
++        lv_obj_set_style_pad_row(display_wifi_keyboard_, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+         lv_obj_set_style_pad_column(display_wifi_keyboard_, 3, LV_PART_MAIN | LV_STATE_DEFAULT);
+         set_dynamic_font(display_wifi_keyboard_);
+         lv_obj_move_foreground(display_wifi_keyboard_);
+@@ -2862,8 +2938,17 @@
+                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+         set_dynamic_font(title);
+ 
++        for (const auto& caption : std::array<std::pair<const char*, int32_t>, 4>{{
++                 {"Location", 20}, {"Latitude", 218}, {"Longitude", 363}, {"Units", 508}}}) {
++            lv_obj_t* label = lv_label_create(weather_location_form_);
++            lv_label_set_text(label, caption.first);
++            set_dynamic_font(label);
++            lv_obj_set_style_text_color(label, lv_color_hex(palette().text_secondary), LV_PART_MAIN);
++            lv_obj_set_pos(label, caption.second, 34);
++            lv_obj_set_size(label, 135, 24);
++        }
+         weather_location_name_ = lv_textarea_create(weather_location_form_);
+-        lv_obj_set_pos(weather_location_name_, 20, 36);
++        lv_obj_set_pos(weather_location_name_, 20, 60);
+         lv_obj_set_size(weather_location_name_, 188, 44);
+         lv_textarea_set_one_line(weather_location_name_, true);
+         lv_textarea_set_max_length(weather_location_name_, 48);
+@@ -2872,7 +2957,7 @@
+                             LV_EVENT_CLICKED, nullptr);
+ 
+         weather_location_latitude_ = lv_textarea_create(weather_location_form_);
+-        lv_obj_set_pos(weather_location_latitude_, 218, 36);
++        lv_obj_set_pos(weather_location_latitude_, 218, 60);
+         lv_obj_set_size(weather_location_latitude_, 135, 44);
+         lv_textarea_set_one_line(weather_location_latitude_, true);
+         lv_textarea_set_max_length(weather_location_latitude_, 15);
+@@ -2881,7 +2966,7 @@
+                             LV_EVENT_CLICKED, nullptr);
+ 
+         weather_location_longitude_ = lv_textarea_create(weather_location_form_);
+-        lv_obj_set_pos(weather_location_longitude_, 363, 36);
++        lv_obj_set_pos(weather_location_longitude_, 363, 60);
+         lv_obj_set_size(weather_location_longitude_, 135, 44);
+         lv_textarea_set_one_line(weather_location_longitude_, true);
+         lv_textarea_set_max_length(weather_location_longitude_, 15);
+@@ -2890,29 +2975,29 @@
+                             LV_EVENT_CLICKED, nullptr);
+ 
+         weather_location_units_ = lv_dropdown_create(weather_location_form_);
+-        lv_obj_set_pos(weather_location_units_, 508, 36);
++        lv_obj_set_pos(weather_location_units_, 508, 60);
+         lv_obj_set_size(weather_location_units_, 156, 44);
+         lv_dropdown_set_options(weather_location_units_,
+-                                "Metric (C, km/h)\nImperial (F, mph)");
++                                "Metric\nImperial");
+         lv_obj_add_event_cb(weather_location_units_, on_dropdown_opened,
+                             LV_EVENT_READY, nullptr);
+ 
+-        create_display_wifi_button(weather_location_form_, "Cancel", 674, 36, 106,
++        create_display_wifi_button(weather_location_form_, "Cancel", 674, 60, 106,
+                                    on_weather_location_cancel_clicked, palette().text_muted);
+ 
+         weather_location_feedback_ = lv_label_create(weather_location_form_);
+-        lv_obj_set_pos(weather_location_feedback_, 20, 92);
+-        lv_obj_set_size(weather_location_feedback_, 610, 42);
+-        lv_label_set_long_mode(weather_location_feedback_, LV_LABEL_LONG_WRAP);
++        lv_obj_set_pos(weather_location_feedback_, 20, 116);
++        lv_obj_set_size(weather_location_feedback_, 610, 32);
++        lv_label_set_long_mode(weather_location_feedback_, LV_LABEL_LONG_DOT);
+         lv_obj_set_style_text_color(weather_location_feedback_, lv_color_hex(palette().text_muted),
+                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+         set_dynamic_font(weather_location_feedback_);
+ 
+-        create_display_wifi_button(weather_location_form_, "Save", 650, 90, 130,
++        create_display_wifi_button(weather_location_form_, "Save", 650, 114, 130,
+                                    on_weather_location_save_clicked, palette().action);
+ 
+         weather_location_keyboard_ = lv_keyboard_create(weather_location_form_);
+-        lv_obj_set_size(weather_location_keyboard_, 776, 268);
++        lv_obj_set_size(weather_location_keyboard_, 776, 236);
+         lv_obj_align(weather_location_keyboard_, LV_ALIGN_BOTTOM_MID, 0, -8);
+         lv_keyboard_set_popovers(weather_location_keyboard_, false);
+         lv_obj_add_event_cb(weather_location_keyboard_, on_weather_location_keyboard_ready,
+@@ -2978,8 +3063,8 @@
+         char prompt[128];
+         std::snprintf(prompt, sizeof(prompt),
+                       config.api_key_configured
+-                          ? "Typing in: %s (highlighted box)"
+-                          : "Typing in: %s - add the API key from the LAN page before saving",
++                          ? "Typing in: %s"
++                          : "Typing in: %s - add the API key on the LAN page",
+                       field_name);
+         lv_label_set_text(weather_location_feedback_, prompt);
+     }
+@@ -3166,9 +3251,22 @@
+             ? static_cast<std::uint32_t>(measured_table_width) : 756U;
+         const std::uint32_t base_column_width = table_width / 7;
+         const std::uint32_t extra_columns = table_width % 7;
++        const std::array<lv_obj_t*, 7> headings{
++            objects.month_weekday_label_0, objects.month_weekday_label_1,
++            objects.month_weekday_label_2, objects.month_weekday_label_3,
++            objects.month_weekday_label_4, objects.month_weekday_label_5,
++            objects.month_weekday_label_6};
++        lv_area_t table_bounds{}, header_content{};
++        lv_obj_get_coords(month_table_, &table_bounds);
++        lv_obj_get_content_coords(objects.month_weekday_header, &header_content);
++        int32_t heading_x = table_bounds.x1 - header_content.x1;
+         for (std::size_t column = 0; column < 7; ++column) {
+-            lv_table_set_column_width(month_table_, static_cast<std::uint32_t>(column),
+-                                      base_column_width + (column < extra_columns ? 1U : 0U));
++            const std::uint32_t width = base_column_width +
++                                       (column < extra_columns ? 1U : 0U);
++            lv_table_set_column_width(month_table_, static_cast<std::uint32_t>(column), width);
++            lv_obj_set_x(headings[column], heading_x);
++            lv_obj_set_width(headings[column], static_cast<int32_t>(width));
++            heading_x += static_cast<int32_t>(width);
+         }
+         // The table clears its pointer-selected row/column before the generic
+         // CLICKED event. VALUE_CHANGED runs during RELEASED while both are
+@@ -3412,7 +3510,7 @@
+         lv_obj_set_size(row_titles_[index], 480, 20);
+         lv_label_set_text(row_titles_[index], "");
+         lv_label_set_long_mode(row_titles_[index], LV_LABEL_LONG_DOT);
+-        lv_obj_set_style_text_align(row_titles_[index], LV_TEXT_ALIGN_AUTO, LV_PART_MAIN);
++        lv_obj_set_style_text_align(row_titles_[index], LV_TEXT_ALIGN_LEFT, LV_PART_MAIN);
+         set_dynamic_font(row_titles_[index]);
+         lv_obj_set_style_text_color(row_titles_[index], lv_color_hex(palette().text_primary),
+                                     LV_PART_MAIN | LV_STATE_DEFAULT);
+@@ -3424,7 +3522,7 @@
+         lv_obj_set_size(row_sources_[index], 480, 20);
+         lv_label_set_text(row_sources_[index], "");
+         lv_label_set_long_mode(row_sources_[index], LV_LABEL_LONG_DOT);
+-        lv_obj_set_style_text_align(row_sources_[index], LV_TEXT_ALIGN_AUTO, LV_PART_MAIN);
++        lv_obj_set_style_text_align(row_sources_[index], LV_TEXT_ALIGN_LEFT, LV_PART_MAIN);
+         set_dynamic_font(row_sources_[index]);
+ 
+         row_times_[index] = lv_label_create(row);
+--- before/src/ui_generated/screens.h
++++ after/src/ui_generated/screens.h
+@@ -135,25 +135,25 @@
+     lv_obj_t *obj14;
+     lv_obj_t *settings_heading_label;
+     lv_obj_t *settings_status_card;
+-    lv_obj_t *obj15;
++    lv_obj_t *settings_wifi_caption_label;
+     lv_obj_t *settings_wifi_status_label;
+-    lv_obj_t *obj16;
++    lv_obj_t *settings_time_caption_label;
+     lv_obj_t *settings_time_status_label;
+-    lv_obj_t *obj17;
++    lv_obj_t *settings_feed_caption_label;
+     lv_obj_t *settings_feed_status_label;
+     lv_obj_t *settings_setup_hint_label;
+     lv_obj_t *settings_enter_wifi_button;
++    lv_obj_t *obj15;
++    lv_obj_t *settings_start_setup_button;
++    lv_obj_t *obj16;
++    lv_obj_t *settings_sync_now_button;
++    lv_obj_t *obj17;
++    lv_obj_t *settings_brightness_button;
+     lv_obj_t *obj18;
+-    lv_obj_t *settings_start_setup_button;
++    lv_obj_t *settings_weather_button;
+     lv_obj_t *obj19;
+-    lv_obj_t *settings_sync_now_button;
++    lv_obj_t *settings_firmware_button;
+     lv_obj_t *obj20;
+-    lv_obj_t *settings_brightness_button;
+-    lv_obj_t *obj21;
+-    lv_obj_t *settings_weather_button;
+-    lv_obj_t *obj22;
+-    lv_obj_t *settings_firmware_button;
+-    lv_obj_t *obj23;
+     lv_obj_t *month_header;
+     lv_obj_t *month_time_label;
+     lv_obj_t *month_date_label;
+@@ -162,20 +162,20 @@
+     lv_obj_t *month_wifi_icon;
+     lv_obj_t *month_wifi_label;
+     lv_obj_t *month_settings_button;
+-    lv_obj_t *obj24;
++    lv_obj_t *obj21;
+     lv_obj_t *month_navigation_bar;
+     lv_obj_t *month_previous_button;
+-    lv_obj_t *obj25;
++    lv_obj_t *obj22;
+     lv_obj_t *month_next_button;
+-    lv_obj_t *obj26;
++    lv_obj_t *obj23;
+     lv_obj_t *month_today_button;
+-    lv_obj_t *obj27;
++    lv_obj_t *obj24;
+     lv_obj_t *month_period_label;
+     lv_obj_t *month_state_label;
+     lv_obj_t *month_week_button;
+-    lv_obj_t *obj28;
++    lv_obj_t *obj25;
+     lv_obj_t *month_month_button;
+-    lv_obj_t *obj29;
++    lv_obj_t *obj26;
+     lv_obj_t *month_weekday_header;
+     lv_obj_t *month_weekday_label_0;
+     lv_obj_t *month_weekday_label_1;
+@@ -187,31 +187,31 @@
+     lv_obj_t *month_grid_container;
+     lv_obj_t *month_primary_navigation;
+     lv_obj_t *month_nav_main_button;
+-    lv_obj_t *obj30;
++    lv_obj_t *obj27;
+     lv_obj_t *month_nav_calendar_button;
+-    lv_obj_t *obj31;
++    lv_obj_t *obj28;
+     lv_obj_t *month_nav_forecast_button;
+-    lv_obj_t *obj32;
++    lv_obj_t *obj29;
+     lv_obj_t *month_nav_indicator;
+     lv_obj_t *brightness_header;
+     lv_obj_t *brightness_back_button;
+-    lv_obj_t *obj33;
++    lv_obj_t *obj30;
+     lv_obj_t *appearance_heading_label;
+     lv_obj_t *brightness_card;
+-    lv_obj_t *obj34;
++    lv_obj_t *obj31;
+     lv_obj_t *theme_preview_canvas;
+     lv_obj_t *theme_preview_surface;
+     lv_obj_t *theme_preview_accent;
+     lv_obj_t *theme_style_dropdown;
+-    lv_obj_t *obj35;
++    lv_obj_t *obj32;
+     lv_obj_t *dark_theme_switch;
+-    lv_obj_t *obj36;
++    lv_obj_t *obj33;
+     lv_obj_t *brightness_value_label;
+     lv_obj_t *brightness_slider;
+-    lv_obj_t *obj37;
++    lv_obj_t *obj34;
+     lv_obj_t *weather_header;
+     lv_obj_t *weather_back_button;
+-    lv_obj_t *obj38;
++    lv_obj_t *obj35;
+     lv_obj_t *forecast_time_label;
+     lv_obj_t *forecast_date_label;
+     lv_obj_t *forecast_sync_state_label;
+@@ -219,14 +219,15 @@
+     lv_obj_t *forecast_wifi_icon;
+     lv_obj_t *forecast_wifi_label;
+     lv_obj_t *weather_location_label;
++    lv_obj_t *weather_current_summary_card;
+     lv_obj_t *weather_current_icon_container;
+     lv_obj_t *weather_temperature_label;
+     lv_obj_t *weather_condition_label;
+     lv_obj_t *weather_feels_like_label;
+     lv_obj_t *weather_humidity_label;
+     lv_obj_t *weather_wind_label;
++    lv_obj_t *weather_state_label;
+     lv_obj_t *weather_updated_label;
+-    lv_obj_t *weather_state_label;
+     lv_obj_t *weather_attribution_label;
+     lv_obj_t *forecast_cards_container;
+     lv_obj_t *forecast_day_label_0;
+@@ -259,31 +260,31 @@
+     lv_obj_t *forecast_condition_label_6;
+     lv_obj_t *forecast_primary_navigation;
+     lv_obj_t *forecast_nav_main_button;
+-    lv_obj_t *obj39;
++    lv_obj_t *obj36;
+     lv_obj_t *forecast_nav_calendar_button;
+-    lv_obj_t *obj40;
++    lv_obj_t *obj37;
+     lv_obj_t *forecast_nav_forecast_button;
+-    lv_obj_t *obj41;
++    lv_obj_t *obj38;
+     lv_obj_t *forecast_nav_indicator;
+     lv_obj_t *weather_set_location_button;
+-    lv_obj_t *obj42;
++    lv_obj_t *obj39;
+     lv_obj_t *weather_refresh_button;
+-    lv_obj_t *obj43;
++    lv_obj_t *obj40;
+     lv_obj_t *firmware_header;
+     lv_obj_t *firmware_back_button;
+-    lv_obj_t *obj44;
++    lv_obj_t *obj41;
+     lv_obj_t *firmware_heading_label;
+-    lv_obj_t *obj45;
++    lv_obj_t *obj42;
+     lv_obj_t *firmware_version_label;
+     lv_obj_t *firmware_state_label;
+     lv_obj_t *firmware_instructions_label;
+     lv_obj_t *firmware_progress_bar;
+     lv_obj_t *firmware_enable_button;
+-    lv_obj_t *obj46;
++    lv_obj_t *obj43;
+     lv_obj_t *firmware_cancel_button;
+-    lv_obj_t *obj47;
++    lv_obj_t *obj44;
+     lv_obj_t *firmware_reboot_button;
+-    lv_obj_t *obj48;
++    lv_obj_t *obj45;
+ } objects_t;
+ 
+ extern objects_t objects;
+--- before/src/ui_generated/screens.c
++++ after/src/ui_generated/screens.c
+@@ -1243,7 +1243,7 @@
+             lv_obj_t *obj = lv_obj_create(parent_obj);
+             objects.agenda_rows_container = obj;
+             lv_obj_set_pos(obj, 20, 192);
+-            lv_obj_set_size(obj, 760, 180);
++            lv_obj_set_size(obj, 760, 186);
+             lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICKABLE|LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+             lv_obj_set_scrollbar_mode(obj, LV_SCROLLBAR_MODE_AUTO);
+             lv_obj_set_scroll_dir(obj, LV_DIR_VER);
+@@ -1254,8 +1254,8 @@
+             lv_obj_set_style_radius(obj, 8, LV_PART_MAIN | LV_STATE_DEFAULT);
+             lv_obj_set_style_pad_left(obj, 12, LV_PART_MAIN | LV_STATE_DEFAULT);
+             lv_obj_set_style_pad_right(obj, 12, LV_PART_MAIN | LV_STATE_DEFAULT);
+-            lv_obj_set_style_pad_top(obj, 12, LV_PART_MAIN | LV_STATE_DEFAULT);
+-            lv_obj_set_style_pad_bottom(obj, 12, LV_PART_MAIN | LV_STATE_DEFAULT);
++            lv_obj_set_style_pad_top(obj, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
++            lv_obj_set_style_pad_bottom(obj, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
+             lv_obj_set_style_pad_row(obj, 8, LV_PART_MAIN | LV_STATE_DEFAULT);
+         }
+         {
+@@ -1702,8 +1702,9 @@
+             {
+                 lv_obj_t *parent_obj = obj;
+                 {
+-                    lv_obj_t *obj = lv_label_create(parent_obj);
+-                    objects.obj15 = obj;
++                    // settings_wifi_caption_label
++                    lv_obj_t *obj = lv_label_create(parent_obj);
++                    objects.settings_wifi_caption_label = obj;
+                     lv_obj_set_pos(obj, 24, 22);
+                     lv_obj_set_size(obj, 160, 24);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -1715,15 +1716,16 @@
+                     // settings_wifi_status_label
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.settings_wifi_status_label = obj;
+-                    lv_obj_set_pos(obj, 200, 8);
++                    lv_obj_set_pos(obj, 200, 10);
+                     lv_obj_set_size(obj, 536, 48);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_style_text_color(obj, lv_color_hex(0x38535d), LV_PART_MAIN | LV_STATE_DEFAULT);
+                     lv_label_set_text_static(obj, "Not configured");
+                 }
+                 {
+-                    lv_obj_t *obj = lv_label_create(parent_obj);
+-                    objects.obj16 = obj;
++                    // settings_time_caption_label
++                    lv_obj_t *obj = lv_label_create(parent_obj);
++                    objects.settings_time_caption_label = obj;
+                     lv_obj_set_pos(obj, 24, 72);
+                     lv_obj_set_size(obj, 160, 24);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -1735,15 +1737,16 @@
+                     // settings_time_status_label
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.settings_time_status_label = obj;
+-                    lv_obj_set_pos(obj, 200, 58);
++                    lv_obj_set_pos(obj, 200, 60);
+                     lv_obj_set_size(obj, 536, 48);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_style_text_color(obj, lv_color_hex(0x38535d), LV_PART_MAIN | LV_STATE_DEFAULT);
+                     lv_label_set_text_static(obj, "Waiting for network time");
+                 }
+                 {
+-                    lv_obj_t *obj = lv_label_create(parent_obj);
+-                    objects.obj17 = obj;
++                    // settings_feed_caption_label
++                    lv_obj_t *obj = lv_label_create(parent_obj);
++                    objects.settings_feed_caption_label = obj;
+                     lv_obj_set_pos(obj, 24, 122);
+                     lv_obj_set_size(obj, 160, 24);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -1755,7 +1758,7 @@
+                     // settings_feed_status_label
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.settings_feed_status_label = obj;
+-                    lv_obj_set_pos(obj, 200, 108);
++                    lv_obj_set_pos(obj, 200, 110);
+                     lv_obj_set_size(obj, 536, 48);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_style_text_color(obj, lv_color_hex(0x38535d), LV_PART_MAIN | LV_STATE_DEFAULT);
+@@ -1793,7 +1796,7 @@
+                 lv_obj_t *parent_obj = obj;
+                 {
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+-                    objects.obj18 = obj;
++                    objects.obj15 = obj;
+                     lv_obj_set_pos(obj, 0, 17);
+                     lv_obj_set_size(obj, 244, 22);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -1824,7 +1827,7 @@
+                 lv_obj_t *parent_obj = obj;
+                 {
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+-                    objects.obj19 = obj;
++                    objects.obj16 = obj;
+                     lv_obj_set_pos(obj, 0, 17);
+                     lv_obj_set_size(obj, 244, 22);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -1855,7 +1858,7 @@
+                 lv_obj_t *parent_obj = obj;
+                 {
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+-                    objects.obj20 = obj;
++                    objects.obj17 = obj;
+                     lv_obj_set_pos(obj, 0, 17);
+                     lv_obj_set_size(obj, 244, 22);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -1886,7 +1889,7 @@
+                 lv_obj_t *parent_obj = obj;
+                 {
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+-                    objects.obj21 = obj;
++                    objects.obj18 = obj;
+                     lv_obj_set_pos(obj, 0, 17);
+                     lv_obj_set_size(obj, 244, 22);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -1917,7 +1920,7 @@
+                 lv_obj_t *parent_obj = obj;
+                 {
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+-                    objects.obj22 = obj;
++                    objects.obj19 = obj;
+                     lv_obj_set_pos(obj, 0, 17);
+                     lv_obj_set_size(obj, 244, 22);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -1948,7 +1951,7 @@
+                 lv_obj_t *parent_obj = obj;
+                 {
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+-                    objects.obj23 = obj;
++                    objects.obj20 = obj;
+                     lv_obj_set_pos(obj, 0, 17);
+                     lv_obj_set_size(obj, 244, 22);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -2102,7 +2105,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj24 = obj;
++                            objects.obj21 = obj;
+                             lv_obj_set_pos(obj, 0, 14);
+                             lv_obj_set_size(obj, 96, 20);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -2155,7 +2158,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj25 = obj;
++                            objects.obj22 = obj;
+                             lv_obj_set_pos(obj, 0, 14);
+                             lv_obj_set_size(obj, 52, 20);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -2187,7 +2190,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj26 = obj;
++                            objects.obj23 = obj;
+                             lv_obj_set_pos(obj, 0, 14);
+                             lv_obj_set_size(obj, 52, 20);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -2218,7 +2221,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj27 = obj;
++                            objects.obj24 = obj;
+                             lv_obj_set_pos(obj, 0, 14);
+                             lv_obj_set_size(obj, 72, 20);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -2274,7 +2277,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj28 = obj;
++                            objects.obj25 = obj;
+                             lv_obj_set_pos(obj, 0, 14);
+                             lv_obj_set_size(obj, 116, 20);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -2305,7 +2308,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj29 = obj;
++                            objects.obj26 = obj;
+                             lv_obj_set_pos(obj, 0, 14);
+                             lv_obj_set_size(obj, 128, 20);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -2485,7 +2488,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj30 = obj;
++                            objects.obj27 = obj;
+                             lv_obj_set_pos(obj, 0, 14);
+                             lv_obj_set_size(obj, 244, 20);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -2520,7 +2523,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj31 = obj;
++                            objects.obj28 = obj;
+                             lv_obj_set_pos(obj, 0, 14);
+                             lv_obj_set_size(obj, 244, 20);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -2555,7 +2558,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj32 = obj;
++                            objects.obj29 = obj;
+                             lv_obj_set_pos(obj, 0, 14);
+                             lv_obj_set_size(obj, 244, 20);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -2648,7 +2651,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj33 = obj;
++                            objects.obj30 = obj;
+                             lv_obj_set_pos(obj, 0, 14);
+                             lv_obj_set_size(obj, 112, 20);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -2695,7 +2698,7 @@
+                 lv_obj_t *parent_obj = obj;
+                 {
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+-                    objects.obj34 = obj;
++                    objects.obj31 = obj;
+                     lv_obj_set_pos(obj, 28, 18);
+                     lv_obj_set_size(obj, 200, 28);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -2779,7 +2782,7 @@
+                 }
+                 {
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+-                    objects.obj35 = obj;
++                    objects.obj32 = obj;
+                     lv_obj_set_pos(obj, 28, 82);
+                     lv_obj_set_size(obj, 420, 28);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -2801,7 +2804,7 @@
+                 }
+                 {
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+-                    objects.obj36 = obj;
++                    objects.obj33 = obj;
+                     lv_obj_set_pos(obj, 28, 136);
+                     lv_obj_set_size(obj, 300, 28);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -2844,7 +2847,7 @@
+                 }
+                 {
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+-                    objects.obj37 = obj;
++                    objects.obj34 = obj;
+                     lv_obj_set_pos(obj, 28, 242);
+                     lv_obj_set_size(obj, 684, 28);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -2916,7 +2919,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj38 = obj;
++                            objects.obj35 = obj;
+                             lv_obj_set_pos(obj, 0, 14);
+                             lv_obj_set_size(obj, 96, 20);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -3024,99 +3027,122 @@
+             lv_label_set_text_static(obj, "Location not configured");
+         }
+         {
+-            // weather_current_icon_container
++            // weather_current_summary_card
+             lv_obj_t *obj = lv_obj_create(parent_obj);
+-            objects.weather_current_icon_container = obj;
+-            lv_obj_set_pos(obj, 24, 124);
+-            lv_obj_set_size(obj, 64, 60);
++            objects.weather_current_summary_card = obj;
++            lv_obj_set_pos(obj, 20, 120);
++            lv_obj_set_size(obj, 760, 112);
+             lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICKABLE|LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+             lv_obj_set_scrollbar_mode(obj, LV_SCROLLBAR_MODE_OFF);
+             lv_obj_set_scroll_dir(obj, LV_DIR_NONE);
+-            lv_obj_set_style_bg_opa(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+-            lv_obj_set_style_border_width(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+-            lv_obj_set_style_radius(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
++            lv_obj_set_style_bg_color(obj, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
++            lv_obj_set_style_bg_opa(obj, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
++            lv_obj_set_style_border_color(obj, lv_color_hex(0x7a9098), LV_PART_MAIN | LV_STATE_DEFAULT);
++            lv_obj_set_style_border_width(obj, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
++            lv_obj_set_style_radius(obj, 8, LV_PART_MAIN | LV_STATE_DEFAULT);
+             lv_obj_set_style_pad_left(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+             lv_obj_set_style_pad_right(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+             lv_obj_set_style_pad_top(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+             lv_obj_set_style_pad_bottom(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+-        }
+-        {
+-            // weather_temperature_label
+-            lv_obj_t *obj = lv_label_create(parent_obj);
+-            objects.weather_temperature_label = obj;
+-            lv_obj_set_pos(obj, 96, 126);
+-            lv_obj_set_size(obj, 160, 52);
+-            lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+-            lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+-            lv_obj_set_style_text_align(obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+-            lv_obj_set_style_text_color(obj, lv_color_hex(0x122b34), LV_PART_MAIN | LV_STATE_DEFAULT);
+-            lv_label_set_text_static(obj, "-- C");
+-        }
+-        {
+-            // weather_condition_label
+-            lv_obj_t *obj = lv_label_create(parent_obj);
+-            objects.weather_condition_label = obj;
+-            lv_obj_set_pos(obj, 272, 128);
+-            lv_obj_set_size(obj, 180, 48);
+-            lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+-            lv_obj_set_style_text_color(obj, lv_color_hex(0x122b34), LV_PART_MAIN | LV_STATE_DEFAULT);
+-            lv_label_set_text_static(obj, "Weather unavailable");
+-        }
+-        {
+-            // weather_feels_like_label
+-            lv_obj_t *obj = lv_label_create(parent_obj);
+-            objects.weather_feels_like_label = obj;
+-            lv_obj_set_pos(obj, 468, 126);
+-            lv_obj_set_size(obj, 312, 24);
+-            lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+-            lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+-            lv_obj_set_style_text_color(obj, lv_color_hex(0x38535d), LV_PART_MAIN | LV_STATE_DEFAULT);
+-            lv_label_set_text_static(obj, "Feels like -- C");
+-        }
+-        {
+-            // weather_humidity_label
+-            lv_obj_t *obj = lv_label_create(parent_obj);
+-            objects.weather_humidity_label = obj;
+-            lv_obj_set_pos(obj, 468, 154);
+-            lv_obj_set_size(obj, 150, 24);
+-            lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+-            lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+-            lv_obj_set_style_text_color(obj, lv_color_hex(0x38535d), LV_PART_MAIN | LV_STATE_DEFAULT);
+-            lv_label_set_text_static(obj, "Humidity --%");
+-        }
+-        {
+-            // weather_wind_label
+-            lv_obj_t *obj = lv_label_create(parent_obj);
+-            objects.weather_wind_label = obj;
+-            lv_obj_set_pos(obj, 626, 154);
+-            lv_obj_set_size(obj, 154, 24);
+-            lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+-            lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+-            lv_obj_set_style_text_color(obj, lv_color_hex(0x38535d), LV_PART_MAIN | LV_STATE_DEFAULT);
+-            lv_label_set_text_static(obj, "Wind unavailable");
+-        }
+-        {
+-            // weather_updated_label
+-            lv_obj_t *obj = lv_label_create(parent_obj);
+-            objects.weather_updated_label = obj;
+-            lv_obj_set_pos(obj, 480, 190);
+-            lv_obj_set_size(obj, 300, 24);
+-            lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+-            lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+-            lv_obj_set_style_text_align(obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+-            lv_obj_set_style_text_color(obj, lv_color_hex(0x5b737b), LV_PART_MAIN | LV_STATE_DEFAULT);
+-            lv_label_set_text_static(obj, "Not updated yet");
+-        }
+-        {
+-            // weather_state_label
+-            lv_obj_t *obj = lv_label_create(parent_obj);
+-            objects.weather_state_label = obj;
+-            lv_obj_set_pos(obj, 20, 184);
+-            lv_obj_set_size(obj, 430, 52);
+-            lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+-            lv_obj_set_style_text_align(obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+-            lv_obj_set_style_text_color(obj, lv_color_hex(0x704400), LV_PART_MAIN | LV_STATE_DEFAULT);
+-            lv_label_set_text_static(obj, "Configure OpenWeather in Settings");
++            {
++                lv_obj_t *parent_obj = obj;
++                {
++                    // weather_current_icon_container
++                    lv_obj_t *obj = lv_obj_create(parent_obj);
++                    objects.weather_current_icon_container = obj;
++                    lv_obj_set_pos(obj, 12, 12);
++                    lv_obj_set_size(obj, 64, 60);
++                    lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICKABLE|LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
++                    lv_obj_set_scrollbar_mode(obj, LV_SCROLLBAR_MODE_OFF);
++                    lv_obj_set_scroll_dir(obj, LV_DIR_NONE);
++                    lv_obj_set_style_bg_opa(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_obj_set_style_border_width(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_obj_set_style_radius(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_obj_set_style_pad_left(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_obj_set_style_pad_right(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_obj_set_style_pad_top(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_obj_set_style_pad_bottom(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
++                }
++                {
++                    // weather_temperature_label
++                    lv_obj_t *obj = lv_label_create(parent_obj);
++                    objects.weather_temperature_label = obj;
++                    lv_obj_set_pos(obj, 84, 14);
++                    lv_obj_set_size(obj, 160, 52);
++                    lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
++                    lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
++                    lv_obj_set_style_text_align(obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_obj_set_style_text_color(obj, lv_color_hex(0x122b34), LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_label_set_text_static(obj, "-- C");
++                }
++                {
++                    // weather_condition_label
++                    lv_obj_t *obj = lv_label_create(parent_obj);
++                    objects.weather_condition_label = obj;
++                    lv_obj_set_pos(obj, 260, 14);
++                    lv_obj_set_size(obj, 172, 48);
++                    lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
++                    lv_obj_set_style_text_color(obj, lv_color_hex(0x122b34), LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_label_set_text_static(obj, "Weather unavailable");
++                }
++                {
++                    // weather_feels_like_label
++                    lv_obj_t *obj = lv_label_create(parent_obj);
++                    objects.weather_feels_like_label = obj;
++                    lv_obj_set_pos(obj, 448, 14);
++                    lv_obj_set_size(obj, 288, 24);
++                    lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
++                    lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
++                    lv_obj_set_style_text_color(obj, lv_color_hex(0x38535d), LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_label_set_text_static(obj, "Feels like -- C");
++                }
++                {
++                    // weather_humidity_label
++                    lv_obj_t *obj = lv_label_create(parent_obj);
++                    objects.weather_humidity_label = obj;
++                    lv_obj_set_pos(obj, 448, 42);
++                    lv_obj_set_size(obj, 138, 24);
++                    lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
++                    lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
++                    lv_obj_set_style_text_color(obj, lv_color_hex(0x38535d), LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_label_set_text_static(obj, "Humidity --%");
++                }
++                {
++                    // weather_wind_label
++                    lv_obj_t *obj = lv_label_create(parent_obj);
++                    objects.weather_wind_label = obj;
++                    lv_obj_set_pos(obj, 594, 42);
++                    lv_obj_set_size(obj, 142, 24);
++                    lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
++                    lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
++                    lv_obj_set_style_text_color(obj, lv_color_hex(0x38535d), LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_label_set_text_static(obj, "Wind unavailable");
++                }
++                {
++                    // weather_state_label
++                    lv_obj_t *obj = lv_label_create(parent_obj);
++                    objects.weather_state_label = obj;
++                    lv_obj_set_pos(obj, 12, 78);
++                    lv_obj_set_size(obj, 420, 24);
++                    lv_label_set_long_mode(obj, LV_LABEL_LONG_DOT);
++                    lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
++                    lv_obj_set_style_text_align(obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_obj_set_style_text_color(obj, lv_color_hex(0x704400), LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_label_set_text(obj, "Configure OpenWeather in Settings");
++                }
++                {
++                    // weather_updated_label
++                    lv_obj_t *obj = lv_label_create(parent_obj);
++                    objects.weather_updated_label = obj;
++                    lv_obj_set_pos(obj, 448, 78);
++                    lv_obj_set_size(obj, 288, 24);
++                    lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
++                    lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
++                    lv_obj_set_style_text_align(obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_obj_set_style_text_color(obj, lv_color_hex(0x5b737b), LV_PART_MAIN | LV_STATE_DEFAULT);
++                    lv_label_set_text_static(obj, "Not updated yet");
++                }
++            }
+         }
+         {
+             // weather_attribution_label
+@@ -3154,7 +3180,7 @@
+                     // forecast_day_label_0
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_day_label_0 = obj;
+-                    lv_obj_set_pos(obj, 9, 4);
++                    lv_obj_set_pos(obj, 8, 4);
+                     lv_obj_set_size(obj, 100, 38);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+@@ -3166,7 +3192,7 @@
+                     // forecast_icon_container_0
+                     lv_obj_t *obj = lv_obj_create(parent_obj);
+                     objects.forecast_icon_container_0 = obj;
+-                    lv_obj_set_pos(obj, 38, 44);
++                    lv_obj_set_pos(obj, 37, 44);
+                     lv_obj_set_size(obj, 42, 42);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICKABLE|LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_scrollbar_mode(obj, LV_SCROLLBAR_MODE_OFF);
+@@ -3183,7 +3209,7 @@
+                     // forecast_temp_label_0
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_temp_label_0 = obj;
+-                    lv_obj_set_pos(obj, 9, 88);
++                    lv_obj_set_pos(obj, 8, 88);
+                     lv_obj_set_size(obj, 100, 24);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+@@ -3195,7 +3221,7 @@
+                     // forecast_condition_label_0
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_condition_label_0 = obj;
+-                    lv_obj_set_pos(obj, 9, 114);
++                    lv_obj_set_pos(obj, 8, 114);
+                     lv_obj_set_size(obj, 100, 40);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_style_text_align(obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+@@ -3206,7 +3232,7 @@
+                     // forecast_day_label_1
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_day_label_1 = obj;
+-                    lv_obj_set_pos(obj, 116, 4);
++                    lv_obj_set_pos(obj, 115, 4);
+                     lv_obj_set_size(obj, 100, 38);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+@@ -3218,7 +3244,7 @@
+                     // forecast_icon_container_1
+                     lv_obj_t *obj = lv_obj_create(parent_obj);
+                     objects.forecast_icon_container_1 = obj;
+-                    lv_obj_set_pos(obj, 145, 44);
++                    lv_obj_set_pos(obj, 144, 44);
+                     lv_obj_set_size(obj, 42, 42);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICKABLE|LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_scrollbar_mode(obj, LV_SCROLLBAR_MODE_OFF);
+@@ -3235,7 +3261,7 @@
+                     // forecast_temp_label_1
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_temp_label_1 = obj;
+-                    lv_obj_set_pos(obj, 116, 88);
++                    lv_obj_set_pos(obj, 115, 88);
+                     lv_obj_set_size(obj, 100, 24);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+@@ -3247,7 +3273,7 @@
+                     // forecast_condition_label_1
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_condition_label_1 = obj;
+-                    lv_obj_set_pos(obj, 116, 114);
++                    lv_obj_set_pos(obj, 115, 114);
+                     lv_obj_set_size(obj, 100, 40);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_style_text_align(obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+@@ -3258,7 +3284,7 @@
+                     // forecast_day_label_2
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_day_label_2 = obj;
+-                    lv_obj_set_pos(obj, 223, 4);
++                    lv_obj_set_pos(obj, 222, 4);
+                     lv_obj_set_size(obj, 100, 38);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+@@ -3270,7 +3296,7 @@
+                     // forecast_icon_container_2
+                     lv_obj_t *obj = lv_obj_create(parent_obj);
+                     objects.forecast_icon_container_2 = obj;
+-                    lv_obj_set_pos(obj, 252, 44);
++                    lv_obj_set_pos(obj, 251, 44);
+                     lv_obj_set_size(obj, 42, 42);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICKABLE|LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_scrollbar_mode(obj, LV_SCROLLBAR_MODE_OFF);
+@@ -3287,7 +3313,7 @@
+                     // forecast_temp_label_2
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_temp_label_2 = obj;
+-                    lv_obj_set_pos(obj, 223, 88);
++                    lv_obj_set_pos(obj, 222, 88);
+                     lv_obj_set_size(obj, 100, 24);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+@@ -3299,7 +3325,7 @@
+                     // forecast_condition_label_2
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_condition_label_2 = obj;
+-                    lv_obj_set_pos(obj, 223, 114);
++                    lv_obj_set_pos(obj, 222, 114);
+                     lv_obj_set_size(obj, 100, 40);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_style_text_align(obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+@@ -3310,7 +3336,7 @@
+                     // forecast_day_label_3
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_day_label_3 = obj;
+-                    lv_obj_set_pos(obj, 330, 4);
++                    lv_obj_set_pos(obj, 329, 4);
+                     lv_obj_set_size(obj, 100, 38);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+@@ -3322,7 +3348,7 @@
+                     // forecast_icon_container_3
+                     lv_obj_t *obj = lv_obj_create(parent_obj);
+                     objects.forecast_icon_container_3 = obj;
+-                    lv_obj_set_pos(obj, 359, 44);
++                    lv_obj_set_pos(obj, 358, 44);
+                     lv_obj_set_size(obj, 42, 42);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICKABLE|LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_scrollbar_mode(obj, LV_SCROLLBAR_MODE_OFF);
+@@ -3339,7 +3365,7 @@
+                     // forecast_temp_label_3
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_temp_label_3 = obj;
+-                    lv_obj_set_pos(obj, 330, 88);
++                    lv_obj_set_pos(obj, 329, 88);
+                     lv_obj_set_size(obj, 100, 24);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+@@ -3351,7 +3377,7 @@
+                     // forecast_condition_label_3
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_condition_label_3 = obj;
+-                    lv_obj_set_pos(obj, 330, 114);
++                    lv_obj_set_pos(obj, 329, 114);
+                     lv_obj_set_size(obj, 100, 40);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_style_text_align(obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+@@ -3362,7 +3388,7 @@
+                     // forecast_day_label_4
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_day_label_4 = obj;
+-                    lv_obj_set_pos(obj, 437, 4);
++                    lv_obj_set_pos(obj, 436, 4);
+                     lv_obj_set_size(obj, 100, 38);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+@@ -3374,7 +3400,7 @@
+                     // forecast_icon_container_4
+                     lv_obj_t *obj = lv_obj_create(parent_obj);
+                     objects.forecast_icon_container_4 = obj;
+-                    lv_obj_set_pos(obj, 466, 44);
++                    lv_obj_set_pos(obj, 465, 44);
+                     lv_obj_set_size(obj, 42, 42);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICKABLE|LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_scrollbar_mode(obj, LV_SCROLLBAR_MODE_OFF);
+@@ -3391,7 +3417,7 @@
+                     // forecast_temp_label_4
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_temp_label_4 = obj;
+-                    lv_obj_set_pos(obj, 437, 88);
++                    lv_obj_set_pos(obj, 436, 88);
+                     lv_obj_set_size(obj, 100, 24);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+@@ -3403,7 +3429,7 @@
+                     // forecast_condition_label_4
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_condition_label_4 = obj;
+-                    lv_obj_set_pos(obj, 437, 114);
++                    lv_obj_set_pos(obj, 436, 114);
+                     lv_obj_set_size(obj, 100, 40);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_style_text_align(obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+@@ -3414,7 +3440,7 @@
+                     // forecast_day_label_5
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_day_label_5 = obj;
+-                    lv_obj_set_pos(obj, 544, 4);
++                    lv_obj_set_pos(obj, 543, 4);
+                     lv_obj_set_size(obj, 100, 38);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+@@ -3426,7 +3452,7 @@
+                     // forecast_icon_container_5
+                     lv_obj_t *obj = lv_obj_create(parent_obj);
+                     objects.forecast_icon_container_5 = obj;
+-                    lv_obj_set_pos(obj, 573, 44);
++                    lv_obj_set_pos(obj, 572, 44);
+                     lv_obj_set_size(obj, 42, 42);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICKABLE|LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_scrollbar_mode(obj, LV_SCROLLBAR_MODE_OFF);
+@@ -3443,7 +3469,7 @@
+                     // forecast_temp_label_5
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_temp_label_5 = obj;
+-                    lv_obj_set_pos(obj, 544, 88);
++                    lv_obj_set_pos(obj, 543, 88);
+                     lv_obj_set_size(obj, 100, 24);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+@@ -3455,7 +3481,7 @@
+                     // forecast_condition_label_5
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_condition_label_5 = obj;
+-                    lv_obj_set_pos(obj, 544, 114);
++                    lv_obj_set_pos(obj, 543, 114);
+                     lv_obj_set_size(obj, 100, 40);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_style_text_color(obj, lv_color_hex(0x38535d), LV_PART_MAIN | LV_STATE_DEFAULT);
+@@ -3466,7 +3492,7 @@
+                     // forecast_day_label_6
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_day_label_6 = obj;
+-                    lv_obj_set_pos(obj, 651, 4);
++                    lv_obj_set_pos(obj, 650, 4);
+                     lv_obj_set_size(obj, 100, 38);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+@@ -3478,7 +3504,7 @@
+                     // forecast_icon_container_6
+                     lv_obj_t *obj = lv_obj_create(parent_obj);
+                     objects.forecast_icon_container_6 = obj;
+-                    lv_obj_set_pos(obj, 680, 44);
++                    lv_obj_set_pos(obj, 679, 44);
+                     lv_obj_set_size(obj, 42, 42);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICKABLE|LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_scrollbar_mode(obj, LV_SCROLLBAR_MODE_OFF);
+@@ -3495,7 +3521,7 @@
+                     // forecast_temp_label_6
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_temp_label_6 = obj;
+-                    lv_obj_set_pos(obj, 651, 88);
++                    lv_obj_set_pos(obj, 650, 88);
+                     lv_obj_set_size(obj, 100, 24);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+@@ -3507,7 +3533,7 @@
+                     // forecast_condition_label_6
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+                     objects.forecast_condition_label_6 = obj;
+-                    lv_obj_set_pos(obj, 651, 114);
++                    lv_obj_set_pos(obj, 650, 114);
+                     lv_obj_set_size(obj, 100, 40);
+                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                     lv_obj_set_style_text_color(obj, lv_color_hex(0x38535d), LV_PART_MAIN | LV_STATE_DEFAULT);
+@@ -3559,7 +3585,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj39 = obj;
++                            objects.obj36 = obj;
+                             lv_obj_set_pos(obj, 0, 14);
+                             lv_obj_set_size(obj, 244, 20);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -3594,7 +3620,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj40 = obj;
++                            objects.obj37 = obj;
+                             lv_obj_set_pos(obj, 0, 14);
+                             lv_obj_set_size(obj, 244, 20);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -3629,7 +3655,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj41 = obj;
++                            objects.obj38 = obj;
+                             lv_obj_set_pos(obj, 0, 14);
+                             lv_obj_set_size(obj, 244, 20);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -3684,7 +3710,7 @@
+                 lv_obj_t *parent_obj = obj;
+                 {
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+-                    objects.obj42 = obj;
++                    objects.obj39 = obj;
+                     lv_obj_set_pos(obj, 0, 12);
+                     lv_obj_set_size(obj, 184, 20);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -3718,7 +3744,7 @@
+                 lv_obj_t *parent_obj = obj;
+                 {
+                     lv_obj_t *obj = lv_label_create(parent_obj);
+-                    objects.obj43 = obj;
++                    objects.obj40 = obj;
+                     lv_obj_set_pos(obj, 0, 12);
+                     lv_obj_set_size(obj, 112, 20);
+                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -3790,7 +3816,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj44 = obj;
++                            objects.obj41 = obj;
+                             lv_obj_set_pos(obj, 0, 14);
+                             lv_obj_set_size(obj, 112, 20);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -3817,7 +3843,7 @@
+         }
+         {
+             lv_obj_t *obj = lv_obj_create(parent_obj);
+-            objects.obj45 = obj;
++            objects.obj42 = obj;
+             lv_obj_set_pos(obj, 20, 84);
+             lv_obj_set_size(obj, 760, 374);
+             lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICKABLE|LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+@@ -3898,7 +3924,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj46 = obj;
++                            objects.obj43 = obj;
+                             lv_obj_set_pos(obj, 0, 17);
+                             lv_obj_set_size(obj, 216, 22);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -3930,7 +3956,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj47 = obj;
++                            objects.obj44 = obj;
+                             lv_obj_set_pos(obj, 0, 17);
+                             lv_obj_set_size(obj, 216, 22);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+@@ -3961,7 +3987,7 @@
+                         lv_obj_t *parent_obj = obj;
+                         {
+                             lv_obj_t *obj = lv_label_create(parent_obj);
+-                            objects.obj48 = obj;
++                            objects.obj45 = obj;
+                             lv_obj_set_pos(obj, 0, 17);
+                             lv_obj_set_size(obj, 216, 22);
+                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+--- before/include/app/firmware_version.hpp
++++ after/include/app/firmware_version.hpp
+@@ -3,7 +3,7 @@
+ namespace calendar {
+ 
+ #if defined(APP_RGB_STAGED_STARTUP)
+-inline constexpr char kFirmwareVersion[] = "0.6.32-balanced-ui";
++inline constexpr char kFirmwareVersion[] = "0.6.33-ui-alignment";
+ #elif defined(APP_RGB_DIAGNOSTICS)
+ inline constexpr char kFirmwareVersion[] = "0.6.19-rgb-diagnostics";
+ #elif defined(APP_OWN_ST7262_PANEL)
+--- before/ui/calendar.eez-project
++++ after/ui/calendar.eez-project
+@@ -2768,7 +2768,7 @@
+               "left": 20,
+               "top": 192,
+               "width": 760,
+-              "height": 180,
++              "height": 186,
+               "children": [],
+               "identifier": "agenda_rows_container",
+               "clickableFlag": false,
+@@ -2787,8 +2787,8 @@
+                       "radius": 8,
+                       "pad_left": 12,
+                       "pad_right": 12,
+-                      "pad_top": 12,
+-                      "pad_bottom": 12,
++                      "pad_top": 5,
++                      "pad_bottom": 5,
+                       "pad_row": 8
+                     }
+                   }
+@@ -3669,13 +3669,14 @@
+                         }
+                       }
+                     }
+-                  }
++                  },
++                  "identifier": "settings_wifi_caption_label"
+                 },
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000147",
+                   "type": "LVGLLabelWidget",
+                   "left": 200,
+-                  "top": 8,
++                  "top": 10,
+                   "width": 536,
+                   "height": 48,
+                   "children": [],
+@@ -3716,13 +3717,14 @@
+                         }
+                       }
+                     }
+-                  }
++                  },
++                  "identifier": "settings_time_caption_label"
+                 },
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000151",
+                   "type": "LVGLLabelWidget",
+                   "left": 200,
+-                  "top": 58,
++                  "top": 60,
+                   "width": 536,
+                   "height": 48,
+                   "children": [],
+@@ -3763,13 +3765,14 @@
+                         }
+                       }
+                     }
+-                  }
++                  },
++                  "identifier": "settings_feed_caption_label"
+                 },
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000155",
+                   "type": "LVGLLabelWidget",
+                   "left": 200,
+-                  "top": 108,
++                  "top": 110,
+                   "width": 536,
+                   "height": 48,
+                   "children": [],
+@@ -6368,201 +6371,234 @@
+               }
+             },
+             {
+-              "objID": "00000000-0000-4000-8000-000000000623",
++              "objID": "03420901-c1c1-47b6-8e65-975bfc43c5e1",
+               "type": "LVGLContainerWidget",
+-              "left": 24,
+-              "top": 124,
+-              "width": 64,
+-              "height": 60,
+-              "children": [],
+-              "identifier": "weather_current_icon_container",
++              "left": 20,
++              "top": 120,
++              "width": 760,
++              "height": 112,
++              "children": [
++                {
++                  "objID": "00000000-0000-4000-8000-000000000623",
++                  "type": "LVGLContainerWidget",
++                  "left": 12,
++                  "top": 12,
++                  "width": 64,
++                  "height": 60,
++                  "children": [],
++                  "identifier": "weather_current_icon_container",
++                  "clickableFlag": false,
++                  "widgetFlags": "",
++                  "flagScrollbarMode": "off",
++                  "flagScrollDirection": "none",
++                  "localStyles": {
++                    "objID": "00000000-0000-4000-8000-000000000624",
++                    "definition": {
++                      "MAIN": {
++                        "DEFAULT": {
++                          "bg_opa": 0,
++                          "border_width": 0,
++                          "radius": 0,
++                          "pad_left": 0,
++                          "pad_right": 0,
++                          "pad_top": 0,
++                          "pad_bottom": 0
++                        }
++                      }
++                    }
++                  }
++                },
++                {
++                  "objID": "00000000-0000-4000-8000-000000000355",
++                  "type": "LVGLLabelWidget",
++                  "left": 84,
++                  "top": 14,
++                  "width": 160,
++                  "height": 52,
++                  "children": [],
++                  "identifier": "weather_temperature_label",
++                  "text": "-- C",
++                  "textType": "literal",
++                  "longMode": "CLIP",
++                  "recolor": false,
++                  "localStyles": {
++                    "objID": "00000000-0000-4000-8000-000000000356",
++                    "definition": {
++                      "MAIN": {
++                        "DEFAULT": {
++                          "text_align": "CENTER",
++                          "text_color": "#122B34"
++                        }
++                      }
++                    }
++                  }
++                },
++                {
++                  "objID": "00000000-0000-4000-8000-000000000357",
++                  "type": "LVGLLabelWidget",
++                  "left": 260,
++                  "top": 14,
++                  "width": 172,
++                  "height": 48,
++                  "children": [],
++                  "identifier": "weather_condition_label",
++                  "text": "Weather unavailable",
++                  "textType": "literal",
++                  "longMode": "WRAP",
++                  "recolor": false,
++                  "localStyles": {
++                    "objID": "00000000-0000-4000-8000-000000000358",
++                    "definition": {
++                      "MAIN": {
++                        "DEFAULT": {
++                          "text_color": "#122B34"
++                        }
++                      }
++                    }
++                  }
++                },
++                {
++                  "objID": "00000000-0000-4000-8000-000000000359",
++                  "type": "LVGLLabelWidget",
++                  "left": 448,
++                  "top": 14,
++                  "width": 288,
++                  "height": 24,
++                  "children": [],
++                  "identifier": "weather_feels_like_label",
++                  "text": "Feels like -- C",
++                  "textType": "literal",
++                  "longMode": "CLIP",
++                  "recolor": false,
++                  "localStyles": {
++                    "objID": "00000000-0000-4000-8000-000000000360",
++                    "definition": {
++                      "MAIN": {
++                        "DEFAULT": {
++                          "text_color": "#38535D"
++                        }
++                      }
++                    }
++                  }
++                },
++                {
++                  "objID": "00000000-0000-4000-8000-000000000361",
++                  "type": "LVGLLabelWidget",
++                  "left": 448,
++                  "top": 42,
++                  "width": 138,
++                  "height": 24,
++                  "children": [],
++                  "identifier": "weather_humidity_label",
++                  "text": "Humidity --%",
++                  "textType": "literal",
++                  "longMode": "CLIP",
++                  "recolor": false,
++                  "localStyles": {
++                    "objID": "00000000-0000-4000-8000-000000000362",
++                    "definition": {
++                      "MAIN": {
++                        "DEFAULT": {
++                          "text_color": "#38535D"
++                        }
++                      }
++                    }
++                  }
++                },
++                {
++                  "objID": "00000000-0000-4000-8000-000000000363",
++                  "type": "LVGLLabelWidget",
++                  "left": 594,
++                  "top": 42,
++                  "width": 142,
++                  "height": 24,
++                  "children": [],
++                  "identifier": "weather_wind_label",
++                  "text": "Wind unavailable",
++                  "textType": "literal",
++                  "longMode": "CLIP",
++                  "recolor": false,
++                  "localStyles": {
++                    "objID": "00000000-0000-4000-8000-000000000364",
++                    "definition": {
++                      "MAIN": {
++                        "DEFAULT": {
++                          "text_color": "#38535D"
++                        }
++                      }
++                    }
++                  }
++                },
++                {
++                  "objID": "00000000-0000-4000-8000-000000000367",
++                  "type": "LVGLLabelWidget",
++                  "left": 12,
++                  "top": 78,
++                  "width": 420,
++                  "height": 24,
++                  "children": [],
++                  "identifier": "weather_state_label",
++                  "text": "Configure OpenWeather in Settings",
++                  "textType": "literal",
++                  "longMode": "DOT",
++                  "recolor": false,
++                  "localStyles": {
++                    "objID": "00000000-0000-4000-8000-000000000368",
++                    "definition": {
++                      "MAIN": {
++                        "DEFAULT": {
++                          "text_align": "CENTER",
++                          "text_color": "#704400"
++                        }
++                      }
++                    }
++                  }
++                },
++                {
++                  "objID": "00000000-0000-4000-8000-000000000365",
++                  "type": "LVGLLabelWidget",
++                  "left": 448,
++                  "top": 78,
++                  "width": 288,
++                  "height": 24,
++                  "children": [],
++                  "identifier": "weather_updated_label",
++                  "text": "Not updated yet",
++                  "textType": "literal",
++                  "longMode": "CLIP",
++                  "recolor": false,
++                  "localStyles": {
++                    "objID": "00000000-0000-4000-8000-000000000366",
++                    "definition": {
++                      "MAIN": {
++                        "DEFAULT": {
++                          "text_align": "CENTER",
++                          "text_color": "#5B737B"
++                        }
++                      }
++                    }
++                  }
++                }
++              ],
++              "identifier": "weather_current_summary_card",
+               "clickableFlag": false,
+               "widgetFlags": "",
+               "flagScrollbarMode": "off",
+               "flagScrollDirection": "none",
+               "localStyles": {
+-                "objID": "00000000-0000-4000-8000-000000000624",
++                "objID": "53a58ac3-65d1-40c5-b952-a8e6fc5d1cc5",
+                 "definition": {
+                   "MAIN": {
+                     "DEFAULT": {
+-                      "bg_opa": 0,
+-                      "border_width": 0,
+-                      "radius": 0,
++                      "bg_color": "#FFFFFF",
++                      "bg_opa": 255,
++                      "border_color": "#7A9098",
++                      "border_width": 1,
++                      "radius": 8,
+                       "pad_left": 0,
+                       "pad_right": 0,
+                       "pad_top": 0,
+                       "pad_bottom": 0
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            {
+-              "objID": "00000000-0000-4000-8000-000000000355",
+-              "type": "LVGLLabelWidget",
+-              "left": 96,
+-              "top": 126,
+-              "width": 160,
+-              "height": 52,
+-              "children": [],
+-              "identifier": "weather_temperature_label",
+-              "text": "-- C",
+-              "textType": "literal",
+-              "longMode": "CLIP",
+-              "recolor": false,
+-              "localStyles": {
+-                "objID": "00000000-0000-4000-8000-000000000356",
+-                "definition": {
+-                  "MAIN": {
+-                    "DEFAULT": {
+-                      "text_align": "CENTER",
+-                      "text_color": "#122B34"
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            {
+-              "objID": "00000000-0000-4000-8000-000000000357",
+-              "type": "LVGLLabelWidget",
+-              "left": 272,
+-              "top": 128,
+-              "width": 180,
+-              "height": 48,
+-              "children": [],
+-              "identifier": "weather_condition_label",
+-              "text": "Weather unavailable",
+-              "textType": "literal",
+-              "longMode": "WRAP",
+-              "recolor": false,
+-              "localStyles": {
+-                "objID": "00000000-0000-4000-8000-000000000358",
+-                "definition": {
+-                  "MAIN": {
+-                    "DEFAULT": {
+-                      "text_color": "#122B34"
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            {
+-              "objID": "00000000-0000-4000-8000-000000000359",
+-              "type": "LVGLLabelWidget",
+-              "left": 468,
+-              "top": 126,
+-              "width": 312,
+-              "height": 24,
+-              "children": [],
+-              "identifier": "weather_feels_like_label",
+-              "text": "Feels like -- C",
+-              "textType": "literal",
+-              "longMode": "CLIP",
+-              "recolor": false,
+-              "localStyles": {
+-                "objID": "00000000-0000-4000-8000-000000000360",
+-                "definition": {
+-                  "MAIN": {
+-                    "DEFAULT": {
+-                      "text_color": "#38535D"
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            {
+-              "objID": "00000000-0000-4000-8000-000000000361",
+-              "type": "LVGLLabelWidget",
+-              "left": 468,
+-              "top": 154,
+-              "width": 150,
+-              "height": 24,
+-              "children": [],
+-              "identifier": "weather_humidity_label",
+-              "text": "Humidity --%",
+-              "textType": "literal",
+-              "longMode": "CLIP",
+-              "recolor": false,
+-              "localStyles": {
+-                "objID": "00000000-0000-4000-8000-000000000362",
+-                "definition": {
+-                  "MAIN": {
+-                    "DEFAULT": {
+-                      "text_color": "#38535D"
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            {
+-              "objID": "00000000-0000-4000-8000-000000000363",
+-              "type": "LVGLLabelWidget",
+-              "left": 626,
+-              "top": 154,
+-              "width": 154,
+-              "height": 24,
+-              "children": [],
+-              "identifier": "weather_wind_label",
+-              "text": "Wind unavailable",
+-              "textType": "literal",
+-              "longMode": "CLIP",
+-              "recolor": false,
+-              "localStyles": {
+-                "objID": "00000000-0000-4000-8000-000000000364",
+-                "definition": {
+-                  "MAIN": {
+-                    "DEFAULT": {
+-                      "text_color": "#38535D"
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            {
+-              "objID": "00000000-0000-4000-8000-000000000365",
+-              "type": "LVGLLabelWidget",
+-              "left": 480,
+-              "top": 190,
+-              "width": 300,
+-              "height": 24,
+-              "children": [],
+-              "identifier": "weather_updated_label",
+-              "text": "Not updated yet",
+-              "textType": "literal",
+-              "longMode": "CLIP",
+-              "recolor": false,
+-              "localStyles": {
+-                "objID": "00000000-0000-4000-8000-000000000366",
+-                "definition": {
+-                  "MAIN": {
+-                    "DEFAULT": {
+-                      "text_align": "CENTER",
+-                      "text_color": "#5B737B"
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            {
+-              "objID": "00000000-0000-4000-8000-000000000367",
+-              "type": "LVGLLabelWidget",
+-              "left": 20,
+-              "top": 184,
+-              "width": 430,
+-              "height": 52,
+-              "children": [],
+-              "identifier": "weather_state_label",
+-              "text": "Configure OpenWeather in Settings",
+-              "textType": "literal",
+-              "longMode": "WRAP",
+-              "recolor": false,
+-              "localStyles": {
+-                "objID": "00000000-0000-4000-8000-000000000368",
+-                "definition": {
+-                  "MAIN": {
+-                    "DEFAULT": {
+-                      "text_align": "CENTER",
+-                      "text_color": "#704400"
+                     }
+                   }
+                 }
+@@ -6604,7 +6640,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000369",
+                   "type": "LVGLLabelWidget",
+-                  "left": 9,
++                  "left": 8,
+                   "top": 4,
+                   "width": 100,
+                   "height": 38,
+@@ -6629,7 +6665,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000625",
+                   "type": "LVGLContainerWidget",
+-                  "left": 38,
++                  "left": 37,
+                   "top": 44,
+                   "width": 42,
+                   "height": 42,
+@@ -6659,7 +6695,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000371",
+                   "type": "LVGLLabelWidget",
+-                  "left": 9,
++                  "left": 8,
+                   "top": 88,
+                   "width": 100,
+                   "height": 24,
+@@ -6684,7 +6720,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000373",
+                   "type": "LVGLLabelWidget",
+-                  "left": 9,
++                  "left": 8,
+                   "top": 114,
+                   "width": 100,
+                   "height": 40,
+@@ -6709,7 +6745,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000375",
+                   "type": "LVGLLabelWidget",
+-                  "left": 116,
++                  "left": 115,
+                   "top": 4,
+                   "width": 100,
+                   "height": 38,
+@@ -6734,7 +6770,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000627",
+                   "type": "LVGLContainerWidget",
+-                  "left": 145,
++                  "left": 144,
+                   "top": 44,
+                   "width": 42,
+                   "height": 42,
+@@ -6764,7 +6800,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000377",
+                   "type": "LVGLLabelWidget",
+-                  "left": 116,
++                  "left": 115,
+                   "top": 88,
+                   "width": 100,
+                   "height": 24,
+@@ -6789,7 +6825,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000379",
+                   "type": "LVGLLabelWidget",
+-                  "left": 116,
++                  "left": 115,
+                   "top": 114,
+                   "width": 100,
+                   "height": 40,
+@@ -6814,7 +6850,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000381",
+                   "type": "LVGLLabelWidget",
+-                  "left": 223,
++                  "left": 222,
+                   "top": 4,
+                   "width": 100,
+                   "height": 38,
+@@ -6839,7 +6875,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000629",
+                   "type": "LVGLContainerWidget",
+-                  "left": 252,
++                  "left": 251,
+                   "top": 44,
+                   "width": 42,
+                   "height": 42,
+@@ -6869,7 +6905,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000383",
+                   "type": "LVGLLabelWidget",
+-                  "left": 223,
++                  "left": 222,
+                   "top": 88,
+                   "width": 100,
+                   "height": 24,
+@@ -6894,7 +6930,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000385",
+                   "type": "LVGLLabelWidget",
+-                  "left": 223,
++                  "left": 222,
+                   "top": 114,
+                   "width": 100,
+                   "height": 40,
+@@ -6919,7 +6955,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000387",
+                   "type": "LVGLLabelWidget",
+-                  "left": 330,
++                  "left": 329,
+                   "top": 4,
+                   "width": 100,
+                   "height": 38,
+@@ -6944,7 +6980,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000631",
+                   "type": "LVGLContainerWidget",
+-                  "left": 359,
++                  "left": 358,
+                   "top": 44,
+                   "width": 42,
+                   "height": 42,
+@@ -6974,7 +7010,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000389",
+                   "type": "LVGLLabelWidget",
+-                  "left": 330,
++                  "left": 329,
+                   "top": 88,
+                   "width": 100,
+                   "height": 24,
+@@ -6999,7 +7035,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000391",
+                   "type": "LVGLLabelWidget",
+-                  "left": 330,
++                  "left": 329,
+                   "top": 114,
+                   "width": 100,
+                   "height": 40,
+@@ -7024,7 +7060,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000393",
+                   "type": "LVGLLabelWidget",
+-                  "left": 437,
++                  "left": 436,
+                   "top": 4,
+                   "width": 100,
+                   "height": 38,
+@@ -7049,7 +7085,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000633",
+                   "type": "LVGLContainerWidget",
+-                  "left": 466,
++                  "left": 465,
+                   "top": 44,
+                   "width": 42,
+                   "height": 42,
+@@ -7079,7 +7115,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000395",
+                   "type": "LVGLLabelWidget",
+-                  "left": 437,
++                  "left": 436,
+                   "top": 88,
+                   "width": 100,
+                   "height": 24,
+@@ -7104,7 +7140,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000397",
+                   "type": "LVGLLabelWidget",
+-                  "left": 437,
++                  "left": 436,
+                   "top": 114,
+                   "width": 100,
+                   "height": 40,
+@@ -7129,7 +7165,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000590",
+                   "type": "LVGLLabelWidget",
+-                  "left": 544,
++                  "left": 543,
+                   "top": 4,
+                   "width": 100,
+                   "height": 38,
+@@ -7154,7 +7190,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000635",
+                   "type": "LVGLContainerWidget",
+-                  "left": 573,
++                  "left": 572,
+                   "top": 44,
+                   "width": 42,
+                   "height": 42,
+@@ -7184,7 +7220,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000592",
+                   "type": "LVGLLabelWidget",
+-                  "left": 544,
++                  "left": 543,
+                   "top": 88,
+                   "width": 100,
+                   "height": 24,
+@@ -7209,7 +7245,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000594",
+                   "type": "LVGLLabelWidget",
+-                  "left": 544,
++                  "left": 543,
+                   "top": 114,
+                   "width": 100,
+                   "height": 40,
+@@ -7234,7 +7270,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000596",
+                   "type": "LVGLLabelWidget",
+-                  "left": 651,
++                  "left": 650,
+                   "top": 4,
+                   "width": 100,
+                   "height": 38,
+@@ -7259,7 +7295,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000637",
+                   "type": "LVGLContainerWidget",
+-                  "left": 680,
++                  "left": 679,
+                   "top": 44,
+                   "width": 42,
+                   "height": 42,
+@@ -7289,7 +7325,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000598",
+                   "type": "LVGLLabelWidget",
+-                  "left": 651,
++                  "left": 650,
+                   "top": 88,
+                   "width": 100,
+                   "height": 24,
+@@ -7314,7 +7350,7 @@
+                 {
+                   "objID": "00000000-0000-4000-8000-000000000600",
+                   "type": "LVGLLabelWidget",
+-                  "left": 651,
++                  "left": 650,
+                   "top": 114,
+                   "width": 100,
+                   "height": 40,
