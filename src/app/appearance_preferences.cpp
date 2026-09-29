@@ -9,6 +9,7 @@ constexpr char kPreferencesNamespace[] = "calendar-ui";
 constexpr char kThemeIdKey[] = "theme_v1";
 constexpr char kDarkThemeKey[] = "dark";
 constexpr char kBrightnessKey[] = "brightness";
+constexpr char kAutomaticBrightnessKey[] = "auto_brightness";
 
 }  // namespace
 
@@ -32,6 +33,7 @@ AppearancePreferences load_appearance_preferences() {
     result.dark_theme = preferences.getBool(kDarkThemeKey, result.dark_theme);
     result.brightness_percent = clamp_brightness_percent(
         preferences.getUChar(kBrightnessKey, kDefaultBrightnessPercent));
+    result.automatic_brightness = preferences.getBool(kAutomaticBrightnessKey, false);
     preferences.end();
     return result;
 }
@@ -48,12 +50,17 @@ bool save_appearance_preferences(const AppearancePreferences& appearance) {
     // selected mode even though it does not understand theme families.
     preferences.putBool(kDarkThemeKey, appearance.dark_theme);
     preferences.putUChar(kBrightnessKey, brightness);
+    preferences.putBool(kAutomaticBrightnessKey, appearance.automatic_brightness);
     const bool saved = preferences.isKey(kThemeIdKey) &&
                        preferences.isKey(kDarkThemeKey) && preferences.isKey(kBrightnessKey) &&
+                       preferences.isKey(kAutomaticBrightnessKey) &&
                        preferences.getUChar(kThemeIdKey, 0xFFU) ==
                            static_cast<std::uint8_t>(theme_id) &&
                        preferences.getBool(kDarkThemeKey, !appearance.dark_theme) == appearance.dark_theme &&
-                       preferences.getUChar(kBrightnessKey, 0) == brightness;
+                       preferences.getUChar(kBrightnessKey, 0) == brightness &&
+                       preferences.getBool(kAutomaticBrightnessKey,
+                                           !appearance.automatic_brightness) ==
+                           appearance.automatic_brightness;
     preferences.end();
     return saved;
 }

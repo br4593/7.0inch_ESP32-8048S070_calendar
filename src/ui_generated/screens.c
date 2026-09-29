@@ -2681,7 +2681,7 @@ void create_screen_brightness_settings_screen() {
             lv_obj_t *obj = lv_obj_create(parent_obj);
             objects.brightness_card = obj;
             lv_obj_set_pos(obj, 20, 88);
-            lv_obj_set_size(obj, 760, 300);
+            lv_obj_set_size(obj, 760, 340);
             lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICKABLE|LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
             lv_obj_set_scrollbar_mode(obj, LV_SCROLLBAR_MODE_OFF);
             lv_obj_set_scroll_dir(obj, LV_DIR_NONE);
@@ -2846,14 +2846,37 @@ void create_screen_brightness_settings_screen() {
                     lv_obj_set_style_radius(obj, 22, LV_PART_KNOB | LV_STATE_DEFAULT);
                 }
                 {
+                    // automatic_brightness_label
                     lv_obj_t *obj = lv_label_create(parent_obj);
-                    objects.obj34 = obj;
-                    lv_obj_set_pos(obj, 28, 242);
+                    objects.automatic_brightness_label = obj;
+                    lv_obj_set_pos(obj, 28, 230);
+                    lv_obj_set_size(obj, 560, 28);
+                    lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
+                    lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                    lv_obj_set_style_text_color(obj, lv_color_hex(0x122b34), LV_PART_MAIN | LV_STATE_DEFAULT);
+                    lv_label_set_text_static(obj, "Automatic brightness (LDR on GPIO17)");
+                }
+                {
+                    // automatic_brightness_switch
+                    lv_obj_t *obj = lv_switch_create(parent_obj);
+                    objects.automatic_brightness_switch = obj;
+                    lv_obj_set_pos(obj, 620, 222);
+                    lv_obj_set_size(obj, 92, 44);
+                    lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_ON_FOCUS|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
+                    lv_obj_set_style_bg_color(obj, lv_color_hex(0x7a9098), LV_PART_MAIN | LV_STATE_DEFAULT);
+                    lv_obj_set_style_radius(obj, 22, LV_PART_MAIN | LV_STATE_DEFAULT);
+                    lv_obj_set_style_bg_color(obj, lv_color_hex(0x147a8a), LV_PART_MAIN | LV_STATE_CHECKED);
+                }
+                {
+                    // brightness_sensor_hint_label
+                    lv_obj_t *obj = lv_label_create(parent_obj);
+                    objects.brightness_sensor_hint_label = obj;
+                    lv_obj_set_pos(obj, 28, 284);
                     lv_obj_set_size(obj, 684, 28);
                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
                     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
                     lv_obj_set_style_text_color(obj, lv_color_hex(0x5b737b), LV_PART_MAIN | LV_STATE_DEFAULT);
-                    lv_label_set_text_static(obj, "Manual brightness only - no ambient-light sensor is attached.");
+                    lv_label_set_text_static(obj, "Auto follows ambient light. Switch it off to adjust brightness manually.");
                 }
             }
         }
@@ -2919,7 +2942,7 @@ void create_screen_weather_screen() {
                         lv_obj_t *parent_obj = obj;
                         {
                             lv_obj_t *obj = lv_label_create(parent_obj);
-                            objects.obj35 = obj;
+                            objects.obj34 = obj;
                             lv_obj_set_pos(obj, 0, 14);
                             lv_obj_set_size(obj, 96, 20);
                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
@@ -3585,7 +3608,7 @@ void create_screen_weather_screen() {
                         lv_obj_t *parent_obj = obj;
                         {
                             lv_obj_t *obj = lv_label_create(parent_obj);
-                            objects.obj36 = obj;
+                            objects.obj35 = obj;
                             lv_obj_set_pos(obj, 0, 14);
                             lv_obj_set_size(obj, 244, 20);
                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
@@ -3620,7 +3643,7 @@ void create_screen_weather_screen() {
                         lv_obj_t *parent_obj = obj;
                         {
                             lv_obj_t *obj = lv_label_create(parent_obj);
-                            objects.obj37 = obj;
+                            objects.obj36 = obj;
                             lv_obj_set_pos(obj, 0, 14);
                             lv_obj_set_size(obj, 244, 20);
                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
@@ -3655,7 +3678,7 @@ void create_screen_weather_screen() {
                         lv_obj_t *parent_obj = obj;
                         {
                             lv_obj_t *obj = lv_label_create(parent_obj);
-                            objects.obj38 = obj;
+                            objects.obj37 = obj;
                             lv_obj_set_pos(obj, 0, 14);
                             lv_obj_set_size(obj, 244, 20);
                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
@@ -3710,7 +3733,7 @@ void create_screen_weather_screen() {
                 lv_obj_t *parent_obj = obj;
                 {
                     lv_obj_t *obj = lv_label_create(parent_obj);
-                    objects.obj39 = obj;
+                    objects.obj38 = obj;
                     lv_obj_set_pos(obj, 0, 12);
                     lv_obj_set_size(obj, 184, 20);
                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
@@ -3744,7 +3767,7 @@ void create_screen_weather_screen() {
                 lv_obj_t *parent_obj = obj;
                 {
                     lv_obj_t *obj = lv_label_create(parent_obj);
-                    objects.obj40 = obj;
+                    objects.obj39 = obj;
                     lv_obj_set_pos(obj, 0, 12);
                     lv_obj_set_size(obj, 112, 20);
                     lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
@@ -3816,7 +3839,7 @@ void create_screen_firmware_update_screen() {
                         lv_obj_t *parent_obj = obj;
                         {
                             lv_obj_t *obj = lv_label_create(parent_obj);
-                            objects.obj41 = obj;
+                            objects.obj40 = obj;
                             lv_obj_set_pos(obj, 0, 14);
                             lv_obj_set_size(obj, 112, 20);
                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
@@ -3843,7 +3866,7 @@ void create_screen_firmware_update_screen() {
         }
         {
             lv_obj_t *obj = lv_obj_create(parent_obj);
-            objects.obj42 = obj;
+            objects.obj41 = obj;
             lv_obj_set_pos(obj, 20, 84);
             lv_obj_set_size(obj, 760, 374);
             lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICKABLE|LV_OBJ_FLAG_CLICK_FOCUSABLE|LV_OBJ_FLAG_GESTURE_BUBBLE|LV_OBJ_FLAG_PRESS_LOCK|LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_SCROLL_CHAIN_HOR|LV_OBJ_FLAG_SCROLL_CHAIN_VER|LV_OBJ_FLAG_SCROLL_ELASTIC|LV_OBJ_FLAG_SCROLL_MOMENTUM|LV_OBJ_FLAG_SCROLL_WITH_ARROW|LV_OBJ_FLAG_SNAPPABLE);
@@ -3924,7 +3947,7 @@ void create_screen_firmware_update_screen() {
                         lv_obj_t *parent_obj = obj;
                         {
                             lv_obj_t *obj = lv_label_create(parent_obj);
-                            objects.obj43 = obj;
+                            objects.obj42 = obj;
                             lv_obj_set_pos(obj, 0, 17);
                             lv_obj_set_size(obj, 216, 22);
                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
@@ -3956,7 +3979,7 @@ void create_screen_firmware_update_screen() {
                         lv_obj_t *parent_obj = obj;
                         {
                             lv_obj_t *obj = lv_label_create(parent_obj);
-                            objects.obj44 = obj;
+                            objects.obj43 = obj;
                             lv_obj_set_pos(obj, 0, 17);
                             lv_obj_set_size(obj, 216, 22);
                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);
@@ -3987,7 +4010,7 @@ void create_screen_firmware_update_screen() {
                         lv_obj_t *parent_obj = obj;
                         {
                             lv_obj_t *obj = lv_label_create(parent_obj);
-                            objects.obj45 = obj;
+                            objects.obj44 = obj;
                             lv_obj_set_pos(obj, 0, 17);
                             lv_obj_set_size(obj, 216, 22);
                             lv_label_set_long_mode(obj, LV_LABEL_LONG_CLIP);

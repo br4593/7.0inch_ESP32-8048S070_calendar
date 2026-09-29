@@ -1319,6 +1319,61 @@ void capture_primary_screens(const std::string &directory) {
   calendar::show_calendar_brightness_settings();
   pump();
   capture(directory + "/appearance.ppm");
+  check(objects.automatic_brightness_switch != nullptr &&
+            lv_obj_has_flag(objects.automatic_brightness_switch, LV_OBJ_FLAG_CHECKABLE),
+        "GPIO17 automatic brightness switch is present and checkable");
+  check(std::strstr(lv_label_get_text(objects.brightness_sensor_hint_label),
+                    "no ambient-light sensor") == nullptr,
+        "Appearance no longer displays the manual-only sensor claim");
+  lv_area_t auto_area{}, hint_area{}, slider_area{};
+  lv_obj_get_coords(objects.automatic_brightness_switch, &auto_area);
+  lv_obj_get_coords(objects.brightness_sensor_hint_label, &hint_area);
+  lv_obj_get_coords(objects.brightness_slider, &slider_area);
+  check(slider_area.y2 < auto_area.y1 && auto_area.y2 < hint_area.y1,
+        "GPIO17 switch has clear space below slider and above hint");
+  const auto manual_brightness = preview::appearance.brightness_percent;
+  const auto toggle_auto = [](bool enabled) {
+    if (enabled) lv_obj_add_state(objects.automatic_brightness_switch, LV_STATE_CHECKED);
+    else lv_obj_remove_state(objects.automatic_brightness_switch, LV_STATE_CHECKED);
+    lv_obj_send_event(objects.automatic_brightness_switch, LV_EVENT_VALUE_CHANGED, nullptr);
+    pump(4);
+  };
+  preview::ambient_light_raw = 3500;
+  toggle_auto(true);
+  check(preview::last_backlight_percent == 10 &&
+            preview::appearance.automatic_brightness &&
+            preview::appearance.brightness_percent == manual_brightness &&
+            lv_obj_has_state(objects.brightness_slider, LV_STATE_DISABLED),
+        "GPIO17 high dark sample dims to 10 percent and retains manual preference");
+  capture(directory + "/appearance-auto-dark.ppm");
+  toggle_auto(false);
+  check(preview::last_backlight_percent == manual_brightness &&
+            !preview::appearance.automatic_brightness &&
+            !lv_obj_has_state(objects.brightness_slider, LV_STATE_DISABLED),
+        "Disabling GPIO17 automatic brightness restores manual setting");
+  preview::ambient_light_raw = 300;
+  toggle_auto(true);
+  check(preview::last_backlight_percent == 100 &&
+            lv_slider_get_value(objects.brightness_slider) == 100,
+        "GPIO17 low bright sample sets backlight and slider to 100 percent");
+  capture(directory + "/appearance-auto-bright.ppm");
+  calendar::show_calendar_main();
+  calendar::show_calendar_brightness_settings();
+  pump(4);
+  check(std::strcmp(lv_label_get_text(objects.brightness_value_label), "100% Auto") == 0,
+        "Reopening Appearance preserves the automatic brightness label");
+  toggle_auto(false);
+  toggle_auto(true);
+  check(preview::last_backlight_percent == 100,
+        "Reenabling Auto reapplies unchanged ADC brightness after manual override");
+  preview::reset_runtime_counters();
+  preview::ambient_light_raw = 3500;
+  pump(50);
+  check(preview::last_backlight_percent > 10 && preview::last_backlight_percent < 100 &&
+            preview::appearance_save_count == 0,
+        "GPIO17 filtering smooths a light change without writing preferences");
+  toggle_auto(false);
+  preview::ambient_light_raw = 300;
   calendar::show_calendar_firmware_update();
   pump();
   capture(directory + "/firmware.ppm");

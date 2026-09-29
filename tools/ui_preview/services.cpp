@@ -19,6 +19,7 @@ std::time_t now = 0;
 unsigned appearance_save_count = 0;
 unsigned backlight_update_count = 0;
 std::uint8_t last_backlight_percent = 0;
+std::uint16_t ambient_light_raw = 300;
 void reset_runtime_counters() {
   appearance_save_count = 0;
   backlight_update_count = 0;
@@ -142,6 +143,9 @@ std::uint8_t clamp_brightness_percent(std::uint8_t value) {
 }
 } // namespace calendar
 namespace board_runtime {
+std::uint16_t readAmbientLightRaw() {
+  return preview::ambient_light_raw;
+}
 void setBacklightPercent(std::uint8_t value) {
   ++preview::backlight_update_count;
   preview::last_backlight_percent = value;

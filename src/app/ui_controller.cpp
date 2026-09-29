@@ -53,6 +53,11 @@ constexpr std::size_t kParseBytesPerTick = 16 * 1024;
 constexpr std::size_t kParseBytesPerStep = 512;
 constexpr std::uint32_t kParseTimeBudgetUs = 1500;
 constexpr std::uint32_t kLiveDateRefreshIntervalMs = 1000;
+constexpr std::uint32_t kAmbientSampleIntervalMs = 1000;
+// Installed LDR divider: low ADC readings in bright light, high in darkness.
+// Tune these two endpoints against the actual LDR and room installation.
+constexpr std::uint16_t kAmbientBrightRaw = 300;
+constexpr std::uint16_t kAmbientDarkRaw = 3500;
 constexpr std::uint32_t kSettingsRefreshIntervalMs = 250;
 constexpr std::uint32_t kFirmwareRefreshIntervalMs = 250;
 constexpr std::uint32_t kStatusRefreshIntervalMs = 250;
@@ -294,6 +299,8 @@ public:
         appearance_ = load_appearance_preferences();
         persisted_appearance_ = appearance_;
         board_runtime::setBacklightPercent(appearance_.brightness_percent);
+        bind_ambient_brightness_controls();
+        if (appearance_.automatic_brightness) update_ambient_brightness(true);
         log_controller_stage("appearance loaded");
         // EEZ 0.28 accepts the built-in font token but its fallback export does
         // not emit the setter. Apply it to the screen roots for inherited
@@ -546,6 +553,19 @@ public:
         if (lv_screen_active() == objects.settings_screen) render_settings();
     }
 
+    void set_automatic_brightness(bool enabled) {
+        if (!initialized_ || appearance_.automatic_brightness == enabled) return;
+        appearance_.automatic_brightness = enabled;
+        appearance_save_pending_ = true;
+        sync_ambient_brightness_controls();
+        if (enabled) {
+            update_ambient_brightness(true);
+        } else {
+            board_runtime::setBacklightPercent(appearance_.brightness_percent);
+            update_brightness_value_label();
+        }
+    }
+
     void change_theme_style() {
         if (!initialized_ || objects.theme_style_dropdown == nullptr) return;
         const ThemeId selected = theme_id_from_raw(
@@ -560,6 +580,12 @@ public:
 
     void preview_brightness() {
         if (!initialized_) return;
+        if (appearance_.automatic_brightness) {
+            appearance_.automatic_brightness = false;
+            appearance_save_pending_ = true;
+            sync_ambient_brightness_controls();
+            board_runtime::setBacklightPercent(appearance_.brightness_percent);
+        }
         const int32_t value = lv_slider_get_value(objects.brightness_slider);
         const std::uint8_t brightness = clamp_brightness_percent(
             static_cast<std::uint8_t>(std::max(0, std::min(100, static_cast<int>(value)))));
@@ -655,6 +681,7 @@ public:
 
     void tick() {
         if (!initialized_) return;
+        if (appearance_.automatic_brightness) update_ambient_brightness(false);
         commit_pending_appearance();
         commit_pending_display_wifi_scan();
         commit_pending_display_wifi();
@@ -729,6 +756,83 @@ public:
     }
 
 private:
+    void bind_ambient_brightness_controls() {
+        if (objects.automatic_brightness_switch == nullptr || ambient_brightness_switch_ != nullptr) return;
+        ambient_brightness_switch_ = objects.automatic_brightness_switch;
+        lv_obj_add_event_cb(
+            ambient_brightness_switch_,
+            [](lv_event_t* event) {
+                auto* controller = static_cast<CalendarUiController*>(
+                    lv_event_get_user_data(event));
+                auto* target = static_cast<lv_obj_t*>(lv_event_get_target(event));
+                controller->set_automatic_brightness(
+                    lv_obj_has_state(target, LV_STATE_CHECKED));
+            },
+            LV_EVENT_VALUE_CHANGED, this);
+
+        sync_ambient_brightness_controls();
+    }
+
+    void sync_ambient_brightness_controls() {
+        if (ambient_brightness_switch_ != nullptr) {
+            if (appearance_.automatic_brightness) {
+                lv_obj_add_state(ambient_brightness_switch_, LV_STATE_CHECKED);
+            } else {
+                lv_obj_remove_state(ambient_brightness_switch_, LV_STATE_CHECKED);
+            }
+        }
+        if (objects.brightness_slider != nullptr) {
+            lv_slider_set_value(objects.brightness_slider,
+                appearance_.automatic_brightness ? last_automatic_brightness_percent_
+                                                 : appearance_.brightness_percent,
+                LV_ANIM_OFF);
+            if (appearance_.automatic_brightness) {
+                lv_obj_add_state(objects.brightness_slider, LV_STATE_DISABLED);
+            } else {
+                lv_obj_remove_state(objects.brightness_slider, LV_STATE_DISABLED);
+            }
+        }
+    }
+
+    void update_ambient_brightness(bool force) {
+        const std::uint32_t now_ms = millis();
+        if (!force && ambient_sample_time_valid_ &&
+            static_cast<std::uint32_t>(now_ms - last_ambient_sample_ms_) <
+                kAmbientSampleIntervalMs) {
+            return;
+        }
+        last_ambient_sample_ms_ = now_ms;
+        ambient_sample_time_valid_ = true;
+
+        const std::uint16_t raw = board_runtime::readAmbientLightRaw();
+        if (force || !ambient_filter_valid_) {
+            filtered_ambient_raw_ = raw;
+            ambient_filter_valid_ = true;
+        } else {
+            // Smooth ADC noise so brief fluctuations do not visibly flicker
+            // the backlight.
+            filtered_ambient_raw_ = (filtered_ambient_raw_ * 3.0F + raw) / 4.0F;
+        }
+        const auto bounded_raw = static_cast<std::uint16_t>(std::max(
+            0.0F, std::min(4095.0F, filtered_ambient_raw_)));
+        const std::uint8_t target = bounded_raw <= kAmbientBrightRaw
+            ? kMaximumBrightnessPercent
+            : bounded_raw >= kAmbientDarkRaw
+                ? kMinimumBrightnessPercent
+                : static_cast<std::uint8_t>(kMaximumBrightnessPercent -
+                    (static_cast<std::uint32_t>(bounded_raw - kAmbientBrightRaw) *
+                     (kMaximumBrightnessPercent - kMinimumBrightnessPercent)) /
+                    (kAmbientDarkRaw - kAmbientBrightRaw));
+        if (force || target != last_automatic_brightness_percent_) {
+            last_automatic_brightness_percent_ = target;
+            board_runtime::setBacklightPercent(target);
+        }
+        if (objects.brightness_slider != nullptr) {
+            lv_slider_set_value(objects.brightness_slider, target, LV_ANIM_OFF);
+        }
+        update_brightness_value_label();
+    }
+
     static bool same_weather_status(const board::WeatherServiceStatus& lhs,
                                     const board::WeatherServiceStatus& rhs) {
         return lhs.state == rhs.state && lhs.configured == rhs.configured &&
@@ -1224,18 +1328,24 @@ private:
             lv_obj_set_style_border_width(preview.first, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
         }
         if (objects.brightness_slider != nullptr) {
-            lv_slider_set_value(objects.brightness_slider, appearance_.brightness_percent, LV_ANIM_OFF);
+            lv_slider_set_value(objects.brightness_slider,
+                appearance_.automatic_brightness ? last_automatic_brightness_percent_
+                                                 : appearance_.brightness_percent,
+                LV_ANIM_OFF);
         }
         if (objects.brightness_value_label != nullptr) {
             update_brightness_value_label();
         }
+        sync_ambient_brightness_controls();
     }
 
     void update_brightness_value_label() {
         if (objects.brightness_value_label == nullptr) return;
-        char text[8];
-        std::snprintf(text, sizeof(text), "%u%%",
-                      static_cast<unsigned>(appearance_.brightness_percent));
+        char text[16];
+        std::snprintf(text, sizeof(text), "%u%%%s",
+                      static_cast<unsigned>(appearance_.automatic_brightness
+                          ? last_automatic_brightness_percent_ : appearance_.brightness_percent),
+                      appearance_.automatic_brightness ? " Auto" : "");
         set_label_text_if_changed(objects.brightness_value_label, text);
     }
 
@@ -2029,17 +2139,18 @@ private:
             style_dropdown_popup(objects.theme_style_dropdown);
         }
 
-        if (objects.dark_theme_switch != nullptr) {
-            lv_obj_set_style_bg_color(objects.dark_theme_switch, lv_color_hex(palette().surface_muted),
+        for (lv_obj_t* switch_control : {objects.dark_theme_switch, objects.automatic_brightness_switch}) {
+            if (switch_control == nullptr) continue;
+            lv_obj_set_style_bg_color(switch_control, lv_color_hex(palette().surface_muted),
                                       LV_PART_MAIN | LV_STATE_DEFAULT);
-            lv_obj_set_style_border_color(objects.dark_theme_switch, lv_color_hex(palette().border),
+            lv_obj_set_style_border_color(switch_control, lv_color_hex(palette().border),
                                           LV_PART_MAIN);
-            lv_obj_set_style_border_width(objects.dark_theme_switch, 1, LV_PART_MAIN);
-            lv_obj_set_style_bg_color(objects.dark_theme_switch, lv_color_hex(palette().action),
+            lv_obj_set_style_border_width(switch_control, 1, LV_PART_MAIN);
+            lv_obj_set_style_bg_color(switch_control, lv_color_hex(palette().action),
                                       LV_PART_INDICATOR | LV_STATE_CHECKED);
-            lv_obj_set_style_bg_color(objects.dark_theme_switch, lv_color_hex(palette().text_secondary),
+            lv_obj_set_style_bg_color(switch_control, lv_color_hex(palette().text_secondary),
                                       LV_PART_KNOB);
-            lv_obj_set_style_bg_color(objects.dark_theme_switch, lv_color_hex(palette().on_action),
+            lv_obj_set_style_bg_color(switch_control, lv_color_hex(palette().on_action),
                                       LV_PART_KNOB | LV_STATE_CHECKED);
         }
         if (objects.brightness_slider != nullptr) {
@@ -2053,7 +2164,8 @@ private:
                                           LV_PART_KNOB);
             lv_obj_set_style_border_width(objects.brightness_slider, 2, LV_PART_KNOB);
         }
-        for (lv_obj_t* control : {objects.dark_theme_switch, objects.brightness_slider}) {
+        for (lv_obj_t* control : {objects.dark_theme_switch, objects.automatic_brightness_switch,
+                                  objects.brightness_slider}) {
             for (lv_part_t part : {LV_PART_MAIN, LV_PART_INDICATOR, LV_PART_KNOB}) {
                 for (lv_state_t state : {LV_STATE_DEFAULT, LV_STATE_CHECKED, LV_STATE_PRESSED}) {
                     lv_obj_set_style_color_filter_dsc(control, nullptr, part | state);
@@ -2395,7 +2507,8 @@ private:
         appearance_save_pending_ = false;
         if (appearance_.theme_id == persisted_appearance_.theme_id &&
             appearance_.dark_theme == persisted_appearance_.dark_theme &&
-            appearance_.brightness_percent == persisted_appearance_.brightness_percent) {
+            appearance_.brightness_percent == persisted_appearance_.brightness_percent &&
+            appearance_.automatic_brightness == persisted_appearance_.automatic_brightness) {
             return;
         }
         if (save_appearance_preferences(appearance_)) {
@@ -3835,6 +3948,12 @@ private:
     AppearancePreferences appearance_{};
     AppearancePreferences persisted_appearance_{};
     bool appearance_save_pending_ = false;
+    lv_obj_t* ambient_brightness_switch_ = nullptr;
+    std::uint32_t last_ambient_sample_ms_ = 0;
+    bool ambient_sample_time_valid_ = false;
+    float filtered_ambient_raw_ = 0.0F;
+    bool ambient_filter_valid_ = false;
+    std::uint8_t last_automatic_brightness_percent_ = 0;
     std::uint32_t last_live_date_update_ms_ = 0;
     std::uint32_t last_settings_render_ms_ = 0;
     std::uint32_t last_firmware_render_ms_ = 0;

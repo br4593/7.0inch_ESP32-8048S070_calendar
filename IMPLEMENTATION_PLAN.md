@@ -78,11 +78,13 @@ Do these in small, working slices. They are optional until Phase 1 feels good.
 
 - [x] Add a manual 10-100% brightness control in the Settings > Brightness tab.
 - [x] Add a persistent Light/Dark theme choice in that tab.
+- [x] Add optional automatic brightness from an external LDR divider on GPIO17;
+      Auto is off by default and the manual slider remains available.
 - [ ] Remember only settings that are genuinely useful, such as brightness or the
       preferred view.
 - [ ] Consider automatic evening dimming only after normal daytime use is satisfactory.
-      This board currently has no brightness sensor, so the implemented control is
-      intentionally user-controlled only.
+      The display has no onboard brightness sensor. GPIO17 can read an external
+      LDR divider; automatic brightness requires that sensor to be wired and calibrated.
 
 Phase complete: the display shows reliable local time and remains useful when the
 network is temporarily unavailable.

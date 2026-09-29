@@ -21,6 +21,7 @@ namespace {
 constexpr std::uint8_t kInitialBacklightPercent = 75;
 constexpr std::uint8_t kMinimumBacklightPercent = 10;
 constexpr std::uint8_t kMaximumBacklightPercent = 100;
+constexpr std::uint8_t kAmbientLightPin = 17;
 constexpr std::uint32_t kMinimumLoopDelayMs = 1;
 constexpr std::uint32_t kMaximumLoopDelayMs = 10;
 // LVGL 9.2.2's TLSF backend limits each registered pool to LV_MEM_SIZE (64 KiB
@@ -161,7 +162,14 @@ void setBacklightPercent(std::uint8_t percent) {
       static_cast<float>(bounded_percent) / 100.0F);
 }
 
+std::uint16_t readAmbientLightRaw() {
+  return static_cast<std::uint16_t>(analogRead(kAmbientLightPin));
+}
+
 void initialize() {
+  pinMode(kAmbientLightPin, INPUT);
+  analogReadResolution(12);
+  analogSetPinAttenuation(kAmbientLightPin, ADC_11db);
   smartdisplay_init();
   lv_display_t* display = lv_display_get_default();
   if (display != nullptr) {

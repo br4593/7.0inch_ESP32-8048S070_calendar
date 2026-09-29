@@ -1,0 +1,34 @@
+# PlatformIO environments, compiled objects and dependency checkouts.
+.pio/
+
+# CMake and CTest build products.
+/build/
+/cmake-build-*/
+/out/
+/Testing/
+**/CMakeFiles/
+**/CMakeCache.txt
+**/CTestTestfile.cmake
+**/cmake_install.cmake
+
+# Python-generated local files.
+__pycache__/
+*.py[cod]
+
+# EEZ Studio workspace state; the editable project remains tracked.
+ui/*.eez-project-ui-state
+
+# Release packages and preserved firmware/debug archives stay in the local
+# workspace. Publish selected packages as release assets instead of source.
+/artifacts/**
+!/artifacts/README.md
+
+# Editor and operating-system files.
+/.vscode/
+/.idea/
+*.swp
+*~
+.DS_Store
+
+# Local diagnostic output.
+*.log

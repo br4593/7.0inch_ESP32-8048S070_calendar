@@ -7,11 +7,11 @@
 namespace calendar {
 
 // Appearance is intentionally independent from calendar and Wi-Fi credentials.
-// There is no ambient-light input on this board; brightness is always manual.
 struct AppearancePreferences {
     ThemeId theme_id = kDefaultThemeId;
     bool dark_theme = false;
     std::uint8_t brightness_percent = 75;
+    bool automatic_brightness = false;
 };
 
 constexpr std::uint8_t kMinimumBrightnessPercent = 10;

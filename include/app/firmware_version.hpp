@@ -3,9 +3,9 @@
 namespace calendar {
 
 #if defined(APP_RGB_STAGED_STARTUP) && defined(APP_LVGL_DRAW_BUFFER_ROWS)
-inline constexpr char kFirmwareVersion[] = "0.6.34-redraw-buffer16";
+inline constexpr char kFirmwareVersion[] = "0.6.36-gpio17-ldr-inverted-buffer16";
 #elif defined(APP_RGB_STAGED_STARTUP)
-inline constexpr char kFirmwareVersion[] = "0.6.34-redraw-performance";
+inline constexpr char kFirmwareVersion[] = "0.6.36-gpio17-ldr-inverted";
 #elif defined(APP_RGB_DIAGNOSTICS)
 inline constexpr char kFirmwareVersion[] = "0.6.19-rgb-diagnostics";
 #elif defined(APP_OWN_ST7262_PANEL)

@@ -5639,7 +5639,7 @@
               "left": 20,
               "top": 88,
               "width": 760,
-              "height": 300,
+              "height": 340,
               "children": [
                 {
                   "objID": "00000000-0000-4000-8000-000000000648",
@@ -5973,14 +5973,65 @@
                   }
                 },
                 {
+                  "objID": "de943773-5c1e-48d9-be77-9db678bec06b",
+                  "type": "LVGLLabelWidget",
+                  "left": 28,
+                  "top": 230,
+                  "width": 560,
+                  "height": 28,
+                  "children": [],
+                  "text": "Automatic brightness (LDR on GPIO17)",
+                  "textType": "literal",
+                  "longMode": "CLIP",
+                  "recolor": false,
+                  "localStyles": {
+                    "objID": "8babdedb-3674-411d-9ae1-857bd23e7464",
+                    "definition": {
+                      "MAIN": {
+                        "DEFAULT": {
+                          "text_color": "#122B34"
+                        }
+                      }
+                    }
+                  },
+                  "identifier": "automatic_brightness_label"
+                },
+                {
+                  "objID": "76ef922e-cd77-4588-95e9-23f633c801db",
+                  "type": "LVGLSwitchWidget",
+                  "left": 620,
+                  "top": 222,
+                  "width": 92,
+                  "height": 44,
+                  "identifier": "automatic_brightness_switch",
+                  "children": [],
+                  "eventHandlers": [],
+                  "clickableFlag": true,
+                  "widgetFlags": "CHECKABLE",
+                  "localStyles": {
+                    "objID": "512096a2-bf83-47b7-b57a-732f5ca1105e",
+                    "definition": {
+                      "MAIN": {
+                        "DEFAULT": {
+                          "bg_color": "#7A9098",
+                          "radius": 22
+                        },
+                        "CHECKED": {
+                          "bg_color": "#147A8A"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
                   "objID": "00000000-0000-4000-8000-000000000314",
                   "type": "LVGLLabelWidget",
                   "left": 28,
-                  "top": 242,
+                  "top": 284,
                   "width": 684,
                   "height": 28,
                   "children": [],
-                  "text": "Manual brightness only - no ambient-light sensor is attached.",
+                  "text": "Auto follows ambient light. Switch it off to adjust brightness manually.",
                   "textType": "literal",
                   "longMode": "CLIP",
                   "recolor": false,
@@ -5993,7 +6044,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "identifier": "brightness_sensor_hint_label"
                 }
               ],
               "identifier": "brightness_card",
